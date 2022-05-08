@@ -136,7 +136,7 @@
                                     <div class="row">
                                         <div class="col-md-10">
                                             <h2>Summary</h2>
-                                            <strong>Product:</strong>: Name of product <br>
+                                       
                                             <strong>Price:</strong>: <span class="text-navy">$452.90</span>
 
                                             <p class="m-t">
@@ -172,7 +172,7 @@
                                     <div class="row">
                                         <div class="col-md-4">
                                             <h2>Summary</h2>
-                                            <strong>Product:</strong>: Name of product <br>
+                                            
                                             <strong>Price:</strong>: <span class="text-navy">$452.90</span>
 
                                             <p class="m-t">
