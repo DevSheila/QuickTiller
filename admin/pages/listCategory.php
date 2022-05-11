@@ -1,4 +1,12 @@
+<?php
+include("../action/config.php");
 
+session_start();
+if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
+ header("location: ./sign-in.php");
+ exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -387,7 +395,7 @@
                       
                     <div class="col-6"> <h6>Categories List</h6></div>
                     <div class="col-6">
-                        <a class="btn bg-gradient-primary  mb-0" href="#"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Category</a>
+                        <a class="btn bg-gradient-primary  mb-0" href="./addCategory.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Category</a>
     
                     </div>
                       </div>
