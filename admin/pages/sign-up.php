@@ -1,10 +1,12 @@
 <?php
-// Include config file
-require_once "../action/config.php";
-// if(isset($_SESSION["loggedin"]) && !($_SESSION["loggedin"] === true)){
-//   header("location: ./pages/dashboard.php");
-//   exit;
-// }
+include("../action/config.php");
+
+session_start();
+// Check if the user is already logged in, if yes then redirect him to welcome page
+if(isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] === true)){
+  header("location: ../pages/dashboard.php");
+  exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +86,7 @@ require_once "../action/config.php";
                   <p class="mb-0">Enter your credentials to register</p>
                 </div>
                 <div class="card-body">
-                  <form role="form" method="post" action="../action/sign-up.php" enctype="multipart/form-data">
+                  <form  method="post" action="../action/sign-up.php" enctype="multipart/form-data">
                     <label>Shop Name</label>
                     <div class="mb-3">
                       <input type="text" class="form-control" placeholder="Shop Name" name="shop_name" required>
@@ -128,7 +130,7 @@ require_once "../action/config.php";
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Already have an account?
-                    <a href="javascript:;" class="text-info text-gradient font-weight-bold">Sign In</a>
+                    <a href="./sign-in.php" class="text-info text-gradient font-weight-bold">Sign In</a>
                   </p>
                 </div>
               </div>
