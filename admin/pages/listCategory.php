@@ -398,7 +398,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                         <a class="btn bg-gradient-primary  mb-0" href="./addCategory.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Category</a>
     
                     </div>
-                      </div>
+                </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">

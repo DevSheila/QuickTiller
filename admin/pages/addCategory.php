@@ -308,9 +308,9 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
               </div>
           
               <div class="card-body">
-                <form role="form text-left">
+                <form role="form text-left" method="post" action="../action/categories.php" enctype="multipart/form-data">
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Category Name" name="name" required>
+                    <input type="text" class="form-control" placeholder="Category Name" name="category_name" required>
                   </div>
 
 
@@ -321,7 +321,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
              
              
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Category</button>
+                    <button type="submit"  name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Category</button>
                   </div>
                 </form>
               </div>
