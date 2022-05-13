@@ -27,10 +27,6 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
-  <link href="assets/css/font-awesome.css" rel="stylesheet">
-  <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-
-
 
 
 </head>
@@ -40,30 +36,36 @@
 
 
   <!-- ======= Header ======= -->
-  <header id="header" class="fixed-top text-white d-flex align-items-center">
+  <header id="header" class="fixed-top d-flex align-items-center">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
 
       <h1 class="logo me-auto me-lg-0"><a href="index.html">Quick Tiller</a></h1>
   
 
-      
-      <nav id="navbar" class="navbar  order-last order-lg-0">
+      <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="#">Home</a></li>
+          <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
           <li><a class="nav-link scrollto" href="#about">About</a></li>
-          <li><a class="nav-link scrollto" href="#about">Offers</a></li>
-          <li><a class="nav-link scrollto" href="#about">Stores</a></li>
-          <li><a class="nav-link scrollto" href="#about">Scan</a></li>
-
-
-
-        
-          <li class="dropdown"><a href="#"><span>Account</span> <i class="bi bi-chevron-down"></i></a>
+          <li><a class="nav-link scrollto" href="#menu">Menu</a></li>
+          <li><a class="nav-link scrollto" href="#specials">Specials</a></li>
+          <li><a class="nav-link scrollto" href="#events">Events</a></li>
+          <li><a class="nav-link scrollto" href="#chefs">Chefs</a></li>
+          <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
+          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Sign Up</a></li>
-              <li><a href="#">Sign In</a></li>
-              <li><a href="#">Log out</a></li>
-              <li><a href="#">Profile</a></li>
+              <li><a href="#">Drop Down 1</a></li>
+              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
@@ -71,58 +73,46 @@
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
       <a href="#book-a-table" class="scrollto d-none d-lg-flex">
-        <img src="./assets/img/blog_2.jpg" class="img-fluid profile-img" alt="">
+        <img src="./assets/img/chefs/chefs-3.jpg" class="img-fluid profile-img" alt="">
       </a>
 
     </div>
   </header><!-- End Header -->
 
-  <!-- =======  Section ======= -->
-  <section id="store-hero" class=" d-flex align-items-center">
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
     <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
       <div class="row">
         <div class="col-lg-8">
-          <h2>Welcome <span>Janice to</span></h2>
-          <h1>Reliance Fresh</h1>
+          <h1>Welcome to <span>Reliance Fresh</span></h1>
+          <p><a href=""><i class="bi bi-map"></i> </a>Victoria Mall, Riveroad</p>
+          <h4><a href=""><i class="bi bi-clock"></i> </a>9:30 am</h4>
 
-          <div class="store-info text-white">
-            <div class="store-info-content">
-              <h4 class="store-name">Reliance Fresh</h4>
-              
-            </div>
-            <div class="social">
-              <a href=""><i class="bi bi-map p-2"></i></a><span class="store-location">Balindra(W)-1.4m</span> <br>
-              <a href=""><i class="bi bi-clock p-2"></i></a><span class="store-location">8:00 am -6:00pm</span>
-              
-              
-            </div>
-          </div>
 
           <div class="btns">
-            <a href="#menu" class="btn-menu animated fadeInUp scrollto">SHOP NOW</a>
+            <a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Menu</a>
+            <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Book a Table</a>
           </div>
         </div>
-        <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative mt-2" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="assets/img/stores/retail-grocery-supermarket-store.jpg" class="img-fluid store-hero-img" alt="">
-       
+        <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
+          <!-- <a href="https://www.youtube.com/watch?v=u6BOC7CDUTQ" class="glightbox play-btn"></a> -->
         </div>
 
       </div>
     </div>
   </section>
-  <!-- End  -->
-
+  <!-- End Hero -->
 
   <main id="main">
 
  
 <!-- ======= Testimonials Section ======= -->
-<section id="testimonials" class="testimonials ">
+<section id="testimonials" class="testimonials section-bg">
   <div class="container" data-aos="fade-up">
 
     <div class="section-title">
       <h2>Offer</h2>
-      <p>Current Hot Offers</p>
+      <p>Available Offers</p>
     </div>
 
     <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
@@ -130,70 +120,54 @@
 
         <!-- start offer item -->
         <div class="swiper-slide">
-          <div class="testimonial-item offer-1">
-            <div class="row p-2">
-                <div class="col-8">
-                <div class="row">
-                  <div class="col-4">
-                    <!-- <img src="assets/img/logo/273-2732826_superman-name-logo-png-transparent-png-removebg-preview.png" class="img-fluid" alt=""> -->
-                  </div>
+          <div class="testimonial-item">
+            <div class="row">
+                <div class="col-6">
+                  <p>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis</p>
                 </div>
-                 <h5 class="small-promo">15% discount</h5>
-                 <h4 class="big-promo">Spend min Kshs 30,000 on laptops and desktops</h4>
-                 <p class="sub-text">Get free home delivery T& C apply</p>
-                </div>
-                <div class="col-4">
-                    <img src="assets/img/promos/9603181a-24e2-4f53-9ace-f763046838ca_1.535aa5df72fb51a815847ea14da12194.png" class="img-fluid " alt="">
+                <div class="col-6">
+                    <img src="assets/img/event-birthday.jpg" class="img-fluid test-item-img p-4" alt="">
                 </div>
             </div>
-          </div>
-        </div>
-        <!-- end offer item -->
-
-             <!-- start offer item -->
-             <div class="swiper-slide ">
-              <div class="testimonial-item offer-2">
-                <div class="row p-2">
-                    <div class="col-8">
-                    <div class="row">
-                      <div class="col-4">
-                        <!-- <img src="assets/img/logo/273-2732826_superman-name-logo-png-transparent-png-removebg-preview.png" class="img-fluid" alt=""> -->
-                      </div>
-                    </div>
-                     <h5 class="small-promo">15% discount</h5>
-                     <h4 class="big-promo">Spend min Kshs 30,000 on laptops and desktops</h4>
-                     <p class="sub-text">Get free home delivery T& C apply</p>
-                    </div>
-                    <div class="col-4">
-                        <img src="assets/img/promos/9603181a-24e2-4f53-9ace-f763046838ca_1.535aa5df72fb51a815847ea14da12194.png" class="img-fluid " alt="">
-                    </div>
-                </div>
-              </div>
-            </div>
-            <!-- end offer item -->
-
-                 <!-- start offer item -->
-        <div class="swiper-slide">
-          <div class="testimonial-item offer-3">
-            <div class="row p-2">
-                <div class="col-8">
-                <div class="row">
-                  <div class="col-4">
-                    <!-- <img src="assets/img/logo/273-2732826_superman-name-logo-png-transparent-png-removebg-preview.png" class="img-fluid" alt=""> -->
-                  </div>
-                </div>
-                 <h5 class="small-promo">15% discount</h5>
-                 <h4 class="big-promo">Spend min Kshs 30,000 on laptops and desktops</h4>
-                 <p class="sub-text">Get free home delivery T& C apply</p>
-                </div>
-                <div class="col-4">
-                    <img src="assets/img/promos/9603181a-24e2-4f53-9ace-f763046838ca_1.535aa5df72fb51a815847ea14da12194.png" class="img-fluid " alt="">
-                </div>
-            </div>
-          </div>
-        </div>
-        <!-- end offer item -->
         
+            <h4>Designer</h4>
+          </div>
+        </div>
+        <!-- end offer item -->
+
+    <!-- start offer item -->
+    <div class="swiper-slide">
+      <div class="testimonial-item">
+        <div class="row">
+            <div class="col-6">
+              <p>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis</p>
+            </div>
+            <div class="col-6">
+                <img src="assets/img/event-birthday.jpg" class="img-fluid test-item-img p-4" alt="">
+            </div>
+        </div>
+    
+        <h4>Designer</h4>
+      </div>
+    </div>
+    <!-- end offer item -->
+
+        <!-- start offer item -->
+        <div class="swiper-slide">
+          <div class="testimonial-item">
+            <div class="row">
+                <div class="col-6">
+                  <p>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis</p>
+                </div>
+                <div class="col-6">
+                    <img src="assets/img/event-birthday.jpg" class="img-fluid test-item-img p-4" alt="">
+                </div>
+            </div>
+        
+            <h4>Designer</h4>
+          </div>
+        </div>
+        <!-- end offer item -->
 
 
       </div>
@@ -203,23 +177,42 @@
   </div>
 </section><!-- End Testimonials Section -->
 
-<section id="scanner" class="scanner">
-  <div class="card align-items-center text-center">
-    <div class="cardbody">
 
-      <h1>Start Shopping</h1>
-      <div class="scan-icon">
-        <i class="fab fa-map"></i>
-      </div>
+<!-- ======= Why Us Section ======= -->
+<section id="why-us" class="why-us">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Shopping</h2>
+      <p>Start Shopping</p>
     </div>
+
+    <div class="row">
+
+     <div class="col-2"></div>
+
+      <div class="col-lg-8 mt-8 mt-lg-0">
+        <div class="box" data-aos="zoom-in" data-aos-delay="200">
+          <span>02</span>
+          <h4>Repellat Nihil</h4>
+          <p>Dolorem est fugiat occaecati voluptate velit esse. Dicta veritatis dolor quod et vel dire leno para dest</p>
+        </div>
+      </div>
+
+      <div class="col-2"></div>
+  
+
+    </div>
+
   </div>
-</section>
+</section><!-- End Why Us Section -->
+
 
   </main><!-- End #main -->
 
 
-  <!-- <div id="preloader"></div> -->
-  <!-- <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a> -->
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="assets/vendor/aos/aos.js"></script>
