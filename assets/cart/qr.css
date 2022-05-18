@@ -1,0 +1,48 @@
+body
+{
+  margin:0px;
+  padding:0px;
+  font-family:Verdana, Geneva, sans-serif;
+}
+
+section:before
+{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(45deg,#8d27b6,#6827b0);
+  border-radius:0 0 50% 50%/0 0 100% 100%;
+  transform:scaleX(1.2);
+  
+}
+
+
+section
+{
+  position:relative;
+  width:100%;
+  height:20vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+section .content
+{
+  position:relative;
+  z-index:1;
+  margin:0 auto;
+  max-width:900px;
+  text-align:center;
+}
+
+section .content h2
+{
+  font-size:40px;
+  color:#fff;
+}
+
