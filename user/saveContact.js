@@ -10,6 +10,7 @@ function submitForm(){
        },
        error: function(){
            alert("Error");
+           alert("hello world");
        }
    });
 }
