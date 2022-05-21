@@ -1,4 +1,12 @@
+<?php
+include("../action/config.php");
 
+session_start();
+if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
+ header("location: ./sign-in.php");
+ exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -192,7 +200,7 @@
         <ul class="navbar-nav  justify-content-end">
        
           <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+            <a href="../action/logout.php" class="nav-link text-body font-weight-bold px-0">
               <i class="fa fa-user me-sm-1"></i>
               <span class="d-sm-inline d-none">Log Out</span>
             </a>
@@ -301,7 +309,7 @@
               </div>
           
               <div class="card-body">
-                <form role="form text-left">
+                <form role="form text-left" enctype="multipart/form-data" method="POST" action="../action/products.php">
                   <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Product Name" name="name" required>
                   </div>
@@ -313,17 +321,18 @@
                   <div class="mb-3">
                     <select class="form-control" id="category" name="category"  required>
                         <option value="" disabled selected>Product Category</option>
-                        <option value="personal_care">Personal Care</option>
-                        <option value="fruits_and_vegetables">Fruits and vegetables</option>
-                        <option value="baby_care">baby care</option>
-                        <option value="beverages">beverages</option>
-                        <option value="snacks">snacks</option>
-                        <option value="dairy">dairy</option>
-                        <option value="cereals">cereals</option>
-                        <option value="grains_wheat_rice">Grains,wheat,rice</option>
-
-
-
+                        <option value="Personal care">Personal Care</option>
+                        <option value="Fruits and vegetables">Fruits and vegetables</option>
+                        <option value="Baby care">Baby care</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Cereals">Cereals</option>
+                        <option value="Grains,wheat and rice">Grains,wheat and rice</option>
+                        <option value="Hardware and tools">Hardware and tools</option>
+                        <option value="Clothes">Clothes</option>
+                        <option value="Beauty and cosmetics">Beauty and Cosmetics</option>
+                        <option value="Hair">Hair</option>
                     </select>
                   </div>
 
@@ -346,7 +355,7 @@
                   </div>
              
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Product</button>
+                    <button type="submit" name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Product</button>
                   </div>
                 </form>
               </div>

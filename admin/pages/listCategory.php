@@ -1,4 +1,12 @@
+<?php
+include("../action/config.php");
 
+session_start();
+if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
+ header("location: ./sign-in.php");
+ exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -141,7 +149,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/logout.php">
+          <a class="nav-link  " href="../action/logout.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>document</title>
@@ -190,7 +198,7 @@
           <ul class="navbar-nav  justify-content-end">
          
             <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+              <a href="../action/logout.php" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Log Out</span>
               </a>
@@ -387,10 +395,10 @@
                       
                     <div class="col-6"> <h6>Categories List</h6></div>
                     <div class="col-6">
-                        <a class="btn bg-gradient-primary  mb-0" href="#"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Category</a>
+                        <a class="btn bg-gradient-primary  mb-0" href="./addCategory.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Category</a>
     
                     </div>
-                      </div>
+                </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">

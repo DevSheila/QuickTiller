@@ -1,3 +1,12 @@
+<?php
+include("../action/config.php");
+
+session_start();
+if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
+ header("location: ./sign-in.php");
+ exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,7 +32,7 @@
 
 <body class="">
 
-  <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main"> 
+<aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.php " target="_blank">
@@ -180,6 +189,7 @@
         </ol>
         <h6 class="font-weight-bolder mb-0">Products</h6>
       </nav>
+       
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">
           <div class="input-group">
@@ -190,7 +200,7 @@
         <ul class="navbar-nav  justify-content-end">
        
           <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+            <a href="../action/logout.php" class="nav-link text-body font-weight-bold px-0">
               <i class="fa fa-user me-sm-1"></i>
               <span class="d-sm-inline d-none">Log Out</span>
             </a>
@@ -295,11 +305,11 @@
           <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
             <div class="card z-index-0">
               <div class="card-header text-center pt-4">
-                <h5>Edit Product</h5>
+                <h5>Add New Product</h5>
               </div>
           
               <div class="card-body">
-                <form role="form text-left">
+                <form role="form text-left" enctype="multipart/form-data" method="POST" action="../action/products.php">
                   <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Product Name" name="name" required>
                   </div>
@@ -311,17 +321,18 @@
                   <div class="mb-3">
                     <select class="form-control" id="category" name="category"  required>
                         <option value="" disabled selected>Product Category</option>
-                        <option value="personal_care">Personal Care</option>
-                        <option value="fruits_and_vegetables">Fruits and vegetables</option>
-                        <option value="baby_care">baby care</option>
-                        <option value="beverages">beverages</option>
-                        <option value="snacks">snacks</option>
-                        <option value="dairy">dairy</option>
-                        <option value="cereals">cereals</option>
-                        <option value="grains_wheat_rice">Grains,wheat,rice</option>
-
-
-
+                        <option value="Personal care">Personal Care</option>
+                        <option value="Fruits and vegetables">Fruits and vegetables</option>
+                        <option value="Baby care">Baby care</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Cereals">Cereals</option>
+                        <option value="Grains,wheat and rice">Grains,wheat and rice</option>
+                        <option value="Hardware and tools">Hardware and tools</option>
+                        <option value="Clothes">Clothes</option>
+                        <option value="Beauty and cosmetics">Beauty and Cosmetics</option>
+                        <option value="Hair">Hair</option>
                     </select>
                   </div>
 
@@ -344,7 +355,7 @@
                   </div>
              
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Edit Product</button>
+                    <button type="submit" name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Product</button>
                   </div>
                 </form>
               </div>

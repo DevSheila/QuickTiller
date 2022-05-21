@@ -1,4 +1,12 @@
+<?php
+include("../action/config.php");
 
+session_start();
+if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
+ header("location: ./sign-in.php");
+ exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -142,7 +150,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/logout.php">
+          <a class="nav-link  " href="../action/logout.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>document</title>
@@ -191,7 +199,7 @@
         <ul class="navbar-nav  justify-content-end">
        
           <li class="nav-item d-flex align-items-center">
-            <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+            <a href="../action/logout.php" class="nav-link text-body font-weight-bold px-0">
               <i class="fa fa-user me-sm-1"></i>
               <span class="d-sm-inline d-none">Log Out</span>
             </a>
@@ -300,9 +308,9 @@
               </div>
           
               <div class="card-body">
-                <form role="form text-left">
+                <form role="form text-left" method="post" action="../action/categories.php" enctype="multipart/form-data">
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Category Name" name="name" required>
+                    <input type="text" class="form-control" placeholder="Category Name" name="category_name" required>
                   </div>
 
 
@@ -313,7 +321,7 @@
              
              
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Category</button>
+                    <button type="submit"  name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Category</button>
                   </div>
                 </form>
               </div>

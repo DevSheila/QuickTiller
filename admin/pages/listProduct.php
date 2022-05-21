@@ -1,4 +1,12 @@
+<?php
+include("../action/config.php");
 
+session_start();
+if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
+ header("location: ./sign-in.php");
+ exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -141,7 +149,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/logout.php">
+          <a class="nav-link  " href="../action/logout.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>document</title>
@@ -189,7 +197,7 @@
           <ul class="navbar-nav  justify-content-end">
          
             <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+              <a href="../action/logout.php" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Log Out</span>
               </a>
@@ -382,8 +390,16 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <h6>Products table</h6>
+            <div class="row">
+                      <div class="col-6"> <h6>Products List</h6></div>
+                      <div class="col-6">
+                          <a class="btn bg-gradient-primary  mb-0" href="./addProduct.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Product</a>
+                      </div>
+                  </div>
+
             </div>
+
+            
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
@@ -395,6 +411,10 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</th>
+
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+
 
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Available</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pending</th>
@@ -409,29 +429,60 @@
                     </tr>
                   </thead>
                   <tbody>
+
+                  <?php
+                            // Check connection
+                          if (!$conn ||mysqli_connect_errno()) {
+                              echo("Connection failed: " . mysqli_connect_error());
+                          }else{
+                              $sql = "SELECT * FROM product ";
+                              $result = mysqli_query($conn,$sql);
+                                $count = mysqli_num_rows($result);
+                          }
+                              $serial = 0;
+                              while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                $product_id= $row['id']; 
+                                $product_name = $row['product_name'];
+                                $product_image= $row['product_image'];
+
+                                $product_brand = $row['brand'];
+                                $product_quantity = $row['quantity'];
+                                $product_quality = $row['otherQualities'];
+                                $product_category = $row['category'];
+                                $product_price = $row['price'];
+                                $product_date = $row['date'];
+                                $serial ++;
+                     ?>
                     <tr>
                         <td>
-                            <p class="text-xs font-weight-bold mb-0 align-middle text-center">1</p>
+                            <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $serial; ?></p>
                           </td>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                            <img src="../uploads/products/<?php echo $product_image; ?>" class="avatar avatar-sm me-3" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Bread</h6>
-                            <p class="text-xs text-secondary mb-0 align-middle text-center">Brand</p>
+                            <h6 class="mb-0 text-sm"><?php echo $product_name; ?></h6>
+                            <p class="text-xs text-secondary mb-0 align-middle text-center"><?php echo $product_brand; ?></p>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center">Category</p>
+                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_category; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center">Quantity</p>
+                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_quantity; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center">Price</p>
+                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_price; ?></p>
+                      </td>
+
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_quality; ?></p>
+                      </td>
+                      <td>
+                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_date; ?></p>
                       </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0 align-middle text-center">356</p>
@@ -444,8 +495,12 @@
                       </td>
                       <td class="align-middle text-center">
                       
-                        <a href="#" class=" text-xs font-weight-bold mb-0 text-primary"><i class="bi bi-pen"></i> Edit</a>
-                        <a href="#" class=" text-xs font-weight-bold mb-0 text-danger"><i class="bi bi-pen"></i> Delete</a>
+                    
+                        <div class="ms-auto text-end">
+                                <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/products.php?edit=<?php echo  $product_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+
+                                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/products.php?delete=<?php echo  $product_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                        </div>
 
                       </td>
                       <td class="align-middle">
@@ -453,6 +508,7 @@
                       </td>
                     </tr>
                  
+                    <?php  } ?>
                   </tbody>
                 </table>
               </div>
