@@ -12,10 +12,10 @@ if (isset($_POST['update'])) {
 	$on='online';
 	
     echo $email,"<br>",$name,"<br>",$pass,"<br>",$addres,"<br>",$phone,"<br>",$time;
-
-    $query="INSERT INTO `user`(`id`, `user_name`, `user_image`, `status`, `email`,`phone`,`address`, `password`, `date`) VALUES('$id','$name','$image','$on','$email','$phone','$addres','$pass','$time')";
+	$query="UPDATE `user` SET `user_name`='$name',`email`='$email',`phone`='$phone',`address`='$addres',`password`='$pass' WHERE 3";
+  
 	$que=mysqli_query($conn,$query) or die(mysqli_error($conn));
 
-	
+	header('location:user-dashboard.php');
 }
 ?>

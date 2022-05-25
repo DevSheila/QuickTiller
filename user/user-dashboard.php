@@ -22,8 +22,9 @@ require_once('../database/conn.php');
   <link rel="stylesheet" href="../assets/cart/qr.css">
   <script type="text/javascript" src="saveContact.js"></script>
 </head>
+
 <body style="font-family: neva;">
-  
+<div class="page">
 <div class="wrapper"  >
  
   <nav class="navbar sticky-top navbar-expand-lg bg-purple">
@@ -232,24 +233,24 @@ require_once('../database/conn.php');
                                     <div class="card-body">
                                       <div class="form-group">
                                         <label for="exampleInputFullname">Full Name</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder=<?php echo $name;?> required>
+                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" value=<?php echo $name;?> required>
                                       </div>
                                       
                                       <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
-                                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" placeholder=<?php echo $mail;?> required>
+                                        <input type="email" name="email" class="form-control" id="exampleInputEmail1" value=<?php echo $mail;?> required>
                                       </div>
                                       <div class="form-group">
                                         <label for="exampleInputphone">Phone</label>
-                                        <input type="number" name="phone" class="form-control" id="exampleInputEmail1" placeholder=<?php echo $phone;?> required>
+                                        <input type="number" name="phone" class="form-control" id="exampleInputEmail1" value=<?php echo $phone;?> required>
                                       </div>
                                       <div class="form-group">
                                         <label for="exampleInputAdress">Address</label>
-                                        <input type="text" name="address" class="form-control" id="exampleInputEmail1" placeholder=<?php echo $address;?> required>
+                                        <input type="text" name="address" class="form-control" id="exampleInputEmail1" value=<?php echo $address;?> required>
                                       </div>
                                       <div class="form-group">
                                         <label for="exampleInputPassword1">Password</label>
-                                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder=<?php echo $pass;?> required>
+                                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" value=<?php echo $pass;?> required>
                                       </div>
                                      
                                     </div>
@@ -276,58 +277,31 @@ require_once('../database/conn.php');
             </div>
             
             <div class="tab-pane fade" id="vert-tabs-checkout" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
-              <div class="card ">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-12">
-                      <div class="card-body">
-                   <table id="example1" class="table table-bordered table-striped">
-                    <thead>
-                    <tr>
-                   
-                    <th>Item ID</th>
-                    
-                    <th>STORE ID</th>
-                    <th>DATE</th>
-                    <th>QUANTITY</th>
-                    <th>TOTAL </th>
-                    <th>ACTION</th>
-                     
-                  </tr>
-                  </thead>
-                  <tbody>
-                  
-                       <tr>
-                    <td>Item ID</td>
-                    <td>Naivas</td>
-                    <td>23-14-2012</td>
-                    <td>23litres</td>
-                    <td>Total cash</td>
-                     <td> <button type='button' class='btn btn-indigo dropdown-toggle' data-toggle='dropdown'>Action</button>
-                    
-                    <ul class='dropdown-menu'>
-                      
-                      <li class='dropdown-item delete_movie'><a href='edit.php?id=".$reg."'>Delete</a></li>
-                    </ul>
-                     </div></td>
-                  </tr>
-              
-                  </tbody>
-                  <tfoot>
-                  <tr>
-                   
-                    <th>Item ID</th>
-                    
-                    <th>STORE ID</th>
-                    <th>DATE</th>
-                    <th>QUANTITY</th>
-                    <th>TOTAL </th>
-                    <th>ACTION</th>
-                     
-                  </tr>
-                  </tfoot>
-                </table>
-              </div>
+            <table class="table table-hover">
+  <thead>
+    <tr>
+     
+                     <th scope="col">Item ID</th>
+                     <th scope="col">STORE ID</th>
+                     <th scope="col">DATE</th>
+                     <th scope="col">QUANTITY</th>
+                     <th scope="col">TOTAL </th>
+                     <th scope="col">ACTION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>hello</td>
+      <td>Mutuku</td>
+    </tr>
+  
+    </tr>
+  </tbody>
+</table>
             </div>
           </div>
         </div>
@@ -345,12 +319,10 @@ require_once('../database/conn.php');
     <strong>Copyright &copy; 2014-2021 <a href="">AQT</a>.</strong> All rights reserved.
   </footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+  
 </div>
+      </div>
+      <div id="loading"></div>
 <!-- ./wrapper -->
 
 <!-- jQuery -->
@@ -364,6 +336,9 @@ require_once('../database/conn.php');
 
 <!-- AdminLTE for demo purposes -->
 <script src="../assets/dist/js/demo.js"></script>
+<script>
+
+</script>
 
 </body>
 </html>
