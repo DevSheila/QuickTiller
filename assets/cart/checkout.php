@@ -65,7 +65,25 @@
                     Mpesa prompts
                   </div>
                   <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
-                   paypal tabs
+                  <div class="card card-danger">
+              <div class="card-header">
+                <h3 class="card-title">Different Width</h3>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                <div class="form-group">
+                  <label>US phone mask:</label>
+
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                    </div>
+                    <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+            </div>
                   </div>
                   
                 </div>

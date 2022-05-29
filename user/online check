@@ -1,0 +1,46 @@
+Here's a way on how to get the difference between two dates from a database in minutes, then check for the difference and set the online/offline status.
+
+$query = 'SELECT * FROM Users';
+$result = mysqli_query($mysqli, $query);
+
+foreach($result as $user){
+    // date from the database
+    $dbLastActivity = date("d-m-Y h:i:s a", strtotime($user['lastOnline']));
+    // date now
+    $now = date("d-m-Y h:i:s a", $date);
+
+    // calculate the difference
+    $difference = strtotime($now) - strtotime($dbLastActivity);
+    $difference_in_minutes = $difference / 60;
+
+    // check if difference is greater than five minutes
+    if($difference_in_minutes < 5){
+        // set online status
+        $updateStatus = 'UPDATE Users SET Status="online" WHERE lastOnline="'.$user['lastOnline'].'"';
+    } else {
+        // set offline status
+        $updateStatus = 'UPDATE Users SET Status="offline" WHERE lastOnline="'.$user['lastOnline'].'"';
+    }
+
+    // check if mysqli query was successful
+    if (!$mysqli->query($updateStatus)){
+        printf("Error Message %s\n", $mysqli->error);
+    }
+} 
+
+
+-1
+
+You can also use the onunload tag... On the body More information here (https://www.w3schools.com/jsref/event_onunload.asp)
+
+This way you don't have to wait 4 -5 minutes for the user to get offline.
+
+But you should still use the ajax update method in-case the user's browser crashes...
+
+Edit: As @Quentin pointed out in the comments you may not be able to send out requests but there is a way you can do it... Explained in more detail in this Article.
+So basically they are using the sendBeacon() Here is an Example
+
+window.addEventListener("unload", function logData() {
+  navigator.sendBeacon("/log", analyticsData);
+});
+NOTE: Although it should be kept in mind that this should not be the only method you should depend upon, and should implement for redundancy...

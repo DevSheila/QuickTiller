@@ -1,3 +1,14 @@
+<?php
+
+require_once("../database/conn.php");
+
+ 
+$qr=$_POST['qrvalue'];
+// $pas=$_POST['pass'];
+// $_SESSION["qr"] = $qr;
+// $_SESSION["pass"] = $pas;
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +43,25 @@
     <header id='header'>
     <nav class="navbar sticky-top navbar-expand-lg bg-purple">
     <div class="container">
-      <a class="navbar-brand" href="#"style="color:white;"><img src="../assets/img/stores/naivas-logo.png" alt="" class="rounded-circle" width="50"></a>
+      <?php
+      $qr_c=mysqli_real_escape_string($conn,$qr);
+
+       $qury="SELECT shop_name FROM shop where qr_code=' $qr_c'";
+       $query = mysqli_query($conn,$qury);
+       $num=mysqli_num_rows($query);
+      if($num==0)
+ {
+        $data[]='';
+ }
+   else{
+  for($i=0; $i<$num; $i++)
+  {
+  $row=mysqli_fetch_array($query);
+        $data[]=array($index=$i+1,$shop=$row['shop_name']);
+
+
+      ?>
+      <a class="navbar-brand" href="#"style="color:white;"><img src="../assets/img/stores/".$shop<?php  }   }  ?> alt="" class="rounded-circle" width="50"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <i class="fas fa-bars"></i>
              </button>
@@ -50,7 +79,7 @@
 <?php
 $total=0;
 if (isset($_SESSION['cart'])) {
-# code...
+
 $count=count($_SESSION['cart']);?>
 
 <span id="cart_count" class="text-warning bg-light"><?php echo $count;
@@ -85,9 +114,25 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
           <i class="fa fa-camera-retro" aria-hidden="true"></i>
       </div>
       <div class="col-md-6">
-        <form method="post" action="../assets/php/component.php">
+      <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+  <label class="btn btn-primary active">
+    <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
+  </label>
+</div>
+      </div>
+     
+      
+
+      <div class="col-md-6">
+        <form method="post" action="">
           <label >Qr-Code Value</label>
           <input type="text" value="" name="qrvalue" id="qrvalue" readonly="" class="form-control">
+        
+              <div id="qr"></div>
+          
           <div class="pt-4"></div>
           <div class="col-md-5">
             <button  type="submit" name ="add" class="btn bg-indigo ">ADD TO CART</button>
@@ -106,34 +151,52 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
     <a class="navbar-brand" href="#">Welcome to AQT services</a>
   </div>
 </nav>
-    
-    <script type="text/javascript">
-      let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-      scanner.addListener('scan', function (content) {
+<script type="text/javascript">
+    var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
+    scanner.addListener('scan',function(content){
+      jQuery.ajax({
+      url:"../user/getuser_detail.php",
+      data: 'qrvalue='+$("#qrvalue").val(),
+      type: "POST",
+      success: function(data){
+        $("#qr").html(data);
+
+      },
+      error:function(){}
+    });
+  }
         // alert(content);
         document.getElementById('qrvalue').value=content;
         document.getElementById('qrvalue').innerHTML=content;
-
-
-      });
-      Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-    var selectedCam = cameras[0];
-    $.each(cameras, (i, c) => {
-        if (c.name.indexOf('back') != -1) {
-            selectedCam = c;
-            return false;
-        }
     });
-
-    scanner.start(selectedCam);
-} else {
-    console.error('No cameras found.');
-}
-      }).catch(function (e) {
+    Instascan.Camera.getCameras().then(function (cameras){
+        if(cameras.length>0){
+            scanner.start(cameras[0]);
+            $('[name="options"]').on('change',function(){
+                if($(this).val()==1){
+                    if(cameras[0]!=""){
+                        scanner.start(cameras[0]);
+                    }else{
+                        alert('No Front camera found!');
+                    }
+                }else if($(this).val()==2){
+                    if(cameras[1]!=""){
+                        scanner.start(cameras[1]);
+                    }else{
+                        alert('No Back camera found!');
+                    }
+                }
+            });
+        }else{
+            console.error('No cameras found.');
+            alert('No cameras found.');
+        }
+    }).catch(function(e){
         console.error(e);
-      });
-    </script>
+        alert(e);
+    });
+</script>
+
    <!-- jQuery -->
 <script src="../assets/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

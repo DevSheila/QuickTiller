@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2022 at 04:15 PM
+-- Generation Time: May 25, 2022 at 04:12 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -124,7 +124,7 @@ CREATE TABLE `shop` (
 --
 
 INSERT INTO `shop` (`id`, `shop_name`, `location`, `logo`, `qr_code`, `status`, `email`, `password`) VALUES
-(1, 'Naivas', 'Mombasa', '1652309630_lance-asper-N9Pf2J656aQ-unsplash.jpg', '', 'pending', 'naivas@gmail.com', '$2y$10$rZpaEaunGN0g.fXbvKDwie5.t2HqUAS7H15gOHCjE5X5LmIsN5i/y');
+(1, 'Naivas', 'Mombasa', 'naivas-logo.png', 'https://qrstud.io/qrmnky', 'pending', 'naivas@gmail.com', '$2y$10$rZpaEaunGN0g.fXbvKDwie5.t2HqUAS7H15gOHCjE5X5LmIsN5i/y');
 
 -- --------------------------------------------------------
 
@@ -138,9 +138,18 @@ CREATE TABLE `user` (
   `user_image` varchar(1000) NOT NULL,
   `status` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `address` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `date` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `user_name`, `user_image`, `status`, `email`, `phone`, `address`, `password`, `date`) VALUES
+(3, 'Harrison', 'andre-tan-lRrNccxrTfQ-unsplash.jpg', 'online', 'imutkupc@gmail.com', '0799207512', 'Mombasa,Old town', 'mutuku254', '2022-05-24 10:06:38am');
 
 --
 -- Indexes for dumped tables
@@ -208,7 +217,7 @@ ALTER TABLE `shop`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

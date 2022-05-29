@@ -3,12 +3,12 @@ require('../database/conn.php');
 if (isset($_POST['update'])) {
 	$id='';
 	$image="avatar.png";
-	$name = $_POST['name'];
-	$email = $_POST['email'];
-	$pass = $_POST['password'];
-	$phone = $_POST['phone'];
-	$addres = $_POST['address'];
-	$time=date("Y-m-d h:i:sa");
+	$name =mysqli_real_escape_string($_POST['name']);
+	$email = mysqli_real_escape_string($_POST['email']);
+	$pass = mysqli_real_escape_string($_POST['password']);
+	$phone = mysqli_real_escape_string($_POST['phone']);
+	$addres = mysqli_real_escape_string($_POST['address']);
+	$time=mysqli_real_escape_string(date("Y-m-d h:i:sa"));
 	$on='online';
 	
     echo $email,"<br>",$name,"<br>",$pass,"<br>",$addres,"<br>",$phone,"<br>",$time;
