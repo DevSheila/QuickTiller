@@ -12,7 +12,7 @@ if (isset($_POST['add'])) {
 
        if(in_array($_POST['qrvalue'],$item_array_id)){
            echo "<script>alert('Product is already added in the cart...!')<script>";
-           header('location:../../cart.php');
+           header('location:../../user/cart.php');
        }else{
 
         $count=count($_SESSION['cart']);
@@ -22,7 +22,7 @@ if (isset($_POST['add'])) {
 
         $_SESSION['cart'][$count]=$item_array;
 print_r($item_array);
-header('location:../../cart.php');
+header('location:../../user/cart.php');
         
 
        }
@@ -35,7 +35,7 @@ header('location:../../cart.php');
         $_SESSION['cart'][0]=$item_array;
       
         print_r($_SESSION['cart']);
-        header('location:../../cart.php');
+        header('location:../../user/cart.php');
     }
 }
 //cart removing and adding
@@ -50,7 +50,7 @@ if (isset($_POST['remove'])) {
                 echo $_GET['id'];
                 unset($_SESSION['cart'][$key]);
                 echo"<script>alert('Product has been removed....!)</script>";
-               
+               header('location:../../user/cart.php');
 
             }
         }
