@@ -308,20 +308,30 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
               </div>
           
               <div class="card-body">
-                <form role="form text-left">
-                  <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Category Name" name="name" required>
+                <form role="form text-left" method="post" action="../action/categories.php" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <input type="hidden" name="category_id" value="<?php echo $_SESSION['category_id']?>" class="form-control" >
                   </div>
-
-
-                  <div class="mb-3">
-                    <input type="file" class="form-control" placeholder="Category Image" name="image" required>
+                <div class="mb-3">
+                    <select class="form-control" id="category" name="category_name"  required>
+                        <option value="" disabled selected>Category Name</option>
+                        <option value="Personal care">Personal Care</option>
+                        <option value="Fruits and vegetables">Fruits and vegetables</option>
+                        <option value="Baby care">Baby care</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Cereals">Cereals</option>
+                        <option value="Grains,wheat and rice">Grains,wheat and rice</option>
+                        <option value="Hardware and tools">Hardware and tools</option>
+                        <option value="Clothes">Clothes</option>
+                        <option value="Beauty and cosmetics">Beauty and Cosmetics</option>
+                        <option value="Hair">Hair</option>
+                    </select>
                   </div>
-
-             
-             
                   <div class="text-center">
-                    <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Edit Category</button>
+                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2" name="update" >Edit Category</button>
                   </div>
                 </form>
               </div>

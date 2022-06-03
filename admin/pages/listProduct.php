@@ -5,8 +5,11 @@ session_start();
 if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
  header("location: ./sign-in.php");
  exit;
-}
+}else{
+  $shop_id =$_SESSION['admin_id'] ;
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -435,10 +438,9 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                           if (!$conn ||mysqli_connect_errno()) {
                               echo("Connection failed: " . mysqli_connect_error());
                           }else{
-                              $sql = "SELECT * FROM product ";
+                              $sql = "SELECT * FROM product WHERE shop_id =$shop_id";
                               $result = mysqli_query($conn,$sql);
                                 $count = mysqli_num_rows($result);
-                          }
                               $serial = 0;
                               while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                                 $product_id= $row['id']; 
@@ -498,9 +500,10 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                     
                         <div class="ms-auto text-end">
                                 <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/products.php?edit=<?php echo  $product_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-
                                 <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/products.php?delete=<?php echo  $product_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                        
                         </div>
+
 
                       </td>
                       <td class="align-middle">
@@ -508,7 +511,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                       </td>
                     </tr>
                  
-                    <?php  } ?>
+                    <?php  } } ?>
                   </tbody>
                 </table>
               </div>
@@ -746,3 +749,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 </body>
 
 </html>
+
+<?php
+}
+?>

@@ -1,17 +1,17 @@
 <?php
 
-include("../action/config.php");
+include("./admin/action/config.php");
 session_start();
 
-$_SESSION["loggedin"] = false;
-$_SESSION["admin_id"] ="";
-$_SESSION["admin_email"] ="";
+$_SESSION["user_loggedin"] = false;
+$_SESSION["user_id"] ="";
+$_SESSION["user_email"] ="";
 
 
 
-if($_SESSION["loggedin"] === true){
+if($_SESSION["user_loggedin"] === true){
 
-    header("location: ../pages/dashboard.php");
+    header("location: ./index.html");
     exit;
 }else{
 // Define variables and initialize with empty values
@@ -41,7 +41,7 @@ if(isset($_POST['sign-in'])){
       }else{
       
           // Password is correct, so start a new session
-              $sql= "SELECT* FROM shop WHERE email ='$email'";
+              $sql= "SELECT* FROM user WHERE email ='$email'";
               $result = mysqli_query($conn,$sql);
               $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
               
@@ -50,13 +50,13 @@ if(isset($_POST['sign-in'])){
             
               if($count == 1) {
                 if(password_verify($password, $row ['password'])){
-                  // $_SESSION['admin_id'] = $row ['id'];
-                  $_SESSION['admin_id'] = $row ['id'];
+                  // $_SESSION['user_id'] = $row ['id'];
+                  $_SESSION['user_id'] = $row ['id'];
 
-                  $_SESSION['admin_qr'] = $row ['qr_code'];
-                  $_SESSION["loggedin"] = true;
+                  $_SESSION['user_qr'] = $row ['qr_code'];
+                  $_SESSION["user_loggedin"] = true;
                   // header("../pages/sign-up.php");
-                  header("location: ../pages/dashboard.php");
+                  header("location: ./index.html");
                   exit;
                 }
               }else{

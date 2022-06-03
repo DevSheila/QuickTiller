@@ -1,35 +1,50 @@
 <?php
 // Include config file
-require_once "../action/config.php";
-if(isset($_SESSION["loggedin"]) && !($_SESSION["loggedin"] === true)){
-  header("location: ../pages/dashboard.php");
+require_once "./admin/action/config.php";
+if(isset($_SESSION["user_loggedin"]) && !($_SESSION["user_loggedin"] === true)){
+  header("location: ./index.html");
   exit;
 }
 // Define variables and initialize with empty values
-$shop_name =$shop_location=$shop_logo= $password =$email = $confirm_password = "";
-$shop_name_err = $shop_location_err =$shop_logo_err =$password_err = $confirm_password_err = "";
+$user_name =$full_name=$address=$user_image= $password =$email =$phone= $confirm_password = "";
+$full_name_err=$user_name_err = $address_err =$user_image_err =$password_err = $confirm_password_err = "";
 $status='pending';
-$shops_upload_dir = "../uploads/shops";
+$users_upload_dir = "./uploads/users";
 $date=date("F j, Y, g:i a");
  
 // Processing form data when form is submitted
 // if($_SERVER["REQUEST_METHOD"] == "POST"){
 if(isset($_POST['sign-up'])){
+     // validate full name 
  
+    if(empty(trim($_POST["full_name"]))){
+        $full_name_err = "Please enter your user location.";
+    }else{
+        $full_name = trim($_POST["full_name"]);
+    
+    }
 
-     // validate shop name 
-     if(empty(trim($_POST["shop_name"]))){
-        $email_err = "Please enter a shop_name.";
+    // validate phone number
+    if(empty(trim($_POST["phone"]))){
+        $phone_err = "Please enter your user location.";
+    }else{
+        $phone_number = trim($_POST["phone"]);
+        $phone=strval($phone_number);
+    
+    }
+     // validate user name 
+     if(empty(trim($_POST["user_name"]))){
+        $email_err = "Please enter a user_name.";
     }else{
         // Prepare a select statement
-        $sql = "SELECT id FROM shop WHERE shop_name = ?";
+        $sql = "SELECT id FROM user WHERE user_name = ?";
         
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_shop_name);
+            mysqli_stmt_bind_param($stmt, "s", $param_user_name);
             
             // Set parameters
-            $param_shop_name = trim($_POST["shop_name"]);
+            $param_user_name = trim($_POST["user_name"]);
             
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -37,9 +52,9 @@ if(isset($_POST['sign-up'])){
                 mysqli_stmt_store_result($stmt);
                 
                 if(mysqli_stmt_num_rows($stmt) == 1){
-                    $email_err = "This shop_name is already taken.";
+                    $email_err = "This user_name is already taken.";
                 } else{
-                    $shop_name = trim($_POST["shop_name"]);
+                    $user_name = trim($_POST["user_name"]);
   
   
                 }
@@ -51,28 +66,29 @@ if(isset($_POST['sign-up'])){
             mysqli_stmt_close($stmt);
         }
     }
-    // validate shop location
-    if(empty(trim($_POST["shop_location"]))){
-    $shop_location_err = "Please enter your shop location.";
+    // validate user location
+    if(empty(trim($_POST["address"]))){
+    $address_err = "Please enter your user location.";
     }else{
-        $shop_location = trim($_POST["shop_location"]);
+        $address = trim($_POST["address"]);
 
     }
+    
 
-    // validate shop logo
-    // if(empty(trim($_POST["shop_logo"]))){
-    //     $shop_logo_err = "Please enter your shop logo.";
+    // validate user logo
+    // if(empty(trim($_POST["user_image"]))){
+    //     $user_image_err = "Please enter your user logo.";
     // }else{
         
         $time = time();
 
-          //shop logo
-          $shop_logo_name = $_FILES['image']['name'];
-          $shop_logo_size =$_FILES['image']['size'];
-          $shop_logo_tmp =$_FILES['image']['tmp_name'];
-          $shop_logo_type=$_FILES['image']['type'];
-          // $shop_logo_ext=strtolower(end(explode('.',$_FILES['shop_logo']['name'])));
-          $shop_logo_image_name = $time.'_'.$shop_logo_name;
+          //user logo
+          $user_image_name = $_FILES['image']['name'];
+          $user_image_size =$_FILES['image']['size'];
+          $user_image_tmp =$_FILES['image']['tmp_name'];
+          $user_image_type=$_FILES['image']['type'];
+          // $user_image_ext=strtolower(end(explode('.',$_FILES['user_image']['name'])));
+          $user_image_image_name = $time.'_'.$user_image_name;
           $extensions= array("jpg","png");
     // }
 
@@ -81,14 +97,14 @@ if(isset($_POST['sign-up'])){
       $email_err = "Please enter a email.";
   }else{
       // Prepare a select statement
-      $sql = "SELECT id FROM shop WHERE email = ?";
+      $sql = "SELECT id FROM user WHERE email = ?";
       
       if($stmt = mysqli_prepare($conn, $sql)){
           // Bind variables to the prepared statement as parameters
-          mysqli_stmt_bind_param($stmt, "s", $param_shop_name);
+          mysqli_stmt_bind_param($stmt, "s", $param_user_name);
           
           // Set parameters
-          $param_shop_name = trim($_POST["email"]);
+          $param_user_name = trim($_POST["email"]);
           
           // Attempt to execute the prepared statement
           if(mysqli_stmt_execute($stmt)){
@@ -137,26 +153,26 @@ if(isset($_POST['sign-up'])){
     
     
 
-    // $shop_name=trim($_POST['shop_name']);
+    // $user_name=trim($_POST['user_name']);
     // $email=trim($_POST['email']);
     // $password=trim($_POST['password']);
 
     $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
   
-    move_uploaded_file($shop_logo_tmp,"$shops_upload_dir/$shop_logo_image_name");
+    move_uploaded_file($user_image_tmp,"$users_upload_dir/$user_image_image_name");
 
     // Check input errors before inserting in database
-    if(empty($shop_name_err) && empty($email_err)&& empty($password_err) && empty($confirm_password_err)){
+    if(empty($user_name_err) && empty($email_err)&& empty($password_err) && empty($confirm_password_err)){
         
         $time = time();
         $qr_code=$time;
         // Prepare an insert statement
-        $sql ="INSERT INTO shop(shop_name, location, logo, qr_code, status, email, password) VALUES ('$shop_name','$shop_location','$shop_logo_image_name','$qr_code','$status','$email','$param_password')";
-
+        $sql ="INSERT INTO user(user_name, full_name, user_image, status, email, phone, address, password, date) VALUES
+ ('$user_name','$full_name','$user_image_image_name',' ','$email','$phone','$address','$param_password','$date')";
                 
         if ($conn->query($sql) === TRUE) {
       
-          header("Location: ../pages/sign-in.php");
+          header("Location: ./sign-in.php");
 
         } else {
           echo "Error: " . $sql . "<br>" . $conn->error;

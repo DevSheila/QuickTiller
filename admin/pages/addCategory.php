@@ -309,17 +309,44 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
           
               <div class="card-body">
                 <form role="form text-left" method="post" action="../action/categories.php" enctype="multipart/form-data">
-                  <div class="mb-3">
+                  
+                  <!-- <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Category Name" name="category_name" required>
-                  </div>
+                  </div> -->
 
+                  <div>
+<!-- <i class="fas fa-bread-slice"></i>
+<i class="fas fa-hamburger"></i>
+<i class="fas fa-pizza-slice"></i>
+<i class="fas fa-coffee" ></i>
+<i class="fas fa-wrench"></i>        
+<i class="fas fa-spa"></i>
+<i class="fas fa-baby"></i> -->
+
+<i class="fa fa-wheat"></i>
+<i class="fas fa-shirt"></i>
+<i class="fas fa-cow"></i>
+
+
+                  </div>
 
                   <div class="mb-3">
-                    <input type="file" class="form-control" placeholder="Category Image" name="image" required>
+                    <select class="form-control" id="category" name="category_name"  required>
+                        <option value="" disabled selected>Category Name</option>
+                        <option value="Personal care">Personal Care</option>
+                        <option value="Fruits and vegetables">Fruits and vegetables</option>
+                        <option value="Baby care">Baby care</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Snacks">Snacks</option>
+                        <option value="Dairy">Dairy</option>
+                        <option value="Cereals">Cereals</option>
+                        <option value="Grains,wheat and rice">Grains,wheat and rice</option>
+                        <option value="Hardware and tools">Hardware and tools</option>
+                        <option value="Clothes">Clothes</option>
+                        <option value="Beauty and cosmetics">Beauty and Cosmetics</option>
+                        <option value="Hair">Hair</option>
+                    </select>
                   </div>
-
-             
-             
                   <div class="text-center">
                     <button type="submit"  name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Category</button>
                   </div>
