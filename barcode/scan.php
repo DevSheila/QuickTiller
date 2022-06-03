@@ -3,7 +3,7 @@
 require_once("../database/conn.php");
 
  
-$qr=$_POST['qrvalue'];
+// $qr=$_POST['qrvalue'];
 
 
 // echo $qr;
@@ -43,9 +43,10 @@ $qr=$_POST['qrvalue'];
 </head>
 <body>
   
+
 <nav class="navbar sticky-top navbar-expand-lg bg-purple">
     <div class="container">
-      <a class="navbar-brand" href="#"style="color:white;"><img src="../assets/img/stores/AQT.png" alt="" width="80"></a>
+      <a class="navbar-brand" href="#"style="color:white;"><img src="../img/naivas-logo.png" alt="" class="rounded-circle" width="80"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <i class="fas fa-bars"></i>
              </button>
@@ -53,22 +54,25 @@ $qr=$_POST['qrvalue'];
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto w-100 justify-content-end">
           <li class="nav-item active">
-            <a class="nav-link" href=""style="color:white;">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="../user/user-dashboard.php"style="color:white;">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="scan-store.php"style="color:white;">Shop</a>
             <li class="nav-item">
             <a class="nav-link" href="../barcode/scan.php"style="color:white;">Continue shopping</a>
+            <li class="nav-item">
+            <a class="nav-link" href=""style="color:white;">logout</a>
             <li class="nav-link">
             <a href="../user/cart.php" >
                <h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
 
                 <?php
+                session_start();
                  $total=0;
                  if (isset($_SESSION['cart'])) { 
                  $count=count($_SESSION['cart']);?>
 
-                  <span id="cart_count" class="text-warning bg-light"><?php echo $count;
+                  <span id="cart_count" class="text-warning bg-light round"><?php echo $count;
                    ?></span>
                <?php
                    }else{

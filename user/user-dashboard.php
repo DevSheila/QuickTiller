@@ -24,8 +24,7 @@ require_once('../database/conn.php');
 </head>
 
 <body style="font-family: neva;">
-<div class="page">
-<div class="wrapper"  >
+
  
   <nav class="navbar sticky-top navbar-expand-lg bg-purple">
     <div class="container">
@@ -43,11 +42,14 @@ require_once('../database/conn.php');
             <a class="nav-link" href="scan-store.php"style="color:white;">Shop</a>
             <li class="nav-item">
             <a class="nav-link" href="../barcode/scan.php"style="color:white;">Continue shopping</a>
+            <li class="nav-item">
+            <a class="nav-link" href=""style="color:white;">logout</a>
             <li class="nav-link">
             <a href="../user/cart.php" >
                <h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
 
                 <?php
+                session_start();
                  $total=0;
                  if (isset($_SESSION['cart'])) { 
                  $count=count($_SESSION['cart']);?>

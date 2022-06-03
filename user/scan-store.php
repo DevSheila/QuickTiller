@@ -68,7 +68,8 @@
       </div>
     </div>
   </nav>
-    
+  <div class="curve bg-purple"  ></div>
+ 
     <div class="container">
       <h4 class="text-center text-dark">AQT</h4>
       <hr>
