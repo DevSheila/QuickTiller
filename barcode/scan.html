@@ -40,7 +40,7 @@
     </nav>
     
     <div class="container">
-      <h4 class="text-center text-dark">Instascan</h4>
+      <h4 class="text-center text-dark">AQT</h4>
       <hr>
       <div class="row">
         <div class="col-md-6">
@@ -48,12 +48,14 @@
           <i class="fa fa-camera-retro" aria-hidden="true"></i>
       </div>
       <div class="col-md-6">
+        <form method="post" action="../assets/php/component.php">
           <label >Qr-Code Value</label>
-          <input type="text" value="" name="text" id="text" readonly="" class="form-control">
+          <input type="text" value="" name="qrvalue" id="qrvalue" readonly="" class="form-control">
           <div class="pt-4"></div>
           <div class="col-md-5">
-            <button  type="submit" class="btn bg-indigo ">ADD TO CART</button>
+            <button  type="submit" name ="add" class="btn bg-indigo ">ADD TO CART</button>
           </div>
+        </form>
         </div>
 
         
@@ -72,8 +74,8 @@
       let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
       scanner.addListener('scan', function (content) {
         // alert(content);
-        document.getElementById('text').value=content;
-        document.getElementById('text').innerHTML=content;
+        document.getElementById('qrvalue').value=content;
+        document.getElementById('qrvalue').innerHTML=content;
 
 
       });
@@ -133,8 +135,6 @@
     
 //   document.body.removeChild(span);
 // };
-
-// 
 </script>
 
 

@@ -1,9 +1,8 @@
 <?php
 
-// require_once('php/createDb.php');
-// require_once('./php/component.php');
-//create nstance of a class
-// $database=new createDb("productdb","producttb");
+require_once('assets/php/createDb.php');
+require_once('assets/php/component.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +36,7 @@
 </head>
 <body>
     <?php
-    require_once('assets/cart/cart-header.php');
+    require_once('assets/php/header.php');
     ?>
 <div class="container-fluid">
     <div class="row px-5">
@@ -47,8 +46,23 @@
                 <hr>
                 <?php
             
-            //     $total=$total+(int)$row['product_price']
-            //       ?>
+                // $total=$total+(int)$row['product_price'];
+                // $prod_id=array_column($_SESSION['cart'],'prod_id');
+                //  foreach($prod_id as $item => $id){
+    
+                //     $sql="SELECT * FROM $tablename where id='$id'";
+    
+                //     $result=mysqli_query($con,$sql);
+        
+                //    while ($row=mysqli_fetch_array($result)) {
+                //       # code...
+                //     $prodname=$row['product_name'];
+                //     $prodprice=$row['product_price'];
+                //     $prodimg=$row['product_image'];
+                //     $prodid=$row['id'];
+                //     $total=$total+(int)$row['product_price'];
+
+                  ?>
                 <form action="" method="POST"class="cart-items">
                      <div class="border rounded">
                             <div class="row bg-white">
@@ -57,7 +71,7 @@
                                  </div>
                                     <div class="col-md-6">
                                      <h5 class="pt-2">
-                                      Product1
+                                    product name
                                      </h5>
                                      <small class="text-secondary">Seller: AQT</small>
                                      <h5 class="pt-2">Ksh2000</h5>
@@ -76,33 +90,7 @@
                             </div>
                          </div>
                  </form>
-                 <form action="" method="POST"class="cart-items">
-                     <div class="border rounded">
-                            <div class="row bg-white">
-                                <div class="col-md-3 pl-0">
-                                 <img src="assets/img/cart/3.jpg" alt="image1" class="img-fluid">
-                                 </div>
-                                    <div class="col-md-6">
-                                     <h5 class="pt-2">
-                                      Product1
-                                     </h5>
-                                     <small class="text-secondary">Seller: AQT</small>
-                                     <h5 class="pt-2">Ksh3000</h5>
-                                     <button type="submit" class="btn btn-warning">Save for Later</button>
-                                     <button type="submit" class="btn btn-danger mx-2" name="remove" value="remove">Remove</button>
-
-                                    </div>
-                                  <div class="col-md-3 py-5" >
-                                    <div>
-                                      <button type="button" class="btn bg-light rounded-circle"> <i class="fa fa-minus"></i></button>
-                                      <input type="text" value="1" class="form-control w-25 d-inline">
-                                      <button type="button" class="btn bg-light rounded-circle"> <i class="fa fa-plus"></i></button>
-                                    </div>
-                             </div>
-                            
-                            </div>
-                         </div>
-                 </form>
+               
                    
                   
               
@@ -120,13 +108,20 @@
                  <div class="col-md-6">
                     <?php
                     
-                    // if(isset($_SESSION['cart'])){
-                    //     $count=count($_SESSION['cart']);
-                    //     echo"<h6>Price($count items)<h6>";
-                    // }else{
+                    if(isset($_SESSION['cart'])){
+                      $count=count($_SESSION['cart']);
+                      for ($i=0; $i <$count ; $i++) { 
+                        # code...
+                        
+                      $item=$_SESSION['cart'][$i];
+                      print_r($item);
+                      }
+                       
+                        echo"<h6>Price($count items)<h6>";
+                    }else{
                        echo"<h6>Price(1items)<h6>";
                     
-                    
+                    }
                  ?>
                  <h6>Delivery Charges</h6>
                  <h6>Amount Payable</h6>
