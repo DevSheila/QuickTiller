@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,19 +29,46 @@
 </head>
 <body>
   <nav>
-   
-    <section>
+
+    <header id='header'>
+    <nav class="navbar sticky-top navbar-expand-lg bg-purple">
+    <div class="container">
+    
+      <img src="../assets/img/stores/naivas-logo.png"  alt="" class="rounded-circle" width="50"> 
+    
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="fas fa-bars"></i>
+             </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+          <li class="nav-item active">
+            <a class="nav-link" href="../user/user-dashboard.php"style="color:white;">Home <span class="sr-only">(current)</span></a>
+          </li>
+            <li class="nav-link">
+            <a href="../user/cart.php" >
+
+<h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
+
+
+<span id="cart_count" class="text-warning bg-light"></span>
+
+
+</h5>
+</a>
       
-        <div class="content">
-          
-          <h2>QR Scanner </h2>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <div class="curve bg-purple"  ></div>
+</header>
         
-        </div>
-      </section>
+        
     </nav>
     
     <div class="container">
-      <h4 class="text-center text-dark">Instascan</h4>
+      <h4 class="text-center text-dark">AQT</h4>
       <hr>
       <div class="row">
         <div class="col-md-6">
@@ -48,12 +76,30 @@
           <i class="fa fa-camera-retro" aria-hidden="true"></i>
       </div>
       <div class="col-md-6">
+      <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+  <label class="btn btn-primary active">
+    <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
+  </label>
+  <label class="btn btn-secondary">
+    <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
+  </label>
+</div>
+      </div>
+     
+      
+
+      <div class="col-md-6">
+      <form action="../assets/php/component.php" method="post"> 
           <label >Qr-Code Value</label>
-          <input type="text" value="" name="text" id="text" readonly="" class="form-control">
+          <input type="text" value="" name="qrvalue" id="qrvalue" readonly="" class="form-control">
+        
+              <div id="qr"></div>
+          
           <div class="pt-4"></div>
           <div class="col-md-5">
-            <button  type="submit" class="btn bg-indigo ">ADD TO CART</button>
+            <button  type="submit" name ="add" class="btn bg-indigo ">ADD TO CART</button>
           </div>
+        </form>
         </div>
 
         
@@ -67,12 +113,13 @@
     <a class="navbar-brand" href="#">Welcome to AQT services</a>
   </div>
 </nav>
-    <script src="<a class="vglnk" href="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" rel="nofollow"><span>https</span><span>://</span><span>rawgit</span><span>.</span><span>com</span><span>/</span><span>schmich</span><span>/</span><span>instascan</span><span>-</span><span>builds</span><span>/</span><span>master</span><span>/</span><span>instascan</span><span>.</span><span>min</span><span>.</span><span>js</span></a>"></script>
 <script type="text/javascript">
     var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
     scanner.addListener('scan',function(content){
-        alert(content);
-        //window.location.href=content;
+     
+        // alert(content);
+        document.getElementById('qrvalue').value=content;
+        document.getElementById('qrvalue').innerHTML=content;
     });
     Instascan.Camera.getCameras().then(function (cameras){
         if(cameras.length>0){
@@ -101,14 +148,7 @@
         alert(e);
     });
 </script>
-   <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
-  <label class="btn btn-primary active">
-    <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
-  </label>
-</div>
+
    <!-- jQuery -->
 <script src="../assets/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -155,8 +195,6 @@
     
 //   document.body.removeChild(span);
 // };
-
-// 
 </script>
 
 
