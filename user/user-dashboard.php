@@ -1,5 +1,6 @@
 <?php
 require_once('../database/conn.php');
+session_start()
 
 ?>
 <!DOCTYPE html>
@@ -81,8 +82,8 @@ require_once('../database/conn.php');
 
   <div class="card card-purple ">
   <?php
-                
-                $query="SELECT * FROM user where id=3";
+                $id=$_SESSION["user_id"];
+                $query="SELECT * FROM user where id=$id";
                 $que=mysqli_query($conn,$query);
                 $num=mysqli_num_rows($que);
                 if($num==0)
