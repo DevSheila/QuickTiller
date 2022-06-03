@@ -1,7 +1,8 @@
 <?php
 
-require_once('../assets/php/createDb.php');
+require('../database/conn.php');
 require_once('../assets/php/component.php');
+// $qses=$_SESSION['qr'];
 
 ?>
 <!DOCTYPE html>
@@ -21,8 +22,7 @@ require_once('../assets/php/component.php');
   <link rel="stylesheet" href="../assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="../assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- JQVMap -->
-  <link rel="stylesheet" href="../assets/plugins/jqvmap/jqvmap.min.css">
+  
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
@@ -31,38 +31,109 @@ require_once('../assets/php/component.php');
   <link rel="stylesheet" href="../assets/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="../assets/plugins/summernote/summernote-bs4.min.css">
-<link rel="stylesheet" href="../assets/cart.css">
+
 
 </head>
 <body>
-    <?php
-    require_once('../assets/php/header.php');
-    ?>
+<nav>
+  <?php
+//       $qr_c=mysqli_real_escape_string($conn,$qses);
+
+//        $qury="SELECT * FROM shop where qr_code=' $qr_c'";
+//        $query = mysqli_query($conn,$qury);
+//        $num=mysqli_num_rows($query);
+//       if($num==0)
+//  {
+//         $data[]='';
+//  }
+//    else{
+//   $row=mysqli_fetch_array($query);
+//         $data[]=array($index=$i+1,$id=$row['id'],
+//         $shop=$row['shop_name'],$loc=$row['location'],$logo=$row['logo'],$qr=$row['qr_code'],
+//         $stat=$row['status'],$mail=$row['email'],$pass=$row['password']);
+   
+// echo $shop;
+
+      ?><?php 
+      ?>
+    <header id='header'>
+    <nav class="navbar sticky-top navbar-expand-lg bg-purple">
+    <div class="container">
+    
+      <img src="../assets/img/stores/naivas-logo.png"  alt="" class="rounded-circle" width="50"> 
+    
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="fas fa-bars"></i>
+             </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+          <li class="nav-item active">
+            <a class="nav-link" href="../user/user-dashboard.php"style="color:white;">Home <span class="sr-only">(current)</span></a>
+          </li>
+            <li class="nav-link">
+            <a href="../user/cart.php" >
+
+<h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
+
+<?php
+$total=0;
+if (isset($_SESSION['cart'])) {
+
+$count=count($_SESSION['cart']);?>
+
+<span id="cart_count" class="text-warning bg-light"><?php echo $count;
+?></span>
+<?php
+}else{
+echo'   <span id="cart_count" class="text-warning bg-light">0</span>
+';
+  
+}
+?> 
+
+</h5>
+</a>
+      
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <div class="curve bg-purple"  ></div>
+</header>
+        
+        
+    </nav>
+    
 <div class="container-fluid">
     <div class="row px-5">
         <div class="col-md-7">
             <div class="shopping-cart">
-                <h6>Mycart</h6>
+               
                 <hr>
                 <?php
             
-                // $total=$total+(int)$row['product_price'];
-                // $prod_id=array_column($_SESSION['cart'],'prod_id');
-                //  foreach($prod_id as $item => $id){
-    
-                //     $sql="SELECT * FROM $tablename where id='$id'";
-    
-                //     $result=mysqli_query($con,$sql);
-        
-                //    while ($row=mysqli_fetch_array($result)) {
-                //       # code...
-                //     $prodname=$row['product_name'];
-                //     $prodprice=$row['product_price'];
-                //     $prodimg=$row['product_image'];
-                //     $prodid=$row['id'];
-                //     $total=$total+(int)$row['product_price'];
+                
+                $prod_id=array_column($_SESSION['cart'],'qrvalue');
+                 foreach($prod_id as $item => $id){
 
-                  ?>
+                  //  echo $id;
+    
+                    $qury="SELECT * FROM product where brand='$id'";
+    
+                    $result=mysqli_query($conn,$qury);
+        
+                   while ($row=mysqli_fetch_array($result)) {
+                      # code...
+                    $prodname=$row['product_name'];
+                    $prodprice=$row['price'];
+                    $prodimg=$row['product_image'];
+                    $prodid=$row['id'];
+                    $total=$total+(int)$row['price'];
+
+                    // echo $prodname,"<br>",$total;
+
+                   ?>
                 <form action="" method="POST"class="cart-items">
                      <div class="border rounded">
                             <div class="row bg-white">
@@ -71,10 +142,10 @@ require_once('../assets/php/component.php');
                                  </div>
                                     <div class="col-md-6">
                                      <h5 class="pt-2">
-                                    product name
+                                    <?php echo $prodname;?>
                                      </h5>
-                                     <small class="text-secondary">Seller: AQT</small>
-                                     <h5 class="pt-2">Ksh2000</h5>
+                                     <small class="text-secondary">Seller: <?php echo $shop; ?></small>
+                                     <h5 class="pt-2">Ksh <?php echo $prodprice ;}} ?></h5>
                                      <button type="submit" class="btn btn-warning">Save for Later</button>
                                      <button type="submit" class="btn btn-danger mx-2" name="remove" value="remove">Remove</button>
 
@@ -114,7 +185,7 @@ require_once('../assets/php/component.php');
                         # code...
                         
                       $item=$_SESSION['cart'][$i];
-                      print_r($item);
+                      // print_r($item);
                       }
                        
                         echo"<h6>Price($count items)<h6>";
@@ -128,11 +199,11 @@ require_once('../assets/php/component.php');
                  </div>
 
                   <div class="col-md-6">
-                      <h6>Ksh12000</h6>
+                      <h6>Ksh<?php echo $total;?></h6>
                       <h6 class="text-success">FREE</h6>
                       <hr>
                       <h6>
-                          Ksh12000
+                          Ksh<?php echo $total;?>
                       </h6>
 
                   </div>
@@ -164,11 +235,7 @@ require_once('../assets/php/component.php');
 <script src="../assets/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
 <script src="../assets/plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="../assets/plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="../assets/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-<!-- jQuery Knob Chart -->
-<script src="../assets/plugins/jquery-knob/jquery.knob.min.js"></script>
+
 <!-- daterangepicker -->
 <script src="../assets/plugins/moment/moment.min.js"></script>
 <script src="../assets/plugins/daterangepicker/daterangepicker.js"></script>
@@ -180,8 +247,7 @@ require_once('../assets/php/component.php');
 <script src="../assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../assets/dist/js/adminlte.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../assets/dist/js/demo.js"></script>
+
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="../assets/dist/js/pages/dashboard.js"></script>
 <script>

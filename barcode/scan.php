@@ -4,7 +4,11 @@ require_once("../database/conn.php");
 
  
 $qr=$_POST['qrvalue'];
+
+
+// echo $qr;
 // $pas=$_POST['pass'];
+// session_start();
 // $_SESSION["qr"] = $qr;
 // $_SESSION["pass"] = $pas;
 
@@ -39,14 +43,10 @@ $qr=$_POST['qrvalue'];
 </head>
 <body>
   <nav>
-   
-    <header id='header'>
-    <nav class="navbar sticky-top navbar-expand-lg bg-purple">
-    <div class="container">
-      <?php
+  <?php
       $qr_c=mysqli_real_escape_string($conn,$qr);
 
-       $qury="SELECT shop_name FROM shop where qr_code=' $qr_c'";
+       $qury="SELECT * FROM shop where qr_code=' $qr_c'";
        $query = mysqli_query($conn,$qury);
        $num=mysqli_num_rows($query);
       if($num==0)
@@ -54,14 +54,21 @@ $qr=$_POST['qrvalue'];
         $data[]='';
  }
    else{
-  for($i=0; $i<$num; $i++)
-  {
   $row=mysqli_fetch_array($query);
-        $data[]=array($index=$i+1,$shop=$row['shop_name']);
+        $data[]=array($index=$i+1,$id=$row['id'],
+        $shop=$row['shop_name'],$loc=$row['location'],$logo=$row['logo'],$qr=$row['qr_code'],
+        $stat=$row['status'],$mail=$row['email'],$pass=$row['password']);
+   
+echo $shop;
 
-
-      ?>
-      <a class="navbar-brand" href="#"style="color:white;"><img src="../assets/img/stores/".$shop<?php  }   }  ?> alt="" class="rounded-circle" width="50"></a>
+      ?><?php }
+      mysqli_close($conn);?>
+    <header id='header'>
+    <nav class="navbar sticky-top navbar-expand-lg bg-purple">
+    <div class="container">
+    
+      <img src="../assets/img/stores/naivas-logo.png"  alt="" class="rounded-circle" width="50"> 
+    
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <i class="fas fa-bars"></i>
              </button>
@@ -127,7 +134,7 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
       
 
       <div class="col-md-6">
-        <form method="post" action="">
+      <form action="../assets/php/component.php" method="post"> 
           <label >Qr-Code Value</label>
           <input type="text" value="" name="qrvalue" id="qrvalue" readonly="" class="form-control">
         
@@ -154,17 +161,7 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
 <script type="text/javascript">
     var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
     scanner.addListener('scan',function(content){
-      jQuery.ajax({
-      url:"../user/getuser_detail.php",
-      data: 'qrvalue='+$("#qrvalue").val(),
-      type: "POST",
-      success: function(data){
-        $("#qr").html(data);
-
-      },
-      error:function(){}
-    });
-  }
+     
         // alert(content);
         document.getElementById('qrvalue').value=content;
         document.getElementById('qrvalue').innerHTML=content;
