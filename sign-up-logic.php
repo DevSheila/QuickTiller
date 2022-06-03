@@ -2,7 +2,7 @@
 // Include config file
 require_once "./admin/action/config.php";
 if(isset($_SESSION["user_loggedin"]) && !($_SESSION["user_loggedin"] === true)){
-  header("location: ./index.html");
+  header("location: ./user/user-dashboard.php");
   exit;
 }
 // Define variables and initialize with empty values

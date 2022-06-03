@@ -4,7 +4,7 @@ include("./admin/action/config.php");
 session_start();
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(isset($_SESSION["user_loggedin"]) && ($_SESSION["user_loggedin"] === true)){
-  header("location: ./index.html");
+  header("location: ./user/user-dashboard.php");
   exit;
 }
 ?>

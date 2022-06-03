@@ -11,7 +11,7 @@ $_SESSION["user_email"] ="";
 
 if($_SESSION["user_loggedin"] === true){
 
-    header("location: ./index.html");
+    header("location: ./user/user-dashboard.php");
     exit;
 }else{
 // Define variables and initialize with empty values
@@ -56,7 +56,7 @@ if(isset($_POST['sign-in'])){
                   $_SESSION['user_qr'] = $row ['qr_code'];
                   $_SESSION["user_loggedin"] = true;
                   // header("../pages/sign-up.php");
-                  header("location: ./index.html");
+                  header("location: ./user/user-dashboard.php");
                   exit;
                 }
               }else{
