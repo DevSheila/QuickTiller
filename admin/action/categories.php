@@ -13,7 +13,7 @@ $shop_id =$_SESSION['admin_id'];
 
 //>>>>>>>>>>>>>>>  CREATE RECORD <<<<<<<<<<<
 if(isset($_POST['add'])){
-    $category_name =mysqli_real_escape_string($conn,$_POST['name']) ;
+    $category_name =mysqli_real_escape_string($conn,$_POST['category_name']) ;
 
     // Check connection
     if (!$conn ||mysqli_connect_errno()) {
@@ -22,11 +22,9 @@ if(isset($_POST['add'])){
       if($_SERVER["REQUEST_METHOD"] == "POST") {
 
           //escaping
-          $category_name =mysqli_real_escape_string($conn,$_POST['category_name']) ;
+     
 
-          $category_Image =mysqli_real_escape_string($conn,$category_image_image_name) ;
-
-          $sql = "INSERT INTO category(shop_id,category_name, category_image) VALUES ($shop_id,'$category_name','')";
+          $sql = "INSERT INTO category(shop_id,category_name) VALUES ($shop_id,'$category_name')";
       
           
           if ($conn->query($sql) === TRUE) {
@@ -83,7 +81,7 @@ if(isset($_GET['edit'])){
 if(isset($_POST['update'])){
   $time = time();
   $errors= array();
-  $id = $_POST['id'];
+  $id = $_POST['category_id'];
 
 
   $category_name =mysqli_real_escape_string($conn,$_POST['category_name']) ;
@@ -100,7 +98,7 @@ if(isset($_POST['update'])){
       
           if ($conn->query($sql) === TRUE) {
         
-            header("Location:../pages/listcategory.php");
+            header("Location:../pages/listCategory.php");
 
           } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
@@ -121,7 +119,7 @@ if(isset($_POST['update'])){
 if(isset($_GET['delete'])){
   $id = $_GET['delete'];
 
-      $sql= "SELECT * FROM categorys WHERE id= $id";
+          $sql= "SELECT * FROM category WHERE id= $id";
           $result = mysqli_query($conn,$sql);
           $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
            
@@ -144,7 +142,7 @@ if(isset($_GET['delete'])){
       }
       else {
 
-        $sql ="DELETE FROM categorys WHERE id= $id ";
+        $sql ="DELETE FROM category WHERE id= $id ";
 
         if ($conn->query($sql) === TRUE) {
     
@@ -152,7 +150,7 @@ if(isset($_GET['delete'])){
     
         mysqli_query($conn,$sql);
     
-        header("Location: ../pages/listcategory.php");
+        header("Location: ../pages/listCategory.php");
         }else{
             
             echo "Error: " . $sql . "<br>" . $conn->error;

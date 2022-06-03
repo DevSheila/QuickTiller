@@ -500,9 +500,10 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                     
                         <div class="ms-auto text-end">
                                 <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/products.php?edit=<?php echo  $product_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-
                                 <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/products.php?delete=<?php echo  $product_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                        
                         </div>
+
 
                       </td>
                       <td class="align-middle">

@@ -311,7 +311,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
               <div class="card-body">
                 <form role="form text-left" enctype="multipart/form-data" method="POST" action="../action/products.php">
                 <div class="form-group">
-                    <input type="hidden" name="productId" value="<?php echo $productId?>" class="form-control" >
+                    <input type="hidden" name="product_id" value="<?php echo $_SESSION['product_id']?>" class="form-control" >
                   </div>
 
                 <div class="mb-3">
@@ -347,7 +347,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                   </div>
 
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Product Price" name="price" value="<?php echo $_SESSION['product_pricw']?>"required>
+                    <input type="text" class="form-control" placeholder="Product Price" name="price" value="<?php echo $_SESSION['product_price']?>"required>
                   </div>
 
                   <div class="mb-3">
@@ -359,7 +359,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                   </div>
              
                   <div class="text-center">
-                    <button type="submit" name="update" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Product</button>
+                    <button type="submit" name="update" class="btn bg-gradient-dark w-100 my-4 mb-2">Edit Product</button>
                   </div>
                 </form>
               </div>

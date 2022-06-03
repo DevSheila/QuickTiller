@@ -452,7 +452,6 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                               while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                                 $category_id=$row['id'];
                                 $category_name=$row['category_name'];
-                                $category_image=$row['category_image'];
                                 $serial ++;
                      ?>
                     <tr>
@@ -474,9 +473,10 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                       </td>
                       <td class="align-middle text-center">
                       
-                        <a  href="../action/categories.php?edit=<?php echo  $category_id;?>"class=" text-xs font-weight-bold mb-0 text-primary"><i class="bi bi-pen" ></i> Edit</a>
-                        <a href="../action/categories.php?delete=<?php echo  $category_id;?>" class=" text-xs font-weight-bold mb-0 text-danger"><i class="bi bi-pen"></i> Delete</a>
-
+              
+                        <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/categories.php?edit=<?php echo  $category_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/categories.php?delete=<?php echo  $category_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>
+                        
                       </td>
                       <td class="align-middle text-center">
                         <a href="#" class=" text-xs font-weight-bold mb-0 "><i class="bi bi-pen"></i>>>></a>

@@ -310,8 +310,9 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
               <div class="card-body">
                 <form role="form text-left" method="post" action="../action/categories.php" enctype="multipart/form-data">
 
-                <input type="number" class="form-control" placeholder="Product Id" name="category_id" required>
-
+                <div class="form-group">
+                    <input type="hidden" name="category_id" value="<?php echo $_SESSION['category_id']?>" class="form-control" >
+                  </div>
                 <div class="mb-3">
                     <select class="form-control" id="category" name="category_name"  required>
                         <option value="" disabled selected>Category Name</option>

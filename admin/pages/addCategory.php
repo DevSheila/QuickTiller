@@ -314,6 +314,21 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                     <input type="text" class="form-control" placeholder="Category Name" name="category_name" required>
                   </div> -->
 
+                  <div>
+<!-- <i class="fas fa-bread-slice"></i>
+<i class="fas fa-hamburger"></i>
+<i class="fas fa-pizza-slice"></i>
+<i class="fas fa-coffee" ></i>
+<i class="fas fa-wrench"></i>        
+<i class="fas fa-spa"></i>
+<i class="fas fa-baby"></i> -->
+
+<i class="fa fa-wheat"></i>
+<i class="fas fa-shirt"></i>
+<i class="fas fa-cow"></i>
+
+
+                  </div>
 
                   <div class="mb-3">
                     <select class="form-control" id="category" name="category_name"  required>
