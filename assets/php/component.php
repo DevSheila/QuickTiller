@@ -50,7 +50,7 @@ if (isset($_POST['remove'])) {
                 echo $_GET['id'];
                 unset($_SESSION['cart'][$key]);
                 echo"<script>alert('Product has been removed....!)</script>";
-               
+               header('location:../../user/cart.php');
 
             }
         }

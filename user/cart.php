@@ -78,7 +78,7 @@ require_once('../assets/php/component.php');
 
 <?php
 $total=0;
-if (isset($_SESSION['cart'])) {
+if (isset($_SESSION['cart'])) { 
 
 $count=count($_SESSION['cart']);?>
 
@@ -115,6 +115,7 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
             
                 
                 $prod_id=array_column($_SESSION['cart'],'qrvalue');
+                // print_r($prod_id);
                  foreach($prod_id as $item => $id){
 
                   //  echo $id;
@@ -126,26 +127,31 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
                    while ($row=mysqli_fetch_array($result)) {
                       # code...
                     $prodname=$row['product_name'];
+                    $duka=$row['shop_id'];
                     $prodprice=$row['price'];
                     $prodimg=$row['product_image'];
                     $prodid=$row['id'];
                     $total=$total+(int)$row['price'];
-
+              $shp="SELECT * From shop where id ='$duka' ";
                     // echo $prodname,"<br>",$total;
+                    $res=mysqli_query($conn,$shp);
+                    while($duk=mysqli_fetch_array($res)){
+                      $shop=$duk['shop_name'];
 
                    ?>
-                <form action="" method="POST"class="cart-items">
+                <form action="../assets/php/component.php?action=remove&id=<?php echo $id;?>" method="POST"class="cart-items">
                      <div class="border rounded">
                             <div class="row bg-white">
                                 <div class="col-md-3 pl-0">
-                                 <img src="../assets/img/cart/1.jpg" alt="image1" class="img-fluid">
+                                 <img src="../assets/img/cart/<?php echo $prodimg;?>" alt="image1" class="img-fluid">
                                  </div>
                                     <div class="col-md-6">
                                      <h5 class="pt-2">
                                     <?php echo $prodname;?>
                                      </h5>
                                      <small class="text-secondary">Seller: <?php echo $shop; ?></small>
-                                     <h5 class="pt-2">Ksh <?php echo $prodprice ;}} ?></h5>
+                                     <h5 class="pt-2">Ksh <?php echo $prodprice ;?></h5>
+                                     
                                      <button type="submit" class="btn btn-warning">Save for Later</button>
                                      <button type="submit" class="btn btn-danger mx-2" name="remove" value="remove">Remove</button>
 
@@ -156,11 +162,12 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
                                       <input type="text" value="1" class="form-control w-25 d-inline">
                                       <button type="button" class="btn bg-light rounded-circle"> <i class="fa fa-plus"></i></button>
                                     </div>
-                             </div>
+                                </div>
                             
                             </div>
-                         </div>
+                        </div>
                  </form>
+                 <?php }}} ?>
                
                    
                   
@@ -184,7 +191,7 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
                       for ($i=0; $i <$count ; $i++) { 
                         # code...
                         
-                      $item=$_SESSION['cart'][$i];
+                      // $item=$_SESSION['cart'][$i];
                       // print_r($item);
                       }
                        

@@ -11,10 +11,11 @@
             <div class="border rounded ">
             <div class="pb-2"></div>
             <?php
-
-            $que="SELECT * FROM product where id=2";
             
-
+            $prod_id=array_column($_SESSION['cart'],'qrvalue');
+            // print_r($prod_id);
+             foreach($prod_id as $item => $id){
+            $que="SELECT * FROM product where brand='$id'";
             $query = mysqli_query($conn,$que);
             $num=mysqli_num_rows($query);
            if($num==0)
@@ -23,27 +24,37 @@
       }
         else{
        $row=mysqli_fetch_array($query);
-             $data[]=array($index=$i+1,$id=$row['id'],
-             $shop_id=$row['shop_id'],$shop_qr=$row['shop_qr_code'],$name=$row['product_name'],$cat=$row['category'],
-             $brand=$row['brand'],$qty=$row['quantity'],$price=$row['price'],$oqty=$row['otherQualities'],$pic=$row['product_image'],$date=$row['date']);
+             $id=$row['id'];
+             $shop_id=$row['shop_id'];
+             $shop_qr=$row['shop_qr_code'];
+             $name=$row['product_name'];
+             $cat=$row['category'];
+             $brand=$row['brand'];
+             $qty=$row['quantity'];
+             $price=$row['price'];
+             $oqty=$row['otherQualities'];
+             $pic=$row['product_image'];
+             $date=$row['date'];
              
 
             ?>
                             <div class="row ">
                                 <div class="col-md-1 offset-md-1 ">
-                                 <img src="../assets/img/product/<?php echo $pic?>" alt="image1" class="img-fluid ">
+                                 <img src="../assets/img/cart/<?php echo $pic;?>" alt="image1" class="img-fluid ">
                                  </div>
                                     <div class="row">
                                      <h5 class="pl-3">
                                      <?php echo $name;?>
                                      </h5>
-                                     <h5 class="pl-3">Seller:<?php echo "shop ".$shop_id;?></h5>
+                                     <h5 class="pl-3">Seller:<?php echo $shop;?></h5>
                                      <h5 class="pl-3">Quantity: <?php echo $qty; ?></h5>
                                      <h5 class="pl-3">Total amount: Ksh<?php echo $price;?></h5>
                                      
                                     </div>
 
-                                    <?php }?>
+                                    <?php }}
+                                    mysqli_close($conn);
+                                    ?>
                                     
 </div>
 <div class="pb-4"></div>

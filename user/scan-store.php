@@ -27,17 +27,47 @@
 	<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 </head>
 <body>
-  <nav>
-   
-    <section>
-      
-        <div class="content">
-          
-          <h2>QR Scanner </h2>
-        
-        </div>
-      </section>
-    </nav>
+  <nav class="navbar sticky-top navbar-expand-lg bg-purple">
+    <div class="container">
+      <a class="navbar-brand" href="#"style="color:white;"><img src="../assets/img/stores/AQT.png" alt="" width="80"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <i class="fas fa-bars"></i>
+             </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto w-100 justify-content-end">
+          <li class="nav-item active">
+            <a class="nav-link" href=""style="color:white;">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="scan-store.php"style="color:white;">Shop</a>
+            <li class="nav-item">
+            <a class="nav-link" href="../barcode/scan.php"style="color:white;">Continue shopping</a>
+            <li class="nav-link">
+            <a href="../user/cart.php" >
+               <h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
+
+                <?php
+                 $total=0;
+                 if (isset($_SESSION['cart'])) { 
+                 $count=count($_SESSION['cart']);?>
+
+                  <span id="cart_count" class="text-warning bg-light"><?php echo $count;
+                   ?></span>
+               <?php
+                   }else{
+                       echo'   <span id="cart_count" class="text-warning bg-light">0</span>';
+  
+                         }
+                     ?> 
+
+</h5>
+</a>
+            
+        </ul>
+      </div>
+    </div>
+  </nav>
     
     <div class="container">
       <h4 class="text-center text-dark">AQT</h4>

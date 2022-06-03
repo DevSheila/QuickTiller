@@ -20,7 +20,7 @@ require_once('../database/conn.php');
   <!-- Theme style -->
   <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../assets/cart/qr.css">
-  <script type="text/javascript" src="saveContact.js"></script>
+  
 </head>
 
 <body style="font-family: neva;">
@@ -29,7 +29,7 @@ require_once('../database/conn.php');
  
   <nav class="navbar sticky-top navbar-expand-lg bg-purple">
     <div class="container">
-      <a class="navbar-brand" href="#"style="color:white;"><h4>AQT</h4></a>
+      <a class="navbar-brand" href="#"style="color:white;"><img src="../assets/img/stores/AQT.png" alt="" width="80"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <i class="fas fa-bars"></i>
              </button>
@@ -40,9 +40,29 @@ require_once('../database/conn.php');
             <a class="nav-link" href=""style="color:white;">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="scan-store.html"style="color:white;">Start shopping</a>
+            <a class="nav-link" href="scan-store.php"style="color:white;">Shop</a>
             <li class="nav-item">
-            <a class="nav-link" href="cart.php"style="color:white;">Cart</a>
+            <a class="nav-link" href="../barcode/scan.php"style="color:white;">Continue shopping</a>
+            <li class="nav-link">
+            <a href="../user/cart.php" >
+               <h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
+
+                <?php
+                 $total=0;
+                 if (isset($_SESSION['cart'])) { 
+                 $count=count($_SESSION['cart']);?>
+
+                  <span id="cart_count" class="text-warning bg-light"><?php echo $count;
+                   ?></span>
+               <?php
+                   }else{
+                       echo'   <span id="cart_count" class="text-warning bg-light">0</span>';
+  
+                         }
+                     ?> 
+
+</h5>
+</a>
             
         </ul>
       </div>
