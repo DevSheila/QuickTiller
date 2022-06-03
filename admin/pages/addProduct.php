@@ -5,8 +5,10 @@ session_start();
 if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
  header("location: ./sign-in.php");
  exit;
-}
+}else{
+  $shop_id =$_SESSION['admin_id'];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -416,3 +418,6 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 </body>
 
 </html>
+<?php
+}
+?>

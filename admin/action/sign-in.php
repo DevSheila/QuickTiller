@@ -3,8 +3,8 @@
 include("../action/config.php");
 session_start();
 
-$_SESSION["loggedin"] = true;
-$_SESSION["id"] ="";
+$_SESSION["loggedin"] = false;
+$_SESSION["admin_id"] ="";
 $_SESSION["admin_email"] ="";
 
 
@@ -12,13 +12,8 @@ $_SESSION["admin_email"] ="";
 if($_SESSION["loggedin"] === true){
 
     header("location: ../pages/dashboard.php");
-    // exit;
+    exit;
 }else{
-
-  
- 
-
- 
 // Define variables and initialize with empty values
 $email = $password = "";
 $email_err = $password_err = $_err = "";
@@ -54,26 +49,21 @@ if(isset($_POST['sign-in'])){
               
             
               if($count == 1) {
-             
-                
                 if(password_verify($password, $row ['password'])){
-                  $_SESSION["loggedin"] = true;
+                  // $_SESSION['admin_id'] = $row ['id'];
                   $_SESSION['admin_id'] = $row ['id'];
-                  $_SESSION['admin_email'] = $row ['email'];
-                //   header("../pages/dashboard.php");
-                  echo 'success';
+
+                  $_SESSION['admin_qr'] = $row ['qr_code'];
+                  $_SESSION["loggedin"] = true;
+                  // header("../pages/sign-up.php");
+                  header("location: ../pages/dashboard.php");
+                  exit;
                 }
-      
-               
               }else{
-                
                   echo "Unsuccessful.$count .'password:'$hashed_password";
-                }
+              }
                 mysqli_close($conn);
-          
-    
       }
-    
     }
 }
 }

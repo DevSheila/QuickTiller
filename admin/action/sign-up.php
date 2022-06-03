@@ -9,7 +9,6 @@ if(isset($_SESSION["loggedin"]) && !($_SESSION["loggedin"] === true)){
 $shop_name =$shop_location=$shop_logo= $password =$email = $confirm_password = "";
 $shop_name_err = $shop_location_err =$shop_logo_err =$password_err = $confirm_password_err = "";
 $status='pending';
-$qr_code='';
 $shops_upload_dir = "../uploads/shops";
 $date=date("F j, Y, g:i a");
  
@@ -149,6 +148,8 @@ if(isset($_POST['sign-up'])){
     // Check input errors before inserting in database
     if(empty($shop_name_err) && empty($email_err)&& empty($password_err) && empty($confirm_password_err)){
         
+        $time = time();
+        $qr_code=$time;
         // Prepare an insert statement
         $sql ="INSERT INTO shop(shop_name, location, logo, qr_code, status, email, password) VALUES ('$shop_name','$shop_location','$shop_logo_image_name','$qr_code','$status','$email','$param_password')";
 

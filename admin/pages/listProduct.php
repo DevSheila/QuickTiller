@@ -5,8 +5,11 @@ session_start();
 if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
  header("location: ./sign-in.php");
  exit;
-}
+}else{
+  $shop_id =$_SESSION['admin_id'] ;
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -435,10 +438,9 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                           if (!$conn ||mysqli_connect_errno()) {
                               echo("Connection failed: " . mysqli_connect_error());
                           }else{
-                              $sql = "SELECT * FROM product ";
+                              $sql = "SELECT * FROM product WHERE shop_id =$shop_id";
                               $result = mysqli_query($conn,$sql);
                                 $count = mysqli_num_rows($result);
-                          }
                               $serial = 0;
                               while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                                 $product_id= $row['id']; 
@@ -508,7 +510,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                       </td>
                     </tr>
                  
-                    <?php  } ?>
+                    <?php  } } ?>
                   </tbody>
                 </table>
               </div>
@@ -746,3 +748,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 </body>
 
 </html>
+
+<?php
+}
+?>

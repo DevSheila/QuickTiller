@@ -5,8 +5,12 @@ session_start();
 if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
  header("location: ./sign-in.php");
  exit;
-}
-?>
+}else{
+
+  $shop_id =$_SESSION['admin_id'] ;
+
+  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,6 +30,9 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../assets/css/fontawesome.css">
+  <link rel="stylesheet" href="../assets/css/fontawesome.min.css">
+
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.5" rel="stylesheet" />
 </head>
@@ -396,11 +403,27 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                     <div class="col-6"> <h6>Categories List</h6></div>
                     <div class="col-6">
                         <a class="btn bg-gradient-primary  mb-0" href="./addCategory.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Category</a>
-    
+                        
+
                     </div>
                 </div>
             </div>
             <div class="card-body px-0 pt-0 pb-2">
+              <!-- Modal -->
+                <!-- <div class="mb-3">
+                        <i class="fa-solid fa-spa"></i>
+                        <i class="fas fa-cow"></i>
+                        <i class="fas fa-bread-slice"></i>
+                        <i class="fa-solid fa-baby"></i>
+                        <i class="fa fa-coffee"></i>
+                        <i class="fas fa-coffee" ></i>
+                        <i class="fa-solid fa-wheat"></i>
+                        <i class="fa-solid fa-wrench"></i>
+                        <i class="fa-solid fa-shirt"></i>
+                        <i class="fas fa-hamburger"></i>
+                        <i class="fas fa-pizza-slice"></i>
+                      </div> -->
+
               <div class="table-responsive p-0">
                 <table class="table align-items-center mb-0">
                   <thead>
@@ -417,9 +440,24 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                     </tr>
                   </thead>
                   <tbody>
+                  <?php
+                            // Check connection
+                          if (!$conn ||mysqli_connect_errno()) {
+                              echo("Connection failed: " . mysqli_connect_error());
+                          }else{
+                              $sql = "SELECT * FROM category WHERE shop_id =$shop_id";
+                              $result = mysqli_query($conn,$sql);
+                                $count = mysqli_num_rows($result);
+                              $serial = 0;
+                              while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                $category_id=$row['id'];
+                                $category_name=$row['category_name'];
+                                $category_image=$row['category_image'];
+                                $serial ++;
+                     ?>
                     <tr>
                       <td class="align-middle text-center">
-                            <p class="text-xs font-weight-bold mb-0 ">1</p>
+                            <p class="text-xs font-weight-bold mb-0 "><?php echo $serial;?></p>
                       </td>
                       <td class="align-middle text-center">
                         <div class="d-flex px-2 py-1">
@@ -427,7 +465,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                             <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">Bread</h6>
+                            <h6 class="mb-0 text-sm"><?php echo $category_name ?></h6>
                           </div>
                         </div>
                       </td>
@@ -436,8 +474,8 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                       </td>
                       <td class="align-middle text-center">
                       
-                        <a href="#" class=" text-xs font-weight-bold mb-0 text-primary"><i class="bi bi-pen"></i> Edit</a>
-                        <a href="#" class=" text-xs font-weight-bold mb-0 text-danger"><i class="bi bi-pen"></i> Delete</a>
+                        <a  href="../action/categories.php?edit=<?php echo  $category_id;?>"class=" text-xs font-weight-bold mb-0 text-primary"><i class="bi bi-pen" ></i> Edit</a>
+                        <a href="../action/categories.php?delete=<?php echo  $category_id;?>" class=" text-xs font-weight-bold mb-0 text-danger"><i class="bi bi-pen"></i> Delete</a>
 
                       </td>
                       <td class="align-middle text-center">
@@ -445,6 +483,8 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                       </td>
                     </tr>
                  
+                    <?php }}?>
+
                   </tbody>
                 </table>
               </div>
@@ -675,6 +715,8 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
+
+  
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
@@ -682,3 +724,6 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 </body>
 
 </html>
+<?php
+}
+?>

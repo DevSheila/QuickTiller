@@ -305,17 +305,21 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
           <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
             <div class="card z-index-0">
               <div class="card-header text-center pt-4">
-                <h5>Add New Product</h5>
+                <h5>Edit Product</h5>
               </div>
           
               <div class="card-body">
                 <form role="form text-left" enctype="multipart/form-data" method="POST" action="../action/products.php">
-                  <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Product Name" name="name" required>
+                <div class="form-group">
+                    <input type="hidden" name="productId" value="<?php echo $productId?>" class="form-control" >
+                  </div>
+
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Product Name" value="<?php echo $_SESSION['product_name']?>" name="name" required>
                   </div>
 
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Product Brand" name="brand" required>
+                    <input type="text" class="form-control" placeholder="Product Brand" value="<?php echo $_SESSION['product_brand']?>"name="brand" required>
                   </div>
 
                   <div class="mb-3">
@@ -339,11 +343,11 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 
 
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Unit Quantity e.g 1kg ,500g" name="quantity" required>
+                    <input type="text" class="form-control" placeholder="Unit Quantity e.g 1kg ,500g" name="quantity" value="<?php echo $_SESSION['product_quantity']?>" required>
                   </div>
 
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Product Price" name="price" required>
+                    <input type="text" class="form-control" placeholder="Product Price" name="price" value="<?php echo $_SESSION['product_pricw']?>"required>
                   </div>
 
                   <div class="mb-3">
@@ -351,11 +355,11 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                   </div>
 
                   <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Other product Qualities e.g color:green, flaour:starbwerries" name="qualities" required>
+                    <input type="text" class="form-control" placeholder="Other product Qualities e.g color:green, flaour:starbwerries" name="qualities" value="<?php echo $_SESSION['product_qualities']?>" required>
                   </div>
              
                   <div class="text-center">
-                    <button type="submit" name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Product</button>
+                    <button type="submit" name="update" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Product</button>
                   </div>
                 </form>
               </div>

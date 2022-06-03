@@ -17,7 +17,7 @@ if(isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] === true)){
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    QUICK TILLER DASHBOARD
+ QUICK TILLER DASHBOARD
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -102,7 +102,7 @@ if(isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] === true)){
                       <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0">Sign in</button>
+                      <button type="submit" class="btn bg-gradient-info w-100 mt-4 mb-0" name="sign-in">Sign in</button>
                     </div>
                   </form>
                 </div>
