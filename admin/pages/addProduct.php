@@ -320,21 +320,27 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                     <input type="text" class="form-control" placeholder="Product Brand" name="brand" required>
                   </div>
 
+
                   <div class="mb-3">
                     <select class="form-control" id="category" name="category"  required>
                         <option value="" disabled selected>Product Category</option>
-                        <option value="Personal care">Personal Care</option>
-                        <option value="Fruits and vegetables">Fruits and vegetables</option>
-                        <option value="Baby care">Baby care</option>
-                        <option value="Beverages">Beverages</option>
-                        <option value="Snacks">Snacks</option>
-                        <option value="Dairy">Dairy</option>
-                        <option value="Cereals">Cereals</option>
-                        <option value="Grains,wheat and rice">Grains,wheat and rice</option>
-                        <option value="Hardware and tools">Hardware and tools</option>
-                        <option value="Clothes">Clothes</option>
-                        <option value="Beauty and cosmetics">Beauty and Cosmetics</option>
-                        <option value="Hair">Hair</option>
+                        <?php
+                            if (!$conn ||mysqli_connect_errno()) {
+                                echo("Connection failed: " . mysqli_connect_error());
+                            }else{
+                                $sql = "SELECT * FROM category WHERE shop_id =$shop_id";
+                                $result = mysqli_query($conn,$sql);
+                                $count = mysqli_num_rows($result);
+                                while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                  $category_name=$row['category_name'];
+
+                                  ?>
+                            <option value="<?php echo $category_name?>"><?php echo $category_name?></option>
+
+                                  <?php
+                                }
+                            }
+                        ?>
                     </select>
                   </div>
 

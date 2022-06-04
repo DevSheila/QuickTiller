@@ -21,23 +21,25 @@ if(isset($_POST['add'])){
     }else{
       if($_SERVER["REQUEST_METHOD"] == "POST") {
 
-          //escaping
-     
-
-          $sql = "INSERT INTO category(shop_id,category_name) VALUES ($shop_id,'$category_name')";
-      
-          
-          if ($conn->query($sql) === TRUE) {
-        
-            header("Location: ../pages/listCategory.php");
-          echo "success";
-
-          } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-          }
-          
+            $sql = "SELECT * FROM category WHERE(shop_id =$shop_id)AND (category_name='$category_name')";
+            $result = mysqli_query($conn,$sql);
+            $count = mysqli_num_rows($result);
+            if($count == 0){
+              //escaping
+              $sql2 = "INSERT INTO category(shop_id,category_name) VALUES ($shop_id,'$category_name')";
+              if ($conn->query($sql2) === TRUE) {
+                header("Location: ../pages/listCategory.php");
+                echo "success";
+              } else {
+                echo "Error: " . $sql . "<br>" . $conn->error;
+              }
+            }else{
+              echo "Category exists";
+            }
+            // echo $count;
+            // echo $category_name;
+            // echo $shop_id;
           $conn->close();
-        
         }
       }
 } 
@@ -119,44 +121,41 @@ if(isset($_POST['update'])){
 if(isset($_GET['delete'])){
   $id = $_GET['delete'];
 
-          $sql= "SELECT * FROM category WHERE id= $id";
-          $result = mysqli_query($conn,$sql);
-          $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-           
-          $count = mysqli_num_rows($result);
-          
-        
-          if($count == 1) {
-            $_SESSION['image'] =$row['image'];
-           
-          }else{
-            
-              echo "Unsuccessful";
-          }
+        $delete_category=" ";
+        // get category name
+        $sql_category = "SELECT * FROM category WHERE id=$id";
+        $result_category = mysqli_query($conn,$sql_category);
+        $count_category = mysqli_num_rows($result_category);
+        $serial = 0;
+        while( $row = mysqli_fetch_array($result_category,MYSQLI_ASSOC)){
+          $delete_category=$row['category_name'];
+          $serial ++;
+        }
+       
 
-  $file_pointer = "../uploads/category/".$_SESSION['image']."";
-
-      // Use unlink() function to delete a file
-      if (!unlink($file_pointer)) {
-          echo ("$file_pointer cannot be deleted due to an error");
-      }
-      else {
-
+       echo $delete_category;
+        // delete category and of current shop
         $sql ="DELETE FROM category WHERE id= $id ";
 
         if ($conn->query($sql) === TRUE) {
-    
-        echo "Record Successfully deleted";
-    
-        mysqli_query($conn,$sql);
-    
-        header("Location: ../pages/listCategory.php");
+              mysqli_query($conn,$sql);
+              // delete products of the specific shops with that  category
+              $sql2 ="DELETE FROM product WHERE (shop_id= $shop_id) AND (category='$delete_category')";
+
+              if ($conn->query($sql2) === TRUE) {
+          
+              echo "Record Successfully deleted";
+          
+              mysqli_query($conn,$sql2);
+          
+              header("Location: ../pages/listCategory.php");
+              }else{
+                  
+                  echo "Error: " . $sql2 . "<br>" . $conn->error;
+              }
         }else{
-            
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
-      }
-
 }
 
 ?>

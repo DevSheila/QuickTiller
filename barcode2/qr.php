@@ -74,16 +74,6 @@ body{
     font-family: 'Poppins', sans-serif;
 }
 
-.qr-code{
-    border-top: 0.5rem solid #8F8073;
-    border-right: 0.5rem solid #8F8073;
-    border-bottom: 1rem solid #8F8073;
-    border-radius: 0.5rem;
-    border-bottom-left-radius: 0.5rem;
-    border-bottom-right-radius: 0.5rem;
-    border-left: 0.5rem solid #8F8073;
-    background-color: #8F8073;
-}
 .qr-code button{
     display: flex;
     justify-content: center;
