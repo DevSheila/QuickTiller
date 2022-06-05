@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,7 +38,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto w-100 justify-content-end">
           <li class="nav-item active">
-            <a class="nav-link" href=""style="color:white;">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="./user-dashboard.php"style="color:white;">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="scan-store.php"style="color:white;">Shop</a>
@@ -48,6 +49,7 @@
                <h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
 
                 <?php
+                session_start();
                  $total=0;
                  if (isset($_SESSION['cart'])) { 
                  $count=count($_SESSION['cart']);?>
@@ -68,7 +70,7 @@
       </div>
     </div>
   </nav>
-  <div class="curve bg-purple"  ></div>
+     <div class="curve bg-purple"  ></div>
  
     <div class="container">
       <h4 class="text-center text-dark">AQT</h4>
@@ -89,9 +91,10 @@
           </div>
       </div>
       <div class="col-md-6">
-        <form method="post" action="../barcode/scan.php">
+        <form method="post" action="../barcode/check.php">
           <label >stores Qr-Code Value</label>
-          <input type="text" value="" name="qrvalue" id="qrvalue"  readonly="" class="form-control"  >
+          <input type="text" value="" name="qrvalue" id="qrvalue"  readonly="" class="form-control" required >
+          <span id="msg"></span>
          
             <div id="qr"></div>
           
@@ -108,12 +111,18 @@
   </div>
    
 </div>
-<nav class="navbar fixed-bottom navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Welcome to AQT services</a>
-  </div>
-</nav>
-    
+<?php
+if($_GET['id']=='error'){
+echo '<script>alert("The selected Store is unavailable");\
+
+     document.getElementById("msg").innerHTML="Please scan qr to continue";
+</script>';
+}elseif($_GET['id']=''){
+  
+}
+
+?>
+
     <script type="text/javascript">
       let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
       scanner.addListener('scan', function (content) {

@@ -1,16 +1,15 @@
 <?php
 
-require_once("../database/conn.php");
+require("../database/conn.php");
+session_start();
 
- 
-// $qr=$_POST['qrvalue'];
+ $qr=$_SESSION['qr'];
+if($_GET['id']=='error'){
+  echo"<script> alert('please scan an item to add to cart')</script>";
+}elseif($_GET['id']==''){
 
-
-// echo $qr;
-// $pas=$_POST['pass'];
-// session_start();
-// $_SESSION["qr"] = $qr;
-// $_SESSION["pass"] = $pas;
+}
+echo $qr;
 
 ?>
 <!DOCTYPE html>
@@ -46,7 +45,7 @@ require_once("../database/conn.php");
 
 <nav class="navbar sticky-top navbar-expand-lg bg-purple">
     <div class="container">
-      <a class="navbar-brand" href="#"style="color:white;"><img src="../img/naivas-logo.png" alt="" class="rounded-circle" width="80"></a>
+      <a class="navbar-brand" href="#"style="color:white;"><img src="../img/naivas-logo.png" alt="" class="rounded-circle " width="80"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <i class="fas fa-bars"></i>
              </button>
@@ -57,17 +56,16 @@ require_once("../database/conn.php");
             <a class="nav-link" href="../user/user-dashboard.php"style="color:white;">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="scan-store.php"style="color:white;">Shop</a>
+            <a class="nav-link" href="scan-store.php?id=''"style="color:white;">Shop</a>
             <li class="nav-item">
-            <a class="nav-link" href="../barcode/scan.php"style="color:white;">Continue shopping</a>
+            <a class="nav-link" href="../barcode/scan.php?id=''"style="color:white;">Continue shopping</a>
             <li class="nav-item">
-            <a class="nav-link" href=""style="color:white;">logout</a>
+            <a class="nav-link" href="../user/action/logout.php"style="color:white;">logout</a>
             <li class="nav-link">
             <a href="../user/cart.php" >
                <h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
 
                 <?php
-                session_start();
                  $total=0;
                  if (isset($_SESSION['cart'])) { 
                  $count=count($_SESSION['cart']);?>
@@ -90,7 +88,9 @@ require_once("../database/conn.php");
   </nav>
     
     <div class="container">
-      <h4 class="text-center text-dark">AQT</h4>
+    
+    <img src="../admin/uploads/shops/<?php echo $query;?>" alt=""class="rounded-circle" width="50">
+   
       <hr>
       <div class="row">
         <div class="col-md-6">
@@ -119,7 +119,7 @@ require_once("../database/conn.php");
           
           <div class="pt-4"></div>
           <div class="col-md-5">
-            <button  type="submit" name ="add" class="btn bg-indigo ">ADD TO CART</button>
+            <button  type="submit" name ="add" id='btn' class="btn bg-indigo ">ADD TO CART</button>
           </div>
         </form>
         </div>
@@ -130,11 +130,7 @@ require_once("../database/conn.php");
   </div>
    
 </div>
-<nav class="navbar fixed-bottom navbar-light bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Welcome to AQT services</a>
-  </div>
-</nav>
+<?php mysqli_close($conn); ?>
 <script type="text/javascript">
     var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
     scanner.addListener('scan',function(content){
@@ -169,6 +165,8 @@ require_once("../database/conn.php");
         console.error(e);
         alert(e);
     });
+
+
 </script>
 
    <!-- jQuery -->

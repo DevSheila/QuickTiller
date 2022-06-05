@@ -66,7 +66,7 @@ if(isset($_POST['add'])){
                     $product_sql = "SELECT * FROM product WHERE shop_id =$shop_id";
                     $product_result = mysqli_query($conn,$product_sql);
                     $product_count = mysqli_num_rows($product_result);
-                    $product_id=0;
+                    
                     while( $row = mysqli_fetch_array($product_result,MYSQLI_ASSOC)){
                       $product_id= $row['id']; 
                     }

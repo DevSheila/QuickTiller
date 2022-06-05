@@ -5,14 +5,20 @@ session_start();
 
 if (isset($_POST['add'])) {
     # code...
+    $qr=$_POST['qrvalue'];
+
+if($qr==""){
+
+    header('location:../../barcode/scan.php?id="error"');
+}
     if(isset($_SESSION['cart'])){
           
        $item_array_id= array_column($_SESSION['cart'],"qrvalue");
      
 
        if(in_array($_POST['qrvalue'],$item_array_id)){
-           echo "<script>alert('Product is already added in the cart...!')<script>";
-           header('location:../../user/cart.php');
+           echo "<script>alert('Product is already added in the cart...! continue shopping')<script>";
+           header('location:../../barcode/scan.php?id=""');
        }else{
 
         $count=count($_SESSION['cart']);
@@ -22,7 +28,7 @@ if (isset($_POST['add'])) {
 
         $_SESSION['cart'][$count]=$item_array;
 print_r($item_array);
-header('location:../../user/cart.php');
+header('location:../../barcode/sacan.php?id=""');
         
 
        }
@@ -35,7 +41,7 @@ header('location:../../user/cart.php');
         $_SESSION['cart'][0]=$item_array;
       
         print_r($_SESSION['cart']);
-        header('location:../../user/cart.php');
+        header('location:../../barcode/scan.php?id=""');
     }
 }
 //cart removing and adding

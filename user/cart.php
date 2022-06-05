@@ -2,6 +2,7 @@
 
 require('../database/conn.php');
 require_once('../assets/php/component.php');
+  
 // $qses=$_SESSION['qr'];
 
 ?>
@@ -93,7 +94,7 @@ require_once('../assets/php/component.php');
             
                 
                 $prod_id=array_column($_SESSION['cart'],'qrvalue');
-                // print_r($prod_id);
+                 print_r($prod_id);
                  foreach($prod_id as $item => $id){
 
                   //  echo $id;
@@ -121,7 +122,7 @@ require_once('../assets/php/component.php');
                      <div class="border rounded">
                             <div class="row bg-white">
                                 <div class="col-md-3 pl-0">
-                                 <img src="../assets/img/cart/<?php echo $prodimg;?>" alt="image1" class="img-fluid">
+                                 <img src="../admin/uploads/products/<?php echo $prodimg;?>" alt="image1" class="img-fluid">
                                  </div>
                                     <div class="col-md-6">
                                      <h5 class="pt-2">
@@ -205,7 +206,11 @@ require_once('../assets/php/component.php');
         </div>
     </div>
 </div>
-<?php require("../assets/cart/checkout.php");?>
+<?php require("../assets/cart/checkout.php");
+
+mysqli_close();
+?>
+
 <!-- jQuery -->
 <script src="../assets/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

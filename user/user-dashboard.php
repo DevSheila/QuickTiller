@@ -40,17 +40,17 @@ session_start()
             <a class="nav-link" href=""style="color:white;">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="scan-store.php"style="color:white;">Shop</a>
+            <a class="nav-link" href="scan-store.php?id=''"style="color:white;">Shop</a>
             <li class="nav-item">
             <a class="nav-link" href="../barcode/scan.php"style="color:white;">Continue shopping</a>
             <li class="nav-item">
-            <a class="nav-link" href=""style="color:white;">logout</a>
+            <a class="nav-link" href="action/logout.php"style="color:white;">logout</a>
             <li class="nav-link">
             <a href="../user/cart.php" >
                <h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
 
                 <?php
-                session_start();
+              
                  $total=0;
                  if (isset($_SESSION['cart'])) { 
                  $count=count($_SESSION['cart']);?>
@@ -75,10 +75,6 @@ session_start()
  
     
 
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-
 
   <div class="card card-purple ">
   <?php
@@ -101,7 +97,7 @@ session_start()
   
                   ?>
     <div class="card-body card-sm-3">
-      <img src=<?php echo "images/".$img;?> alt=""class="rounded-circle" width="50">
+      <img src=<?php echo "../uploads/users/".$img;?> alt=""class="rounded-circle" width="50">
       
       <h4><?php echo $name;?></h4>
       <div class="row">
@@ -128,7 +124,7 @@ session_start()
                             <div class="card-body">
                               <div class="d-flex flex-column align-items-center text-center">
                      
-                                <img src=<?php echo "images/".$img;?> alt="Photo" class="rounded-circle" width="150">
+                                <img src="../uploads/users/<?php echo $img;?>" alt="Photo" class="rounded-circle" width="150">
                                 <div class="mt-3">     
                                   
                                   <h4><?php echo $name;?></h4>
@@ -333,7 +329,7 @@ session_start()
      
 
   
-
+<?php $conn->close(); ?>
 
   <footer class="navbar fixed-bottom navbar-light bg-purple">
     <div class="float-right d-none d-sm-block">

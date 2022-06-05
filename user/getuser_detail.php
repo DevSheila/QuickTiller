@@ -10,14 +10,20 @@ if(isset($_POST['qrvalue'])){
     $row = mysqli_num_rows($query);
     if($row>0)
     {
-  echo "<script>alert('super available')</script>";
+  echo "<script>alert('super available')
+  </script>";
     }
  else
     
    {
-     echo '<script>alert("please scan for the store available")</script>';
+     echo '<script>alert("please scan for the store available")
+     document.getElementById("qrvalue").value="";
+     document.getElementById("qrvalue").innerHTML="";
+     
+     document.getElementById("msg").innerHTML="Not registered store scan again";
+     </script>';
      
  }
-
+$conn->close();
 }
 ?>
