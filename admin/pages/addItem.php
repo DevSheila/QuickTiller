@@ -10,9 +10,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   $shop_id =$_SESSION['admin_id'] ;
   $quantity = 0;
   $current_category=' ';
-
-  ?>
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +35,8 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.5" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -72,7 +72,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  active" href="../pages/listCategory.php">
+          <a class="nav-link  " href="../pages/listCategory.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>office</title>
@@ -112,7 +112,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/listItem.php">
+          <a class="nav-link  active" href="../pages/listItem.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>box-3d-50</title>
@@ -193,9 +193,9 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
           <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
-          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Categories</li>
+          <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Items</li>
         </ol>
-        <h6 class="font-weight-bolder mb-0">Categories</h6>
+        <h6 class="font-weight-bolder mb-0">Items</h6>
       </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -305,232 +305,107 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      $53,000
-                      <span class="text-success text-sm font-weight-bolder">+55%</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Users</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      2,300
-                      <span class="text-success text-sm font-weight-bolder">+3%</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">New Clients</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      +3,462
-                      <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      $103,430
-                      <span class="text-success text-sm font-weight-bolder">+5%</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="row  my-4">
         <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-                <div class="row">
-                      
-                    <div class="col-6"> <h6>Categories List</h6></div>
-                    <div class="col-6">
-                        <a class="btn bg-gradient-primary  mb-0" href="./addCategory.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Category</a>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-xl-8 col-lg-8 col-12">
+                    <div class="card">
+                        <form role="form text-left" method="post" action="../action/isbn.php" enctype="multipart/form-data">
+                                <div class="container">
+                                    <h5 class="text-center">ADD ITEM</h5>
+                                    <div class="mb-3">
+                                        <select class="form-control" id="product_id" name="product_id"  required>
+                                            <option value="" disabled selected>Product Name</option>
+                                            <?php
+                                                if (!$conn ||mysqli_connect_errno()) {
+                                                    echo("Connection failed: " . mysqli_connect_error());
+                                                }else{
+                                                    $sql = "SELECT * FROM product WHERE shop_id =$shop_id ORDER BY product_name ASC";
+                                                    $result = mysqli_query($conn,$sql);
+                                                    $count = mysqli_num_rows($result);
+                                                    while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                                    $product_name=$row['product_name'];
+                                                    $product_id=$row['id'];
+
+
+                                                    ?>
+                                                    <option value="<?php echo $product_id?>"><?php echo $product_name?></option>
+
+                                                    <?php
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <video width="100%"  id="preview"></video>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+                                            <label class="btn btn-primary active">
+                                                <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
+                                            </label>
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label >Qr-Code Value</label>
+                                        <input type="text"  name="qrvalue" id="qrvalue"  class="form-control">
+                                        
+                                            <div id="qr"></div>
+                                        
+                                        <div class="pt-4"></div>
+                                    </div>
+                                    <div class="text-center">
+                                    <button type="submit"  name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Item</button>
+                                    </div>
+                                </div>
+                                <script type="text/javascript">
+                                    var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
+                                    scanner.addListener('scan',function(content){
+                                    
+                                        // alert(content);
+                                        document.getElementById('qrvalue').value=content;
+                                        document.getElementById('qrvalue').innerHTML=content;
+                                    });
+                                    Instascan.Camera.getCameras().then(function (cameras){
+                                        if(cameras.length>0){
+                                            scanner.start(cameras[0]);
+                                            $('[name="options"]').on('change',function(){
+                                                if($(this).val()==1){
+                                                    if(cameras[0]!=""){
+                                                        scanner.start(cameras[0]);
+                                                    }else{
+                                                        alert('No Front camera found!');
+                                                    }
+                                                }else if($(this).val()==2){
+                                                    if(cameras[1]!=""){
+                                                        scanner.start(cameras[1]);
+                                                    }else{
+                                                        alert('No Back camera found!');
+                                                    }
+                                                }
+                                            });
+                                        }else{
+                                            console.error('No cameras found.');
+                                            alert('No cameras found.');
+                                        }
+                                    }).catch(function(e){
+                                        console.error(e);
+                                        alert(e);
+                                    });
+                                </script>
+                        </form>
                     </div>
                 </div>
+                <div class="col-2"></div>
             </div>
-            <div class="card-body px-0 pt-0 pb-2">
-              <!-- Modal -->
-                <!-- <div class="mb-3">
-                        <i class="fa-solid fa-spa"></i>
-                        <i class="fas fa-cow"></i>
-                        <i class="fas fa-bread-slice"></i>
-                        <i class="fa-solid fa-baby"></i>
-                        <i class="fa fa-coffee"></i>
-                        <i class="fas fa-coffee" ></i>
-                        <i class="fa-solid fa-wheat"></i>
-                        <i class="fa-solid fa-wrench"></i>
-                        <i class="fa-solid fa-shirt"></i>
-                        <i class="fas fa-hamburger"></i>
-                        <i class="fas fa-pizza-slice"></i>
-                      </div> -->
-
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Serial</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Name</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Quantity</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Actions</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">#</th>
-
-
-
-                      <th class="text-secondary opacity-7"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                            // Check connection
-                          if (!$conn ||mysqli_connect_errno()) {
-                              echo("Connection failed: " . mysqli_connect_error());
-                          }else{
-                              $sql = "SELECT * FROM category WHERE shop_id =$shop_id";
-                              $result = mysqli_query($conn,$sql);
-                                $count = mysqli_num_rows($result);
-                              $serial = 0;
-                              while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                                $category_id=$row['id'];
-                                $category_name=$row['category_name'];
-                                $current_category=$category_name;
-                                $serial ++;
-                     ?>
-                    <tr>
-                      <td class="align-middle text-center">
-                            <p class="text-xs font-weight-bold mb-0 "><?php echo $serial;?></p>
-                      </td>
-                      <td class="align-middle text-center">
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                          </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><?php echo $category_name ?></h6>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td class="align-middle text-center">
-                      <?php
-                          // Check connection
-                          if (!$conn ||mysqli_connect_errno()) {
-                            echo("Connection failed: " . mysqli_connect_error());
-                          }else{
-                              $sql_quantity = "SELECT * FROM product WHERE
-                              (shop_id =$shop_id)  
-                              AND 
-                              (category='$current_category')
-                              ";
-                              $result_quantity  = mysqli_query($conn,$sql_quantity );
-                              $count_quantity  = mysqli_num_rows($result_quantity );
-                              
-                              while( $row_quantity  = mysqli_fetch_array($result_quantity ,MYSQLI_ASSOC)){
-                                // $category_id=$row_quantity ['id'];
-                                // $category_name=$row['category_name'];
-                                $quantity ++;
-                              }
-
-
-                             
-                          }
-                        ?>
-                        <p class="text-xs font-weight-bold mb-0 ">
-                          <?php 
-                          echo $quantity;
-                          $quantity=0;
-                           ?>
-                          
-                        </p>
-                      </td>
-
-                      <td class="align-middle text-center">
-                        <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/categories.php?edit=<?php echo  $category_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-                                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/categories.php?delete=<?php echo  $category_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>                        
-                      </td>
-
-                      <td class="align-middle text-center">
-                        <a href="#" class=" text-xs font-weight-bold mb-0 "><i class="bi bi-pen"></i>>>></a>
-                      </td>
-
-                    </tr>
-                 
-                    <?php }}?>
-
-                    <h1>
-                   
-                    </h1>
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-    
-
-
-  
  
       <footer class="footer pt-3  ">
         <div class="container-fluid">

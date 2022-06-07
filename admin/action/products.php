@@ -206,7 +206,8 @@ if(isset($_GET['edit'])){
       
   
 
-//>>>>>>>>>>>>>>>  DELETE RECORD <<<<<<<<<<<
+
+      //>>>>>>>>>>>>>>>  DELETE RECORD <<<<<<<<<<<
 
 if(isset($_GET['delete'])){
   $id = $_GET['delete'];

@@ -11,8 +11,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   $quantity = 0;
   $current_category=' ';
 
-  ?>
-
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -37,6 +36,8 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 
   <!-- CSS Files -->
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.5" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -404,55 +405,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                       
                     <div class="col-6"> <h6>Items List</h6></div>
                     <div class="col-6">
-                        <!-- <a class="btn bg-gradient-primary  mb-0" href="./addCategory.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Category</a> -->
-                        
-                        <!-- Button trigger modal -->
-                        <button type="button" class="btn bg-gradient-primary  mb-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                        ADD ITEM
-                        </button>
-
-                                                <!-- Modal -->
-                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">ADD ITEM</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <form role="form text-left" method="post" action="../action/isbn.php" enctype="multipart/form-data">
-                                    <div class="mb-3">
-                                        <select class="form-control" id="product" name="product"  required>
-                                            <option value="" disabled selected>Product Name</option>
-                                            <?php
-                                                if (!$conn ||mysqli_connect_errno()) {
-                                                    echo("Connection failed: " . mysqli_connect_error());
-                                                }else{
-                                                    $sql = "SELECT * FROM product WHERE shop_id =$shop_id";
-                                                    $result = mysqli_query($conn,$sql);
-                                                    $count = mysqli_num_rows($result);
-                                                    while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                                                    $product_name=$row['product_name'];
-
-                                                    ?>
-                                                    <option value="<?php echo $product_name?>"><?php echo $product_name?></option>
-
-                                                    <?php
-                                                    }
-                                                }
-                                            ?>
-                                        </select>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit"  name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Item</button>
-                                    </div>
-                                </form>
-                            </div>
-                           
-                            </div>
-                        </div>
-                        </div>
-
+                        <a class="btn bg-gradient-primary  mb-0" href="./addItem.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Item</a>
                     </div>
                 </div>
             </div>
@@ -496,16 +449,18 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                                 while($row_product  = mysqli_fetch_array($result_product,MYSQLI_ASSOC)){
 
                                 if($row_product['shop_id'] == $shop_id){
-                                    $product_name=$row_product['product_name'];
+                                    $isbn_id=$row['id'];
                                     $product_isbn=$row['isbn'];
                                     $product_date=$row['date'];
                                     $product_status=$row['status'];
+
+                                    $product_name=$row_product['product_name'];
                                     $product_image=$row_product['product_image'];
                                     $serial++;
                      ?>
                     <tr>
                       <td class="align-middle text-center">
-                            <p class="text-xs font-weight-bold mb-0 "><?php echo $serial;?></p>
+                            <p class="text-xs font-weight-bold mb-0 "><?php echo $isbn_id;?></p>
                       </td>
 
                       <td class="align-middle text-center">
@@ -545,8 +500,9 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                         </p>
                       </td>
                       <td class="align-middle text-center">
-                        <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/categories.php?edit=<?php echo  $category_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-                                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/categories.php?delete=<?php echo  $category_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>                        
+                      <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/isbn.php?edit=<?php echo  $isbn_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                      <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/isbn.php?delete=<?php echo  $isbn_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>                        
+
                       </td>
 
                       <td class="align-middle text-center">

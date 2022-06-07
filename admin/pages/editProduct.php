@@ -313,7 +313,7 @@ $shop_id =$_SESSION['admin_id'];
                 <form role="form text-left" enctype="multipart/form-data" method="POST" action="../action/products.php">
                 <div class="form-group">
                     <input type="hidden" name="product_id" value="<?php echo $_SESSION['product_id']?>" class="form-control" >
-                  </div>
+                </div>
 
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Product Name" value="<?php echo $_SESSION['product_name']?>" name="name" required>
