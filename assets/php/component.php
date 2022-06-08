@@ -27,7 +27,7 @@ if (isset($_POST['add'])) {
 
        if(in_array($_POST['qrvalue'],$item_array_id)){
            echo "<script>alert('Product is already added in the cart...! continue shopping')<script>";
-        //    header('location:../../barcode/scan-item.php?id=""');
+           header('location:../../barcode/scan-item.php?id=""');
        }else{
 
         $count=count($_SESSION['cart']);
@@ -53,42 +53,48 @@ if (isset($_POST['add'])) {
         header('location:../../barcode/scan-item.php?id=""');
      }
 }
-      //cart removing and adding
-      if (isset($_POST['remove'])) {
-  
-      if ($_GET['action']=='remove') {
-        
-       foreach ($_SESSION['cart'] as $key => $value ) {
-           
-            if ($value['qrvalue']==$_GET['id']) {
-                
-                echo $_GET['id'];
-                unset($_SESSION['cart'][$key]);
-                echo"<script>alert('Product has been removed....!);</script>";
-               header('location:../../user/cart2.php');
-
-                 }
-               }
-            }
-       }
+      
     }
 }
 
 
-if($_POST['jax']){
+if(isset($_POST['jax'])){
     if(isset($_SESSION['cart'])){
           
         $item_array_id= array_column($_SESSION['cart'],"qrvalue");
       
  
         if(in_array($_POST['jax'],$item_array_id)){
-            echo '
+            echo '<script>
             document.getElementById("msg").innerHTML="Product already exists in the cart";
-            </script>';;
+            
+            document.getElementById("qrvalue").value="";
+            document.getElementById("qrvalue").innerHTML="";
+            
+            </script>';
         }
     }
 }
 
+
+//cart removing and adding
+if (isset($_POST['remove'])) {
+  
+    if ($_GET['action']=='remove') {
+      
+     foreach ($_SESSION['cart'] as $key => $value ) {
+         
+          if ($value['qrvalue']==$_GET['id']) {
+              
+              echo $_GET['id'];
+              unset($_SESSION['cart'][$key]);
+              echo"<script>alert('Product has been removed....!);</script>";
+             header('location:../../user/cart2.php?id=""');
+
+               }
+             }
+          }
+     }
 
 
 

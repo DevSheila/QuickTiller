@@ -387,7 +387,7 @@ else{
       <div class="col-md-6">
         <form method="post" action="../assets/php/component.php">
           <label >Item Qr-Code Value</label>
-          <input type="text" value="" name="qrvalue" id="qrvalue"  readonly="" class="form-control" required >
+          <input type="text" value="" name="qrvalue" id="qrvalue"  class="form-control" required >
           <span id="msg"></span>
          
             <div id="qr"></div>

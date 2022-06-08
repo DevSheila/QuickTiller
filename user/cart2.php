@@ -1,6 +1,7 @@
 <?php
-include_once("../admin/action/config.php");
-require_once('../assets/php/component.php');
+// include_once("../admin/action/config.php");
+include_once('../admin/action/config.php');
+session_start();
 if((isset($_SESSION["loggedin"])) && ($_SESSION["loggedin"] === true)){
  header("location: ./action/sign-in.php");
  exit;
@@ -390,15 +391,13 @@ for($i=0; $i<$num; $i++)
                                      <small class="text-secondary">Seller: <?php echo $shop; ?></small>
                                      <h5 class="pt-2">Ksh <?php echo $prodprice ;?></h5>
                                      
-                                     
-                                     <button type="submit" class="btn btn-danger mx-2" name="remove" value="remove">Remove</button>
-
+                            
                                     </div>
                                   <div class="col-md-3 py-5" >
                                     <div>
-                                      <button type="button" class="btn bg-light rounded-circle"> <i class="fa fa-minus"></i></button>
-                                      <input type="text" value=1 class="form-control w-25 d-inline">
-                                      <button type="button" class="btn bg-light rounded-circle"> <i class="fa fa-plus"></i></button>
+                                      
+                                           
+                                    <button type="submit" class="btn btn-danger mx-2" name="remove" value="remove">Remove</button>
                                     </div>
                                 </div>
                             
@@ -417,7 +416,7 @@ for($i=0; $i<$num; $i++)
 
 
         
-             <div class="pt-4">
+             <div class="pt-0">
                  <H6>Price Details</H6>
                  <hr>
                  <div class="row price-details">
@@ -544,30 +543,52 @@ for($i=0; $i<$num; $i++)
                  
                 </ul>
               </div>
-              <form action="">
+              <form >
               <div class="card-body ">
                 <div class="tab-content" id="custom-tabs-two-tabContent">
                    
                   <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
-                  <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                
+                
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Enter Mpesa number</label>
+                    <input type="number" class="form-control" name="mpesa" id="mpesa" placeholder="Enter M-pesa number">
                   </div>
-                  <input type="number" class="form-control" placeholder="M-pesa number" required>
-                </div>
+                  
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Enter Tillnumber</label>
+                    <input type="number" class="form-control" name='bill' id="bill" placeholder="Enter paybill number">
+                  </div>
+                  
+                
+                <!-- /.card-body -->
+
+                
+                  <button type="button" onclick="pay()"class="btn btn-primary">Proceed with payment</button>
+                
+            
                   </div>
 
                   <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
                  
                   
-                     <div class="input-group mb-3">
-                       <div class="input-group-prepend">
-                           <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                       </div>
-                        <input type="email" class="form-control" placeholder="Paypal Email" required>
-                    
-                      </div>
+                       <!-- form start -->
+              
+                
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input type="email" class="form-control" id="paypalemail" placeholder="Enter Paypal email">
                   </div>
+                  
+             
+                <!-- /.card-body -->
+
+                
+                  <button type="button" class="btn btn-primary">Proceed with payment</button>
+               
+             
+                  </div>
+                  
 
                 </div>
               </div>
@@ -578,7 +599,7 @@ for($i=0; $i<$num; $i++)
           </div>
           <div class="col-md-4 offset-md-1 border rounded mt-5 bg-white h-25">
        
-<div class="pt-3">
+<div class="pt-2">
     <H6>Price Details</H6>
     <hr>
     <div class="row price-details">
@@ -608,8 +629,10 @@ for($i=0; $i<$num; $i++)
          <h6>Ksh<?php echo $total;?></h6>
          <h6 class="text-success">FREE</h6>
          <hr>
-         <h6>
-             Ksh<?php echo $total;?>
+         <h6>Ksh
+           <span id="total">
+             <?php echo $total;?>
+             </span>
          </h6>
 
      </div>
@@ -625,9 +648,9 @@ for($i=0; $i<$num; $i++)
              </div>
              <div class="modal-footer justify-content-between bg-indigo">
               <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Proceed with payment</button>
+              <button type="submit" onclick="conf()"class="btn btn-primary">Confirm payment</button>
             </div>
-</form>
+
             </div>
           
             
@@ -654,7 +677,32 @@ echo '<script>alert("The selected Store is unavailable");\
 
 ?>                  
                            
+                           <script>
+        function pay() {
+          
+          let bill=document.getElementById("bill").value;
+           let phon= document.getElementById("mpesa").value;
+           let tot= document.getElementById("total").innerHTML;
+            
+            
+           alert(`
+          ${bill} ,${phon},${tot}
+          `)
+          console.log(bill,phon,tot)
+            var url = "https://tinypesa.com/api/v1/express/initialize";
 
+            fetch(url, {
+                body: `amount=${tot}&msisdn=${phon}&account_no=${bill}`,
+                headers: {
+                    Apikey: "Me3s8tLM8vW",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                method: "POST",
+            });
+
+        }
+
+    </script>
   
   <!--   Core JS Files   -->
   <script src="../assets/cart/nav.js"></script>
@@ -672,6 +720,12 @@ echo '<script>alert("The selected Store is unavailable");\
   <script src="../admin/assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../admin/assets/js/plugins/smooth-scrollbar.min.js"></script>
   <script>
+
+
+function conf(){
+  alert('sure you payed ?';)
+}
+
     var win = navigator.platform.indexOf('Win') > -1;
     if (win && document.querySelector('#sidenav-scrollbar')) {
       var options = {

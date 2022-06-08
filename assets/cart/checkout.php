@@ -59,29 +59,45 @@
                  
                 </ul>
               </div>
-              <form action="">
+             
               <div class="card-body ">
                 <div class="tab-content" id="custom-tabs-two-tabContent">
                    
                   <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
-                  <div class="input-group mb-3">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                  </div>
-                  <input type="number" class="form-control" placeholder="M-pesa number" required>
-                </div>
-                  </div>
+                    <form action="">
+                   <div class="input-group mb-3">
+                     <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                     </div>
+                        <input type="number" class="form-control" placeholder="M-pesa number" required>
+                    </div>
+                   </form>
+                 </div>
 
                   <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
                  
-                  
+                  <form action=""> 
                      <div class="input-group mb-3">
                        <div class="input-group-prepend">
                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                        </div>
-                        <input type="email" class="form-control" placeholder="Paypal Email" required>
-                    
+                           <input type="email" class="form-control" placeholder="Paypal Email" required>
+                        
+                        <div>
+                       
+                        </div>
                       </div>
+                      <div class="input-group mb-3">
+                       <div class="input-group-prepend">
+                           <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                       </div>
+                           <input type="button" class="btn btn-primary" value="proceed with payment" required>
+                        
+                        <div>
+                       
+                        </div>
+                      </div>
+                  </form>
                   </div>
 
                 </div>
@@ -122,38 +138,31 @@
     <h6>Amount Payable</h6>
     </div>
 
-     <div class="col-md-6">
-         <h6>Ksh<?php echo $total;?></h6>
-         <h6 class="text-success">FREE</h6>
-         <hr>
-         <h6>
-             Ksh<?php echo $total;?>
-         </h6>
+                <div class="col-md-6">
+                        <h6>Ksh<?php echo $total;?></h6>
+                       <h6 class="text-success">FREE</h6>
+                       <hr>
+                       <h6>
+                      Ksh<?php echo $total;?>
+                 </h6>
 
-     </div>
-   </div>
-   <div class="pt-5">
-   <div class="col-md-6 pl-4">
+               </div>
+              </div>
    
-
-   <button type="submit" class="btn bg-purple" data-toggle="modal" data-target="#modal-lg" >CHECKOUT</button>
-         
-   </div> 
-   <div class="pb-3"></div>
-</div>
-</div>
-     </div>
-     </div>
+             <div class="pb-2"></div>
+           </div>
+          </div>
+         </div>
+        </div>
   
-             </div>
-
-            </div>
+      </div>
+</div>
           
             <div class="modal-footer justify-content-between bg-indigo">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary">Proceed with payment</button>
+              <button type="submit" class="btn btn-primary">Confirm payment</button>
             </div>
-</form>
+
           </div>
           <!-- /.modal-content -->
         </div>
