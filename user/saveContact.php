@@ -1,4 +1,6 @@
 <?php
+include("../admin/action/config.phpo");
+
 if (isset($_POST['update'])) {
 	$name = strip_tags($_POST['name']);
 	$email = strip_tags($_POST['email']);

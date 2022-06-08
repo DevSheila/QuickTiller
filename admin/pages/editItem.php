@@ -38,6 +38,11 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.5" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+<!-- include the library -->
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -348,7 +353,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                                                 ?>
                                             </select>
                                         </div>
-                                        <div class="mb-3">
+                                    <!-- <div class="mb-3">
                                         <video width="100%"  id="preview"></video>
                                     </div>
                                     <div class="mb-3">
@@ -360,20 +365,55 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                                                 <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
                                             </label>
                                         </div>
+                                    </div> -->
+
+                                    <div class="mb-3">
+                                    <div id="qr-reader" ></div>
                                     </div>
                                     <div class="mb-3">
                                         <label >Qr-Code Value</label>
                                         <input type="text"  value="<?php echo $_SESSION['isbn_value']?>" name="qrvalue" id="qrvalue"  class="form-control">
                                         
-                                            <div id="qr"></div>
-                                        
-                                        <div class="pt-4"></div>
                                     </div>
                                     <div class="text-center">
                                     <button type="submit"  name="update" class="btn bg-gradient-dark w-100 my-4 mb-2">Update Item</button>
                                     </div>
                                 </div>
-                                <script type="text/javascript">
+
+                                <script>
+                                    function onScanSuccess(decodedText, decodedResult) {
+                                      document.getElementById('qrvalue').value=decodedText;
+                                        document.getElementById('qrvalue').innerHTML=decodedText;
+                                        alert(`Code scanned = ${decodedText}`);
+                                    }
+
+                                    
+
+                                    let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
+                                      let minEdgePercentage = 0.7; // 70%
+                                      let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+                                      let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+                                      return {
+                                          width: qrboxSize,
+                                          height: qrboxSize
+                                      };
+                                    }
+
+                                    var html5QrcodeScanner = new Html5QrcodeScanner(
+                                        "qr-reader", { fps: 10, qrbox: qrboxFunction },);
+                                    html5QrcodeScanner.render(onScanSuccess);
+                                                                
+                                    function onScanFailure(error) {
+                                    // handle scan failure, usually better to ignore and keep scanning.
+                                    // for example:
+                                    alert(`Code scan error = ${error}`);
+                                    }
+
+
+
+                                    
+                                </script>
+                                <!-- <script type="text/javascript">
                                     var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
                                     scanner.addListener('scan',function(content){
                                     
@@ -407,7 +447,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                                         console.error(e);
                                         alert(e);
                                     });
-                                </script>
+                                </script> -->
 
                                       
                                   </form>

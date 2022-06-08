@@ -37,6 +37,10 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.5" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+<!-- include the library -->
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -327,11 +331,14 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                                                     $count = mysqli_num_rows($result);
                                                     while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                                                     $product_name=$row['product_name'];
+                                                    $product_brand=$row['brand'];
+
                                                     $product_id=$row['id'];
+                                                    $display_name=$product_brand.' '.$product_name;
 
 
                                                     ?>
-                                                    <option value="<?php echo $product_id?>"><?php echo $product_name?></option>
+                                                    <option value="<?php echo $product_id?>"><?php echo $display_name;?> </option>
 
                                                     <?php
                                                     }
@@ -339,7 +346,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                                             ?>
                                         </select>
                                     </div>
-                                    <div class="mb-3">
+                                    <!-- <div class="mb-3">
                                         <video width="100%"  id="preview"></video>
                                     </div>
                                     <div class="mb-3">
@@ -359,45 +366,57 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                                             <div id="qr"></div>
                                         
                                         <div class="pt-4"></div>
+                                    </div> -->
+
+                                    
+                                   <div class="mb-3">
+                                     <div id="qr-reader" ></div>
+                                   </div>
+
+                              
+                                    <div class="mb-3">
+                                        <label >Qr-Code Value</label>
+                                        <input type="text"  name="qrvalue" id="qrvalue"  class="form-control" required>
                                     </div>
+
+
                                     <div class="text-center">
                                     <button type="submit"  name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Item</button>
                                     </div>
                                 </div>
-                                <script type="text/javascript">
-                                    var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
-                                    scanner.addListener('scan',function(content){
+                    
+                                <script>
+                                    function onScanSuccess(decodedText, decodedResult) {
+                                      document.getElementById('qrvalue').value=decodedText;
+                                        document.getElementById('qrvalue').innerHTML=decodedText;
+                                        alert(`Code scanned = ${decodedText}`);
+                                    }
+
                                     
-                                        // alert(content);
-                                        document.getElementById('qrvalue').value=content;
-                                        document.getElementById('qrvalue').innerHTML=content;
-                                    });
-                                    Instascan.Camera.getCameras().then(function (cameras){
-                                        if(cameras.length>0){
-                                            scanner.start(cameras[0]);
-                                            $('[name="options"]').on('change',function(){
-                                                if($(this).val()==1){
-                                                    if(cameras[0]!=""){
-                                                        scanner.start(cameras[0]);
-                                                    }else{
-                                                        alert('No Front camera found!');
-                                                    }
-                                                }else if($(this).val()==2){
-                                                    if(cameras[1]!=""){
-                                                        scanner.start(cameras[1]);
-                                                    }else{
-                                                        alert('No Back camera found!');
-                                                    }
-                                                }
-                                            });
-                                        }else{
-                                            console.error('No cameras found.');
-                                            alert('No cameras found.');
-                                        }
-                                    }).catch(function(e){
-                                        console.error(e);
-                                        alert(e);
-                                    });
+
+                                    let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
+                                      let minEdgePercentage = 0.7; // 70%
+                                      let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+                                      let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+                                      return {
+                                          width: qrboxSize,
+                                          height: qrboxSize
+                                      };
+                                    }
+
+                                    var html5QrcodeScanner = new Html5QrcodeScanner(
+                                        "qr-reader", { fps: 10, qrbox: qrboxFunction },);
+                                    html5QrcodeScanner.render(onScanSuccess);
+                                                                
+                                    function onScanFailure(error) {
+                                    // handle scan failure, usually better to ignore and keep scanning.
+                                    // for example:
+                                    alert(`Code scan error = ${error}`);
+                                    }
+
+
+
+                                    
                                 </script>
                         </form>
                     </div>
@@ -631,6 +650,10 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.5"></script>
+  
+<script src="https://unpkg.com/html5-qrcode"></script>
+<!-- include the library -->
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 </body>
 
 </html>
