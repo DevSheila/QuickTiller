@@ -54,7 +54,7 @@ if(isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] === true)){
                
                
                 <li class="nav-item">
-                  <a class="nav-link me-2" href="../pages/sign-up.php">
+                  <a class="nav-link me-2" href="../../index.php">
                     <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
                     Sign Up
                   </a>
@@ -124,6 +124,19 @@ if(isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] === true)){
       </div>
     </section>
   </main>
+
+  <?php 
+
+if($_GET['id']==""){
+
+}elseif($_GET['id']="error"){
+
+echo"<script>alert('The password or email is incorrect')</script>";
+
+}
+
+  ?>
+
   <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
   <footer class="footer py-5">
     <div class="container">

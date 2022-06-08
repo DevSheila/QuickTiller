@@ -61,6 +61,7 @@ if(isset($_POST['sign-in'])){
                 }
               }else{
                   echo "Unsuccessful.$count .'password:'$hashed_password";
+                  header('location:./sign-in.php?id="error"');
               }
                 mysqli_close($conn);
       }

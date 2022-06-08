@@ -1,11 +1,10 @@
 <?php
-include("../admin/action/config.php");
-
- session_start();
-// if((isset($_SESSION["loggedin"])) && ($_SESSION["loggedin"] === true)){
-//  header("location: ./sign-in.php");
-//  exit;
-// }
+include_once("../admin/action/config.php");
+require_once('../assets/php/component.php');
+if((isset($_SESSION["loggedin"])) && ($_SESSION["loggedin"] === true)){
+ header("location: ./action/sign-in.php");
+ exit;
+}
  $id=$_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
@@ -280,7 +279,7 @@ for($i=0; $i<$num; $i++)
       </nav>
       <!-- End Navbar -->
       <div class="container-fluid">
-        <div class="page-header min-height-200 border-radius-xl mt-4" style="background:purple;">
+        <div class="page-header min-height-200 border-radius-xl mt-4" style="background-mage-image: url('../admin/assets/img/curved-images/curved0.jpg'); background-position-y: 50%;">
           <span class="mask bg-gradient-primary opacity-6"></span>
         </div>
         <div class="card card-body blur shadow-blur mx-4 mt-n6 overflow-hidden">
@@ -293,7 +292,7 @@ for($i=0; $i<$num; $i++)
             <div class="col-auto my-auto">
               <div class="h-100">
                 <h5 class="mb-1">
-                  Aqt scanner
+                  My cart
                 </h5>
                 
               </div>
@@ -336,54 +335,139 @@ for($i=0; $i<$num; $i++)
                 <div class="card-header pb-0 p-3">
                   <div class="row">
                     <div class="col-md-8 d-flex align-items-center">
-                      <h6 class="mb-0">Focus the scanner</h6>
+                      <h6 class="mb-0">My cart</h6>
                     </div>
                     
                   </div>
                 </div>
                 <div class="card-body p-3">
                   
-                  <hr class="horizontal gray-light my-4">
+                  <hr class="horizontal gray-light my-1">
+                  <div class="container-fluid">
+    <div class="row px-5">
+        <div class="col-md-7">
+            <div class="shopping-cart">
+               
+                
+                <?php
+            
+                
+                $prod_id=array_column($_SESSION['cart'],'qrvalue');
+                //  print_r($prod_id);
+                 foreach($prod_id as $item => $id){
+
+                  //  echo $id;
+    
+                    $qury="SELECT * FROM product where brand='$id'";
+    
+                    $result=mysqli_query($conn,$qury);
+        
+                   while ($row=mysqli_fetch_array($result)) {
+                      # code...
+                    $prodname=$row['product_name'];
+                    $duka=$row['shop_id'];
+                    $prodprice=$row['price'];
+                    $prodimg=$row['product_image'];
+                    $prodid=$row['id'];
+                    $total=$total+(int)$row['price'];
+              $shp="SELECT * From shop where id ='$duka' ";
+                    // echo $prodname,"<br>",$total;
+                    $res=mysqli_query($conn,$shp);
+                    while($duk=mysqli_fetch_array($res)){
+                      $shop=$duk['shop_name'];
+
+                   ?>
+                <form action="../assets/php/component.php?action=remove&id=<?php echo $id;?>" method="POST"class="cart-items">
+                     <div class="border rounded">
+                            <div class="row bg-white">
+                                <div class="col-md-3 pl-0">
+                                 <img src="../admin/uploads/products/<?php echo $prodimg;?>" alt="image1" class="img-fluid">
+                                 </div>
+                                    <div class="col-md-6">
+                                     <h5 class="pt-2">
+                                    <?php echo $prodname;?>
+                                     </h5>
+                                     <small class="text-secondary">Seller: <?php echo $shop; ?></small>
+                                     <h5 class="pt-2">Ksh <?php echo $prodprice ;?></h5>
+                                     
+                                     
+                                     <button type="submit" class="btn btn-danger mx-2" name="remove" value="remove">Remove</button>
+
+                                    </div>
+                                  <div class="col-md-3 py-5" >
+                                    <div>
+                                      <button type="button" class="btn bg-light rounded-circle"> <i class="fa fa-minus"></i></button>
+                                      <input type="text" value=1 class="form-control w-25 d-inline">
+                                      <button type="button" class="btn bg-light rounded-circle"> <i class="fa fa-plus"></i></button>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                 </form>
+                 <?php }}} ?>
+               
+                   
                   
-    <div class="container">
-     
-      <hr>
-      <div class="row">
-        <div class="col-md-6">
-          <video width="50%"  id="preview"></video>
-          <i class="fa fa-camera-retro" aria-hidden="true"></i>
-          <div class="col-md-4">
-            <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-              <label class="btn btn-primary active">
-                <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
-              </label>
-              <label class="btn btn-secondary">
-                <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
-              </label>
-            </div>  
-          </div>
-      </div>
-      <div class="col-md-6">
-        <form method="post" action="../barcode/check.php">
-          <label >stores Qr-Code Value</label>
-          <input type="text" value="" name="qrvalue" id="qrvalue"  readonly="" class="form-control" required >
-          <span id="msg"></span>
-         
-            <div id="qr"></div>
-          
-          <div class="pt-4"></div>
-          <div class="col-md-5">
-            <button  type="submit" name ="add" class="btn bg-indigo ">select store</button>
-          </div>
-        </form>
-        </div>
+              
+                  </div>
+                </div>
+                 <div class="col-md-4 offset-md-1 border rounded mt-5 bg-white h-25">
+
+
 
         
-  </div>
- 
-  </div>
-   
+             <div class="pt-4">
+                 <H6>Price Details</H6>
+                 <hr>
+                 <div class="row price-details">
+                 <div class="col-md-6">
+                    <?php
+                    
+                    if(isset($_SESSION['cart'])){
+                      $count=count($_SESSION['cart']);
+                      for ($i=0; $i <$count ; $i++) { 
+                        # code...
+                        
+                      // $item=$_SESSION['cart'][$i];
+                      // print_r($item);
+                      }
+                       
+                        echo"<h6>Price($count items)<h6>";
+                    }else{
+                       echo"<h6>Price(1items)<h6>";
+                    
+                    }
+                 ?>
+                 <h6>Delivery Charges</h6>
+                 <h6>Amount Payable</h6>
+                 </div>
+
+                  <div class="col-md-6">
+                      <h6>Ksh<?php echo $total;?></h6>
+                      <h6 class="text-success">FREE</h6>
+                      <hr>
+                      <h6>
+                          Ksh<?php echo $total;?>
+                      </h6>
+
+                  </div>
+                </div>
+                <div class="pt-5">
+                <div class="col-md-6 pl-4">
+                
+
+                <button type="submit" class="btn bg-purple" data-toggle="modal" data-target="#modal-lg" >CHECKOUT</button>
+                      
+                </div> 
+                <div class="pb-3"></div>
+            </div>
+        </div>
+    </div>
 </div>
+
+                  
+
                 </div>
               </div>
             </div>
@@ -396,69 +480,181 @@ for($i=0; $i<$num; $i++)
     </div>
   </main>
   
+  <!-- Modal for checkout -->
+
+
+  <div class="modal fade" id="modal-lg">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header bg-indigo">
+          <h4 class="modal-title">CHECKOUT</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+            <div class="modal-body">
+            <div class="border rounded ">
+            <div class="pb-2"></div>
+            <?php
+            
+            $prod_id=array_column($_SESSION['cart'],'qrvalue');
+            // print_r($prod_id);
+             foreach($prod_id as $item => $id){
+            $que="SELECT * FROM product where brand='$id'";
+            $query = mysqli_query($conn,$que);
+            $num=mysqli_num_rows($query);
+           if($num==0)
+      {
+             $data[]='';
+      }
+        else{
+       $row=mysqli_fetch_array($query);
+             $id=$row['id'];
+             $shop_id=$row['shop_id'];
+             $shop_qr=$row['shop_qr_code'];
+             $name=$row['product_name'];
+             $cat=$row['category'];
+             $brand=$row['brand'];
+             $qty=$row['quantity'];
+             $price=$row['price'];
+             $oqty=$row['otherQualities'];
+             $pic=$row['product_image'];
+             $date=$row['date'];
+             
+
+            ?>
+                      
+
+                                    <?php }}
+                                    mysqli_close($conn);
+                                    ?>
+                                    
+
+             <div class="col-12 col-md-6">
+             <div class="card card-purple card-tabs">
+              <div class="card-header p-0 pt-1">
+                <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                  <li class="pt-2 px-3"><h3 class="card-title">Payment method</h3></li>
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">M-pesa</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Paypal <i class="	fab fa-cc-paypal bg-primary"  style='font-size:24px;'></i></a>
+                  </li>
+                 
+                </ul>
+              </div>
+              <form action="">
+              <div class="card-body ">
+                <div class="tab-content" id="custom-tabs-two-tabContent">
+                   
+                  <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                  <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                  </div>
+                  <input type="number" class="form-control" placeholder="M-pesa number" required>
+                </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+                 
+                  
+                     <div class="input-group mb-3">
+                       <div class="input-group-prepend">
+                           <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                       </div>
+                        <input type="email" class="form-control" placeholder="Paypal Email" required>
+                    
+                      </div>
+                  </div>
+
+                </div>
+              </div>
+              <!-- /.card -->
+              
+            </div>
+            
+          </div>
+          <div class="col-md-4 offset-md-1 border rounded mt-5 bg-white h-25">
+       
+<div class="pt-3">
+    <H6>Price Details</H6>
+    <hr>
+    <div class="row price-details">
+    <div class="col-md-6">
+       <?php
+       
+       if(isset($_SESSION['cart'])){
+         $count=count($_SESSION['cart']);
+         for ($i=0; $i <$count ; $i++) { 
+           # code...
+           
+         // $item=$_SESSION['cart'][$i];
+         // print_r($item);
+         }
+          
+           echo"<h6>Price($count items)<h6>";
+       }else{
+          echo"<h6>Price(0items)<h6>";
+       
+       }
+    ?>
+    <h6>Delivery Charges</h6>
+    <h6>Amount Payable</h6>
+    </div>
+
+     <div class="col-md-6">
+         <h6>Ksh<?php echo $total;?></h6>
+         <h6 class="text-success">FREE</h6>
+         <hr>
+         <h6>
+             Ksh<?php echo $total;?>
+         </h6>
+
+     </div>
+   </div>
+   <div class="pt-5">
+    
+   <div class="pb-0"></div>
+</div>
+</div>
+     </div>
+     </div>
+  
+             </div>
+             <div class="modal-footer justify-content-between bg-indigo">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Proceed with payment</button>
+            </div>
+</form>
+            </div>
+          
+            
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+
+
+
+
         <?php }} 
-        mysqli_close($conn);?>                        
+        ?>                        
   <?php
 if($_GET['id']=='error'){
 echo '<script>alert("The selected Store is unavailable");\
 
      document.getElementById("msg").innerHTML="Please scan qr to continue";
 </script>';
-}elseif($_GET['id']=''){
+}elseif($_GET['id']==''){
   
 }
 
 ?>                  
                            
-<!-- scan scripts -->
-<script type="text/javascript">
-      let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-      scanner.addListener('scan', function (content) {
-        // alert(content);
-      
-    
-        document.getElementById('qrvalue').value=content;
-        document.getElementById('qrvalue').innerHTML=content;
 
-        jQuery.ajax({
-      url:"getuser_detail.php",
-      data: 'qrvalue='+$("#qrvalue").val(),
-      type: "POST",
-      success: function(data){
-        $("#qr").html(data);
-
-      },
-      error:function(){}
-    });
-  
-      });
-      Instascan.Camera.getCameras().then(function (cameras){
-        if(cameras.length>0){
-            scanner.start(cameras[0]);
-            $('[name="options"]').on('change',function(){
-                if($(this).val()==1){
-                    if(cameras[0]!=""){
-                        scanner.start(cameras[0]);
-                    }else{
-                        alert('No Front camera found!');
-                    }
-                }else if($(this).val()==2){
-                    if(cameras[1]!=""){
-                        scanner.start(cameras[1]);
-                    }else{
-                        alert('No Back camera found!');
-                    }
-                }
-            });
-        }else{
-            console.error('No cameras found.');
-            alert('No cameras found.');
-        }
-    }).catch(function(e){
-        console.error(e);
-        alert(e);
-    });
-    </script>
   
   <!--   Core JS Files   -->
   <script src="../assets/cart/nav.js"></script>

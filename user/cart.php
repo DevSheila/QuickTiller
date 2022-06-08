@@ -208,7 +208,6 @@ require_once('../assets/php/component.php');
 </div>
 <?php require("../assets/cart/checkout.php");
 
-mysqli_close();
 ?>
 
 <!-- jQuery -->

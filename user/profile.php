@@ -79,7 +79,7 @@ for($i=0; $i<$num; $i++)
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link  active" href="../pages/profile.php">
+          <a class="nav-link  active" href="">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>customer-support</title>
@@ -173,7 +173,7 @@ for($i=0; $i<$num; $i++)
         <div class="container-fluid py-1">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 ps-2 me-sm-6 me-5">
-              <li class="breadcrumb-item text-sm"><a class="text-white opacity-5" href="javascript:;">Pages</a></li>
+              <li class="breadcrumb-item text-sm"><a class="text-white opacity-5" href="javascript:;">User</a></li>
               <li class="breadcrumb-item text-sm text-white active" aria-current="page">Profile</li>
             </ol>
             <h6 class="text-white font-weight-bolder ms-2">Welcome <?php echo $name; ?></h6>
@@ -202,8 +202,21 @@ for($i=0; $i<$num; $i++)
                 </a>
               </li>
               <li class="nav-item px-3 d-flex align-items-center">
-                <a href="javascript:;" class="nav-link text-white p-0">
-                  <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
+                <a href="./cart2.php?id=''" class="nav-link text-white p-0">
+                <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"><?php
+                  $total=0;
+                if (isset($_SESSION['cart'])) { 
+                $count=count($_SESSION['cart']);?>
+
+                 <span id="cart_count" class="text-warning bg-light"><?php echo $count;
+                  ?></span>
+              <?php
+                  }else{
+                      echo'   <span id="cart_count" class="text-warning bg-light">0</span>';
+ 
+                        }
+                    ?> 
+                  </i>
                 </a>
               </li>
               <li class="nav-item dropdown pe-2 d-flex align-items-center">

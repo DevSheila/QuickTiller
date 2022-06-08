@@ -1,13 +1,18 @@
 <?php
-include("../admin/../user/action/config.php");
+include("../admin/action/config.php");
 
  session_start();
 // if((isset($_SESSION["loggedin"])) && ($_SESSION["loggedin"] === true)){
 //  header("location: ./sign-in.php");
 //  exit;
 // }
+if($_GET['id']=="error"){
+  echo "<script>alert('The selected Store is unavailable')</script>";
+  }elseif($_GET['id']=''){
+    
+  }
 $id=$_SESSION['user_id'];
-$shop=$_SESSION['qrvalue'];
+$shop=$_SESSION['qr'];
 
 ?>
 <!DOCTYPE html>
@@ -133,6 +138,21 @@ $shop=$_SESSION['qrvalue'];
  
     </div>
   </aside>
+  <?php
+$store="SELECT * FROM shop where `qr_code`='$shop'";
+$set=mysqli_query($conn,$store) or die(mysqli_error($conn));
+$num=mysqli_num_rows($set);
+if($num==0){
+    header('location:../user/store.php?id="error');
+}else{
+while( $row = mysqli_fetch_array($set,MYSQLI_ASSOC)){
+  $shop_name=$row['shop_name'];
+  $loc=$row['location'];
+  $img=$row['logo']; 
+// `id`, `shop_name`, `location`, `logo`, `qr_code`, `status`, `email`, `password`
+
+
+?>
   <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
       <!-- Navbar -->
@@ -143,7 +163,7 @@ $shop=$_SESSION['qrvalue'];
               <li class="breadcrumb-item text-sm"><a class="text-white opacity-5" href="javascript:;">User</a></li>
               <li class="breadcrumb-item text-sm text-white active" aria-current="page">Profile</li>
             </ol>
-            <h6 class="text-white font-weight-bolder ms-2">Welcome </h6>
+            <h6 class="text-white font-weight-bolder ms-2">Welcome to <?php echo $shop_name;?></h6>
           </nav>
           <div class="collapse navbar-collapse me-md-0 me-sm-4 mt-sm-0 mt-2" id="navbar">
             <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -169,7 +189,7 @@ $shop=$_SESSION['qrvalue'];
                 </a>
               </li>
               <li class="nav-item px-3 d-flex align-items-center">
-                <a href="javascript:;" class="nav-link text-white p-0">
+                <a href="../user/cart2.php?id=''" class="nav-link text-white p-0">
                 <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"> <?php
                 
                 $total=0;
@@ -263,6 +283,20 @@ $shop=$_SESSION['qrvalue'];
         </div>
       </nav>
       <!-- End Navbar -->
+      <?php
+  $user="SELECT * FROM user where `id`=$id";
+  $user_details=mysqli_query($conn,$user);
+  $num=mysqli_num_rows($user_details);
+  if($num==0)
+{
+   echo"<script>alert('No vailable people')</script>";
+}
+else{
+  while( $row = mysqli_fetch_array($user_details,MYSQLI_ASSOC)){
+    $imag=$row['user_image'];
+    
+  
+  ?>
       <div class="container-fluid">
         <div class="page-header min-height-150 border-radius-xl mt-4" style="background:purple;">
           <span class="mask bg-gradient-primary opacity-6"></span>
@@ -271,7 +305,7 @@ $shop=$_SESSION['qrvalue'];
           <div class="row gx-4">
             <div class="col-auto">
               <div class="avatar avatar-xl position-relative">
-                <img src="../uploads/users/<?php echo $img;?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                <img src="../uploads/users/<?php echo $imag;?>" alt="image1" class="w-100 border-radius-lg shadow-sm">
               </div>
             </div>
             <div class="col-auto my-auto">
@@ -279,7 +313,7 @@ $shop=$_SESSION['qrvalue'];
                 <h5 class="mb-1">
                   Aqt scanner
                 </h5>
-                
+                <?php }}?>
               </div>
             </div>
             <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
@@ -312,14 +346,7 @@ $shop=$_SESSION['qrvalue'];
               </div>
             </div>
           </div>
-<?php
-$store="SELECT logo FROM shop where `qr_code`='$shop'";
-$set=mysqli_query($conn,$store) or die(mysqli_error($conn));
-$num=mysqli_num_rows($set);
-if($num==0){
-    // header('location:../user/try.php?id="error');
-}
-?>
+
           <div class="row">
   
             <div class="col-12 ">
@@ -329,7 +356,7 @@ if($num==0){
                     <div class="col-md-8 d-flex align-items-center">
                       <h6 class="mb-0">Welcome shop in </h6>
                       <div class="avatar avatar-xl position-relative">
-                      <img src="../uploads/users/<?php echo $img;?>" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                      <img src="../admin/uploads/shops/<?php echo $img;?>" alt="shops image" class="w-100 border-radius-lg shadow-sm">
                     </div>
                     </div>
                     
@@ -358,7 +385,7 @@ if($num==0){
           </div>
       </div>
       <div class="col-md-6">
-        <form method="post" ../user/action="../assets/php/component.php">
+        <form method="post" action="../assets/php/component.php">
           <label >Item Qr-Code Value</label>
           <input type="text" value="" name="qrvalue" id="qrvalue"  readonly="" class="form-control" required >
           <span id="msg"></span>
@@ -392,15 +419,8 @@ if($num==0){
   
                                 
   <?php
-if($_GET['id']=='error'){
-echo '<script>alert("The selected Store is unavailable");\
 
-     document.getElementById("msg").innerHTML="Please scan qr to continue";
-</script>';
-}elseif($_GET['id']=''){
-  
-}
-
+  }}
 ?>                  
                            
 <!-- scan scripts -->
@@ -414,8 +434,8 @@ echo '<script>alert("The selected Store is unavailable");\
         document.getElementById('qrvalue').innerHTML=content;
 
         jQuery.ajax({
-      url:"getuser_detail.php",
-      data: 'qrvalue='+$("#qrvalue").val(),
+      url:"../assets/php/component.php",
+      data: 'jax='+$("#qrvalue").val(),
       type: "POST",
       success: function(data){
         $("#qr").html(data);
