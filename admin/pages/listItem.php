@@ -1,5 +1,6 @@
 <?php
 include("../action/config.php");
+// include("../../barcode2/bar128.php");
 
 session_start();
 if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
@@ -10,6 +11,10 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   $shop_id =$_SESSION['admin_id'] ;
   $quantity = 0;
   $current_category=' ';
+  $barcodeType='codabar';
+  $barcodeDisplay='horizontal';
+  $barcodeSize='20';
+  $printText='false';
 
 ?>
 <!DOCTYPE html>
@@ -457,18 +462,29 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                                     $product_name=$row_product['product_name'];
                                     $product_image=$row_product['product_image'];
                                     $serial++;
+
+                                
                      ?>
                     <tr>
                       <td class="align-middle text-center">
                             <p class="text-xs font-weight-bold mb-0 "><?php echo $isbn_id;?></p>
-                      </td>
+                              
+                          </td>
 
                       <td class="align-middle text-center">
                         <p class="text-xs font-weight-bold mb-0 ">
                           <?php 
                           echo $product_isbn;
                            ?>
+                     
                         </p>
+                        <div>
+                        <?php
+                              echo '<img class="barcode" alt="'.$product_isbn.'" src="../../barcode2/bar128.php?text='.$product_isbn.'&codetype='.$barcodeType.'&orientation='.$barcodeDisplay.
+                              '&size='.$barcodeSize.'&print='.$printText.'"/>';
+                
+                            ?>
+                        </div>
                       </td>
                       
                       <td class="align-middle text-center">
