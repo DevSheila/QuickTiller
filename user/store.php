@@ -386,7 +386,7 @@ for($i=0; $i<$num; $i++)
       <div class="col-md-6">
         <form method="post" action="../barcode/check.php">
           <label >stores Qr-Code Value</label>
-          <input type="text" value="" name="qrvalue" id="qrvalue"  readonly="" class="form-control" required >
+          <input type="text" value="" name="qrvalue" id="qrvalue"   class="form-control" required >
           <span id="msg"></span>
          
             <div id="qr"></div>
@@ -421,7 +421,6 @@ for($i=0; $i<$num; $i++)
   <?php
 if($_GET['id']=='error'){
 echo '<script>alert("The selected Store is unavailable");\
-
      document.getElementById("msg").innerHTML="Please scan qr to continue";
 </script>';
 }elseif($_GET['id']=''){
