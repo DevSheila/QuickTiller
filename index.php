@@ -159,7 +159,7 @@ if(isset($_SESSION["user_loggedin"]) && ($_SESSION["user_loggedin"] === true)){
                 <div class="card-footer pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Already have an account?
-                    <a href="user/action/sign-in.php" class="text-info text-gradient font-weight-bold">Sign In</a>
+                    <a href="./user/action/sign-in.php" class="text-info text-gradient font-weight-bold">Sign In</a>
                   </p>
                 </div>
               </div>

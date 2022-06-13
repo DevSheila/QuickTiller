@@ -280,6 +280,7 @@ session_start();
                     <tr>
                       
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cart ID</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product Image</th>
 
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Product ID</th>
 
@@ -333,69 +334,52 @@ session_start();
 
                               }else{
                               while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                                $product_id= $row['id']; 
-                                $product_name = $row['cart_id'];
-                                $product_image= $row['product_id'];
+                                // $product_id= $row['id']; 
+                                $cart_id = $row['cart_id'];
+                                $product_id= $row['product_id'];
 
-                                $product_brand = $row['shop_id'];
-                                $product_quantity = $row['isbn'];
+                                $shop_id = $row['shop_id'];
+                                $product_isbn = $row['isbn'];
                                 $product_date = $row['date'];
+                                $pro="SELECT * FROM `product` WHERE id='$product_id'";
+                                $query = mysqli_query($conn,$pro);
+                                $num=mysqli_num_rows($query);
+                                $row=mysqli_fetch_array($query);
+                                // $id=$row['id'];
+                                $prod_img=$row['product_image'];
+                                $brand=$row['category'];
                                 
                      ?>
                     <tr>
                         <td>
-                            <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $serial; ?></p>
+                            <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $cart_id; ?></p>
                           </td>
                       <td>
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="../uploads/products/<?php echo $product_image; ?>" class="avatar avatar-sm me-3" alt="user1">
+                            <img src="../admin/uploads/products/<?php echo $prod_img; ?>" class="avatar avatar-sm me-3" alt="user1">
                           </div>
                           <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><?php echo $product_name; ?></h6>
-                            <p class="text-xs text-secondary mb-0 align-middle text-center"><?php echo $product_brand; ?></p>
+                            <h6 class="mb-0 text-sm"><?php echo "product name"; ?></h6>
+                            <p class="text-xs text-secondary mb-0 align-middle text-center"><?php echo $brand; ?></p>
                           </div>
                         </div>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_category; ?></p>
+                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_id; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_quantity; ?></p>
+                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $shop_id; ?></p>
                       </td>
                       <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_price; ?></p>
+                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_isbn; ?></p>
                       </td>
 
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_quality; ?></p>
-                      </td>
                       <td>
                         <p class="text-xs font-weight-bold mb-0 align-middle text-center"><?php echo $product_date; ?></p>
                       </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center">356</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center">56</p>
-                      </td>
-                      <td>
-                        <p class="text-xs font-weight-bold mb-0 align-middle text-center">20</p>
-                      </td>
-                      <td class="align-middle text-center">
-                      
-                    
-                        <div class="ms-auto text-end">
-                                <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/products.php?edit=<?php echo  $product_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-                                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/products.php?delete=<?php echo  $product_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>
-                        
-                        </div>
-
-
-                      </td>
-                      <td class="align-middle">
-                        <a href="#" class=" text-xs font-weight-bold mb-0 "><i class="bi bi-pen"></i>>>></a>
-                      </td>
+                     
+                     
                     </tr>
                  
                     <?php  } } }?>

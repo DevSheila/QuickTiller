@@ -10,8 +10,8 @@ if(isset($_POST['qrvalue'])){
     $row = mysqli_num_rows($query);
     if($row>0)
     {
-  echo "<script>alert('super available')
-  </script>";
+  echo '<script>   document.getElementById("msgi").innerHTML="Store available";
+  </script>';
     }
  else
     

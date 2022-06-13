@@ -6,11 +6,11 @@ echo $qr;
 
 if($qr==""){
     
-    header("location:../user/scan-store.php?id='error'");
+    header("location:../user/store.php?6");
   }else{
     session_start();
     $_SESSION['qr']=$qr;
-header("location:./scan-item.php?id=''");
+header("location:./scan-item.php");
 
 }
 }

@@ -1,16 +1,13 @@
 <?php
+session_start();
 include("../admin/action/config.php");
-
- session_start();
+include("../assets/cart/res.php");
+ 
 // if((isset($_SESSION["loggedin"])) && ($_SESSION["loggedin"] === true)){
 //  header("location: ./sign-in.php");
 //  exit;
 // }
-if($_GET['id']=="error"){
-  echo "<script>alert('The selected Store is unavailable')</script>";
-  }elseif($_GET['id']=''){
-    
-  }
+
 $id=$_SESSION['user_id'];
 $shop=$_SESSION['qr'];
 
@@ -143,7 +140,7 @@ $store="SELECT * FROM shop where `qr_code`='$shop'";
 $set=mysqli_query($conn,$store) or die(mysqli_error($conn));
 $num=mysqli_num_rows($set);
 if($num==0){
-    header('location:../user/store.php?id="error');
+    header('location:../user/store.php?6');
 }else{
 while( $row = mysqli_fetch_array($set,MYSQLI_ASSOC)){
   $shop_name=$row['shop_name'];
@@ -474,6 +471,7 @@ else{
     </script>
   
   <!--   Core JS Files   -->
+  <script src="../assets/cart/res.js"></script>
   <script src="../assets/cart/nav.js"></script>
 <script src="../assets/plugins/jquery/jquery.min.js"></script>
 

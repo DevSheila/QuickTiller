@@ -1,7 +1,8 @@
 <?php
+session_start();
 include("../admin/action/config.php");
-
- session_start();
+include("../assets/cart/res.php");
+ 
 // if((isset($_SESSION["loggedin"])) && ($_SESSION["loggedin"] === true)){
 //  header("location: ./sign-in.php");
 //  exit;
@@ -51,7 +52,7 @@ include("../admin/action/config.php");
   $num=mysqli_num_rows($user_details);
   if($num==0)
 {
-   echo"<script>alert('No vailable people')</script>";
+  
 }
 else{
 for($i=0; $i<$num; $i++)
@@ -101,7 +102,7 @@ for($i=0; $i<$num; $i++)
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  active" href="./profile.php">
+          <a class="nav-link " href="./profile.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>customer-support</title>
@@ -387,7 +388,7 @@ for($i=0; $i<$num; $i++)
         <form method="post" action="../barcode/check.php">
           <label >stores Qr-Code Value</label>
           <input type="text" value="" name="qrvalue" id="qrvalue"  readonly="" class="form-control" required >
-          <span id="msg"></span>
+          <span id="msg" style ='color:red'></span>   <span id="msgi" style ='color:Green'></span>
          
             <div id="qr"></div>
           
@@ -418,17 +419,7 @@ for($i=0; $i<$num; $i++)
   
         <?php }} 
         mysqli_close($conn);?>                        
-  <?php
-if($_GET['id']=='error'){
-echo '<script>alert("The selected Store is unavailable");\
-
-     document.getElementById("msg").innerHTML="Please scan qr to continue";
-</script>';
-}elseif($_GET['id']=''){
-  
-}
-
-?>                  
+                
                            
 <!-- scan scripts -->
 <script type="text/javascript">
@@ -481,6 +472,7 @@ echo '<script>alert("The selected Store is unavailable");\
     </script>
   
   <!--   Core JS Files   -->
+  <script src="../assets/cart/res.js"></script> 
   <script src="../assets/cart/nav.js"></script>
 <script src="../assets/plugins/jquery/jquery.min.js"></script>
 

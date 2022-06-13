@@ -25,6 +25,9 @@ if(isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] === true)){
   <link href="../../admin/assets/css/nucleo-icons.css" rel="stylesheet" />
   <link href="../../admin/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="../../admin/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
@@ -125,17 +128,6 @@ if(isset($_SESSION["loggedin"]) && ($_SESSION["loggedin"] === true)){
     </section>
   </main>
 
-  <?php 
-
-if($_GET['id']==""){
-
-}elseif($_GET['id']="error"){
-
-echo"<script>alert('The password or email is incorrect')</script>";
-
-}
-
-  ?>
 
   <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
   <footer class="footer py-5">
@@ -204,7 +196,12 @@ echo"<script>alert('The password or email is incorrect')</script>";
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+   
   </script>
+  
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Quick Tiller Dashboard: parallax effects, scripts for the example pages etc -->

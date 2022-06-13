@@ -79,7 +79,7 @@ for($i=0; $i<$num; $i++)
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
         <li class="nav-item">
-          <a class="nav-link  " href="../pages/dashboard.php">
+          <a class="nav-link active " href="../pages/dashboard.php">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>shop </title>
@@ -99,7 +99,7 @@ for($i=0; $i<$num; $i++)
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link  active" href="">
+          <a class="nav-link" href="">
             <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>customer-support</title>
@@ -409,7 +409,7 @@ for($i=0; $i<$num; $i++)
                                 $shop_id= $row['id']; 
                                 $shop_name = $row['shop_name'];
                                 $shop_image= $row['logo'];
-
+                                $_SESSION['shop_name']=$shop_name;
                                 $shop_location=$row['location'];
                      ?>
       <div class="col-lg-4 col-xl-4 col-6 mb-lg-0 mb-4">
@@ -552,7 +552,3 @@ for($i=0; $i<$num; $i++)
 </body>
 
 </html>
-
-<?php 
-
-?>

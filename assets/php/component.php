@@ -9,14 +9,14 @@ if (isset($_POST['add'])) {
     $qr=$_POST['qrvalue'];
     if($qr==""){
         // echo"wewewe";
-        header('location:../../barcode/scan-item.php?id="error"');
+        header('location:../../barcode/scan-item.php?1');
     }else{
            $store="SELECT * FROM product where `brand`='$qr'";
            $set=mysqli_query($conn,$store) or die(mysqli_error($conn));
            $num=mysqli_num_rows($set);
           if($num==0){
             //   echo"wewe";
-         header('location:../../barcode/scan-item.php?id="error');
+         header('location:../../barcode/scan-item.php?2');
         }else{
 
 
@@ -26,8 +26,8 @@ if (isset($_POST['add'])) {
      
 
        if(in_array($_POST['qrvalue'],$item_array_id)){
-           echo "<script>alert('Product is already added in the cart...! continue shopping')<script>";
-           header('location:../../barcode/scan-item.php?id=""');
+        //    echo "<script>alert('Product is already added in the cart...! continue shopping')<script>";
+           header('location:../../barcode/scan-item.php?3');
        }else{
 
         $count=count($_SESSION['cart']);
@@ -37,7 +37,7 @@ if (isset($_POST['add'])) {
 
         $_SESSION['cart'][$count]=$item_array;
       print_r($item_array);
-        header('location:../../barcode/scan-item.php?id=""');
+        header('location:../../barcode/scan-item.php?4');
         
 
        }
@@ -50,7 +50,7 @@ if (isset($_POST['add'])) {
         $_SESSION['cart'][0]=$item_array;
       
         print_r($_SESSION['cart']);
-        header('location:../../barcode/scan-item.php?id=""');
+        header('location:../../barcode/scan-item.php?4');
      }
 }
       
@@ -88,8 +88,8 @@ if (isset($_POST['remove'])) {
               
               echo $_GET['id'];
               unset($_SESSION['cart'][$key]);
-              echo"<script>alert('Product has been removed....!);</script>";
-             header('location:../../user/cart2.php?id=""');
+            //   echo"<script>alert('Product has been removed....!);</script>";
+             header('location:../../user/cart2.php?id="rem"');
 
                }
              }
