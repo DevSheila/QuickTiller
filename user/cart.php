@@ -2,6 +2,7 @@
 
 require('../database/conn.php');
 require_once('../assets/php/component.php');
+  
 // $qses=$_SESSION['qr'];
 
 ?>
@@ -35,33 +36,10 @@ require_once('../assets/php/component.php');
 
 </head>
 <body>
-<nav>
-  <?php
-//       $qr_c=mysqli_real_escape_string($conn,$qses);
 
-//        $qury="SELECT * FROM shop where qr_code=' $qr_c'";
-//        $query = mysqli_query($conn,$qury);
-//        $num=mysqli_num_rows($query);
-//       if($num==0)
-//  {
-//         $data[]='';
-//  }
-//    else{
-//   $row=mysqli_fetch_array($query);
-//         $data[]=array($index=$i+1,$id=$row['id'],
-//         $shop=$row['shop_name'],$loc=$row['location'],$logo=$row['logo'],$qr=$row['qr_code'],
-//         $stat=$row['status'],$mail=$row['email'],$pass=$row['password']);
-   
-// echo $shop;
-
-      ?><?php 
-      ?>
-    <header id='header'>
-    <nav class="navbar sticky-top navbar-expand-lg bg-purple">
+<nav class="navbar sticky-top navbar-expand-lg bg-purple">
     <div class="container">
-    
-      <img src="../assets/img/stores/naivas-logo.png"  alt="" class="rounded-circle" width="50"> 
-    
+      <a class="navbar-brand" href="#"style="color:white;"><img src="../assets/img/stores/AQT.png" alt="" width="80"></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <i class="fas fa-bars"></i>
              </button>
@@ -69,42 +47,43 @@ require_once('../assets/php/component.php');
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto w-100 justify-content-end">
           <li class="nav-item active">
-            <a class="nav-link" href="../user/user-dashboard.php"style="color:white;">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="user-dashboard.php"style="color:white;">Home <span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="scan-store.php"style="color:white;">Shop</a>
+            <li class="nav-item">
+            <a class="nav-link" href="../barcode/scan.php"style="color:white;">Continue shopping</a>
+            <li class="nav-item">
+            <a class="nav-link" href=""style="color:white;">logout</a>
             <li class="nav-link">
             <a href="../user/cart.php" >
+               <h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
+               
 
-<h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
+                <?php
+                 $total=0;
+                 if (isset($_SESSION['cart'])) { 
+                 $count=count($_SESSION['cart']);?>
 
-<?php
-$total=0;
-if (isset($_SESSION['cart'])) { 
-
-$count=count($_SESSION['cart']);?>
-
-<span id="cart_count" class="text-warning bg-light"><?php echo $count;
-?></span>
-<?php
-}else{
-echo'   <span id="cart_count" class="text-warning bg-light">0</span>
-';
+                  <span id="cart_count" class="text-warning bg-light"><?php echo $count;
+                   ?></span>
+               <?php
+                   }else{
+                       echo'   <span id="cart_count" class="text-warning bg-light">0</span>';
   
-}
-?> 
+                         }
+                     ?> 
 
 </h5>
 </a>
-      
+
+                         
         </ul>
       </div>
     </div>
   </nav>
-    <div class="curve bg-purple"  ></div>
-</header>
-        
-        
-    </nav>
-    
+  <div class="curve bg-purple"  ></div>
+ 
 <div class="container-fluid">
     <div class="row px-5">
         <div class="col-md-7">
@@ -115,7 +94,7 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
             
                 
                 $prod_id=array_column($_SESSION['cart'],'qrvalue');
-                // print_r($prod_id);
+                 print_r($prod_id);
                  foreach($prod_id as $item => $id){
 
                   //  echo $id;
@@ -143,7 +122,7 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
                      <div class="border rounded">
                             <div class="row bg-white">
                                 <div class="col-md-3 pl-0">
-                                 <img src="../assets/img/cart/<?php echo $prodimg;?>" alt="image1" class="img-fluid">
+                                 <img src="../admin/uploads/products/<?php echo $prodimg;?>" alt="image1" class="img-fluid">
                                  </div>
                                     <div class="col-md-6">
                                      <h5 class="pt-2">
@@ -227,7 +206,10 @@ echo'   <span id="cart_count" class="text-warning bg-light">0</span>
         </div>
     </div>
 </div>
-<?php require("../assets/cart/checkout.php");?>
+<?php require("../assets/cart/checkout.php");
+
+?>
+
 <!-- jQuery -->
 <script src="../assets/plugins/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->

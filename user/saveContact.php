@@ -1,8 +1,11 @@
 <?php
 require('../database/conn.php');
+session_start();
+$id=$_SESSION['user_id'];
 if (isset($_POST['update'])) {
-	$id='';
+
 	$image="avatar.png";
+	$fullname=mysqli_real_escape_string($conn,$_POST['full_name']);
 	$name =mysqli_real_escape_string($conn,$_POST['name']);
 	$email = mysqli_real_escape_string($conn,$_POST['email']);
 	$pass = mysqli_real_escape_string($conn,$_POST['password']);
@@ -10,12 +13,15 @@ if (isset($_POST['update'])) {
 	$addres = mysqli_real_escape_string($conn,$_POST['address']);
 	$time=mysqli_real_escape_string($conn,date("Y-m-d h:i:sa"));
 	$on='online';
-	
-    echo $email,"<br>",$name,"<br>",$pass,"<br>",$addres,"<br>",$phone,"<br>",$time;
-	$query="UPDATE `user` SET `user_name`='$name',`email`='$email',`phone`='$phone',`address`='$addres',`password`='$pass' WHERE 3";
+	$param_password = password_hash($pass, PASSWORD_DEFAULT);
+    echo $email,"<br>",$fullname,"<br>",$name,"<br>",$param_password,"<br>",$addres,"<br>",$phone;
+	$query="UPDATE `user` SET `full_name`='$fullname',`user_name`='$name',`email`='$email',`phone`='$phone',`address`='$addres',`password`='$param_password' WHERE `id`= $id";
   
 	$que=mysqli_query($conn,$query) or die(mysqli_error($conn));
-
-	header('location:user-dashboard.php');
+if($que){
+	header('location:profile.php');
+}else{
+	echo "something is wrong";
+}
 }
 ?>
