@@ -486,7 +486,7 @@ for($i=0; $i<$num; $i++)
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header bg-indigo">
-          <h4 class="modal-title">CHECKOUT</h4>
+          <h4 class="modal-title text-white">CHECKOUT</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -648,7 +648,7 @@ for($i=0; $i<$num; $i++)
              </div>
              <div class="modal-footer justify-content-between bg-indigo">
               <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-              <button type="submit" onclick="conf()"class="btn btn-primary">Confirm payment</button>
+              <a type="submit" href="./action/check.php"class="btn btn-primary">Confirm payment</a>
             </div>
 
             </div>
