@@ -310,25 +310,22 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
               <div class="card-body">
                 <form role="form text-left" method="post" action="../action/categories.php" enctype="multipart/form-data">
                   
-                  <!-- <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Category Name" name="category_name" required>
-                  </div> -->
+                    <!-- <div class="mb-3">
+                      <input type="text" class="form-control" placeholder="Category Name" name="category_name" required>
+                    </div> -->
+                    <div>
+                        <!-- <i class="fas fa-bread-slice"></i>
+                        <i class="fas fa-hamburger"></i>
+                        <i class="fas fa-pizza-slice"></i>
+                        <i class="fas fa-coffee" ></i>
+                        <i class="fas fa-wrench"></i>        
+                        <i class="fas fa-spa"></i>
+                        <i class="fas fa-baby"></i> -->
 
-                  <div>
-<!-- <i class="fas fa-bread-slice"></i>
-<i class="fas fa-hamburger"></i>
-<i class="fas fa-pizza-slice"></i>
-<i class="fas fa-coffee" ></i>
-<i class="fas fa-wrench"></i>        
-<i class="fas fa-spa"></i>
-<i class="fas fa-baby"></i> -->
-
-<i class="fa fa-wheat"></i>
-<i class="fas fa-shirt"></i>
-<i class="fas fa-cow"></i>
-
-
-                  </div>
+                        <!-- <i class="fa fa-wheat"></i>
+                        <i class="fas fa-shirt"></i>
+                        <i class="fas fa-cow"></i> -->
+                    </div>
 
                   <div class="mb-3">
                     <select class="form-control" id="category" name="category_name"  required>
@@ -340,7 +337,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                         <option value="Snacks">Snacks</option>
                         <option value="Dairy">Dairy</option>
                         <option value="Cereals">Cereals</option>
-                        <option value="Grains,wheat and rice">Grains,wheat and rice</option>
+                        <option value="Grains,wheat and rice">Grains wheat and rice</option>
                         <option value="Hardware and tools">Hardware and tools</option>
                         <option value="Clothes">Clothes</option>
                         <option value="Beauty and cosmetics">Beauty and Cosmetics</option>

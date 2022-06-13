@@ -1,6 +1,5 @@
 <?php
 include("../action/config.php");
-// include("../../barcode2/bar128.php");
 
 session_start();
 if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
@@ -11,11 +10,6 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   $shop_id =$_SESSION['admin_id'] ;
   $quantity = 0;
   $current_category=' ';
-  $barcodeType='codabar';
-  $barcodeDisplay='horizontal';
-  $barcodeSize='20';
-  $printText='false';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,6 +37,10 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.5" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+
+  <script src="https://unpkg.com/html5-qrcode"></script>
+<!-- include the library -->
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
@@ -311,239 +309,122 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      $53,000
-                      <span class="text-success text-sm font-weight-bolder">+55%</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Users</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      2,300
-                      <span class="text-success text-sm font-weight-bolder">+3%</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">New Clients</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      +3,462
-                      <span class="text-danger text-sm font-weight-bolder">-2%</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
-                    <h5 class="font-weight-bolder mb-0">
-                      $103,430
-                      <span class="text-success text-sm font-weight-bolder">+5%</span>
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow text-center border-radius-md">
-                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <div class="row  my-4">
         <div class="col-12">
-          <div class="card mb-4">
-            <div class="card-header pb-0">
-                <div class="row">
-                      
-                    <div class="col-6"> <h6>Items List</h6></div>
-                    <div class="col-6">
-                        <a class="btn bg-gradient-primary  mb-0" href="./addItem.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Item</a>
+            <div class="row">
+                <div class="col-2"></div>
+                <div class="col-xl-8 col-lg-8 col-12">
+                    <div class="card">
+                        <form role="form text-left" method="post" action="../action/isbn.php" enctype="multipart/form-data">
+                                <div class="container">
+                                    <h5 class="text-center">ADD ITEM</h5>
+                                    <div class="mb-3">
+                                        <select class="form-control" id="product_id" name="product_id"  required>
+                                            <option value="" disabled selected>Product Name</option>
+                                            <?php
+                                                if (!$conn ||mysqli_connect_errno()) {
+                                                    echo("Connection failed: " . mysqli_connect_error());
+                                                }else{
+                                                    $sql = "SELECT * FROM product WHERE shop_id =$shop_id ORDER BY product_name ASC";
+                                                    $result = mysqli_query($conn,$sql);
+                                                    $count = mysqli_num_rows($result);
+                                                    while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                                    $product_name=$row['product_name'];
+                                                    $product_brand=$row['brand'];
+
+                                                    $product_id=$row['id'];
+                                                    $display_name=$product_brand.' '.$product_name;
+
+
+                                                    ?>
+                                                    <option value="<?php echo $product_id?>"><?php echo $display_name;?> </option>
+
+                                                    <?php
+                                                    }
+                                                }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <!-- <div class="mb-3">
+                                        <video width="100%"  id="preview"></video>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+                                            <label class="btn btn-primary active">
+                                                <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
+                                            </label>
+                                            <label class="btn btn-secondary">
+                                                <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label >Qr-Code Value</label>
+                                        <input type="text"  name="qrvalue" id="qrvalue"  class="form-control">
+                                        
+                                            <div id="qr"></div>
+                                        
+                                        <div class="pt-4"></div>
+                                    </div> -->
+
+                                    
+                                   <div class="mb-3">
+                                     <div id="qr-reader" ></div>
+                                   </div>
+
+                              
+                                    <div class="mb-3">
+                                        <label >Qr-Code Value</label>
+                                        <input type="text"  name="qrvalue" id="qrvalue"  class="form-control" required>
+                                    </div>
+
+
+                                    <div class="text-center">
+                                    <button type="submit"  name="add" class="btn bg-gradient-dark w-100 my-4 mb-2">Add Item</button>
+                                    </div>
+                                </div>
+                    
+                                <script>
+                                    function onScanSuccess(decodedText, decodedResult) {
+                                      document.getElementById('qrvalue').value=decodedText;
+                                        document.getElementById('qrvalue').innerHTML=decodedText;
+                                        alert(`Code scanned = ${decodedText}`);
+                                    }
+
+                                    
+
+                                    let qrboxFunction = function(viewfinderWidth, viewfinderHeight) {
+                                      let minEdgePercentage = 0.7; // 70%
+                                      let minEdgeSize = Math.min(viewfinderWidth, viewfinderHeight);
+                                      let qrboxSize = Math.floor(minEdgeSize * minEdgePercentage);
+                                      return {
+                                          width: qrboxSize,
+                                          height: qrboxSize
+                                      };
+                                    }
+
+                                    var html5QrcodeScanner = new Html5QrcodeScanner(
+                                        "qr-reader", { fps: 10, qrbox: qrboxFunction },);
+                                    html5QrcodeScanner.render(onScanSuccess);
+                                                                
+                                    function onScanFailure(error) {
+                                    // handle scan failure, usually better to ignore and keep scanning.
+                                    // for example:
+                                    alert(`Code scan error = ${error}`);
+                                    }
+
+
+
+                                    
+                                </script>
+                        </form>
                     </div>
                 </div>
+                <div class="col-2"></div>
             </div>
-            <div class="card-body px-0 pt-0 pb-2">
-
-              <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
-                  <thead>
-                    <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Serial</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">ISBN</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Product Name</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Product Status</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Date</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">Actions</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 align-middle text-center">#</th>
-
-
-
-                      <th class="text-secondary opacity-7"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                  <?php
-                            // Check connection
-                          if (!$conn ||mysqli_connect_errno()) {
-                              echo("Connection failed: " . mysqli_connect_error());
-                          }else{
-                            //   $sql = "SELECT * FROM isbn WHERE shop_id =$shop_id";
-                              $sql = "SELECT * FROM isbn ";
-                              $result = mysqli_query($conn,$sql);
-                              $count = mysqli_num_rows($result);
-                              $serial = 0;
-                              while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
-                                $product_id=$row['product_id'];
-                               
-                            
-                                $sql_product = "SELECT * FROM product WHERE id=$product_id";
-                                $result_product = mysqli_query($conn,$sql_product );
-                                $count_product = mysqli_num_rows($result_product);
-                                while($row_product  = mysqli_fetch_array($result_product,MYSQLI_ASSOC)){
-
-                                if($row_product['shop_id'] == $shop_id){
-                                    $isbn_id=$row['id'];
-                                    $product_isbn=$row['isbn'];
-                                    $product_date=$row['date'];
-                                    $product_status=$row['status'];
-
-                                    $product_name=$row_product['product_name'];
-                                    $product_image=$row_product['product_image'];
-                                    $serial++;
-
-                                
-                     ?>
-                    <tr>
-                      <td class="align-middle text-center">
-                            <p class="text-xs font-weight-bold mb-0 "><?php echo $isbn_id;?></p>
-                              
-                          </td>
-
-                      <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0 ">
-                          <?php 
-                          echo $product_isbn;
-                           ?>
-                     
-                        </p>
-                        <div>
-                        <?php
-                              echo '<img class="barcode" alt="'.$product_isbn.'" src="../../barcode2/bar128.php?text='.$product_isbn.'&codetype='.$barcodeType.'&orientation='.$barcodeDisplay.
-                              '&size='.$barcodeSize.'&print='.$printText.'"/>';
-                
-                            ?>
-                        </div>
-                      </td>
-                      
-                      <td class="align-middle text-center">
-                        <div class="d-flex px-2 py-1">
-                          <div>
-                            <img src="../uploads/products/<?php echo $product_image; ?>" class="avatar avatar-sm me-3" alt="user1">
-                        </div>
-                          <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm"><?php echo $product_name ?></h6>
-                          </div>
-                        </div>
-                      </td>
-
-                   
-
-                      <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0 ">
-                          <?php 
-                          echo $product_status;
-                           ?>
-                        </p>
-                      </td>
-
-                      <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0 ">
-                          <?php 
-                          echo $product_date;
-                           ?>
-                        </p>
-                      </td>
-                      <td class="align-middle text-center">
-                      <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/isbn.php?edit=<?php echo  $isbn_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-                      <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/isbn.php?delete=<?php echo  $isbn_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>                        
-
-                      </td>
-
-                      <td class="align-middle text-center">
-                        <a href="#" class=" text-xs font-weight-bold mb-0 "><i class="bi bi-pen"></i>>>></a>
-                      </td>
-
-                    </tr>
-                 
-                    <?php }}}}?>
-
-                    <h1>
-                   
-                    </h1>
-
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-    
-
-
-  
  
       <footer class="footer pt-3  ">
         <div class="container-fluid">
@@ -769,6 +650,10 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.5"></script>
+  
+<script src="https://unpkg.com/html5-qrcode"></script>
+<!-- include the library -->
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
 </body>
 
 </html>

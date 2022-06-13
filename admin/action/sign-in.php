@@ -41,7 +41,7 @@ if(isset($_POST['sign-in'])){
       }else{
       
           // Password is correct, so start a new session
-              $sql= "SELECT* FROM shop WHERE email ='$email'";
+              $sql= "SELECT* FROM shop WHERE email ='$email' AND status='approved'";
               $result = mysqli_query($conn,$sql);
               $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
               
