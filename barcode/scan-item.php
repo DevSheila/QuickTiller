@@ -42,6 +42,9 @@ $shop=$_SESSION['qr'];
   <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
   <link rel="stylesheet" href="../assets/cart/qr.css">
   
+  <script src="https://unpkg.com/html5-qrcode"></script>
+<!-- include the library -->
+<script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
   <!-- CSS Files -->
   <link id="pagestyle" href="../admin/assets/css/soft-ui-dashboard.css?v=1.0.5" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -367,31 +370,28 @@ else{
      
       <hr>
       <div class="row">
-        <div class="col-md-6">
-          <video width="50%"  id="preview"></video>
-          <i class="fa fa-camera-retro" aria-hidden="true"></i>
-          <div class="col-md-4">
-            <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
-              <label class="btn btn-primary active">
-                <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
-              </label>
-              <label class="btn btn-secondary">
-                <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
-              </label>
-            </div>  
-          </div>
-      </div>
-      <div class="col-md-6">
+      <div class="mb-3 col-lg-6 col-xl-6">
+              <div id="qr-reader" ></div>
+            </div>
+      <div class="col-lg-6 col-xl-6">
         <form method="post" action="../assets/php/component.php">
-          <label >Item Qr-Code Value</label>
-          <input type="text" value="" name="qrvalue" id="qrvalue"  class="form-control" required >
-          <span id="msg"></span>
-         
-            <div id="qr"></div>
-          
-          <div class="pt-4"></div>
-          <div class="col-md-5">
+      
+            <div class="mb-3 ">
+                <label >Qr-Code Value</label>
+                <input type="text"  name="qrvalue" id="qrvalue"  class="form-control" required>
+            </div>
+
+
+          <div class="row">
+            <div class="col-3"></div>
+
+            <div class="col-6">
             <button  type="submit" name ="add" class="btn bg-indigo ">Add to cart</button>
+            </div>
+            <div class="col-3">
+              
+            </div>
+
           </div>
         </form>
         </div>
@@ -421,27 +421,7 @@ else{
 ?>                  
                            
 <!-- scan scripts -->
-<script type="text/javascript">
-      let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
-      scanner.addListener('scan', function (content) {
-        // alert(content);
-      
-    
-        document.getElementById('qrvalue').value=content;
-        document.getElementById('qrvalue').innerHTML=content;
-
-        jQuery.ajax({
-      url:"../assets/php/component.php",
-      data: 'jax='+$("#qrvalue").val(),
-      type: "POST",
-      success: function(data){
-        $("#qr").html(data);
-
-      },
-      error:function(){}
-    });
-  
-      });
+<script>
       Instascan.Camera.getCameras().then(function (cameras){
         if(cameras.length>0){
             scanner.start(cameras[0]);
@@ -473,8 +453,7 @@ else{
   <!--   Core JS Files   -->
   <script src="../assets/cart/res.js"></script>
   <script src="../assets/cart/nav.js"></script>
-<script src="../assets/plugins/jquery/jquery.min.js"></script>
-
+<script src="../assets/plugins/jquery/jquery.min.js">
 <!-- Bootstrap 4 -->
 <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
@@ -495,6 +474,8 @@ else{
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
   </script>
+
+
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

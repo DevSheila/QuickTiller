@@ -387,9 +387,11 @@ for($i=0; $i<$num; $i++)
       <div class="col-md-6">
         <form method="post" action="../barcode/check.php">
           <label >stores Qr-Code Value</label>
+
           <input type="text" value="" name="qrvalue" id="qrvalue"  readonly="" class="form-control" required >
           <span id="msg" style ='color:red'></span>   <span id="msgi" style ='color:Green'></span>
-         
+
+     
             <div id="qr"></div>
           
           <div class="pt-4"></div>
@@ -419,8 +421,7 @@ for($i=0; $i<$num; $i++)
   
         <?php }} 
         mysqli_close($conn);?>                        
-                
-                           
+                 
 <!-- scan scripts -->
 <script type="text/javascript">
       let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
