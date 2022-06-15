@@ -365,14 +365,24 @@ else{
                 <div class="card-body p-3">
                   
                   <hr class="horizontal gray-light my-2">
-                  
     <div class="container">
      
       <hr>
       <div class="row">
-      <div class="mb-3 col-lg-6 col-xl-6">
-              <div id="qr-reader" ></div>
-            </div>
+        <div class="col-md-6">
+          <video width="50%"  id="preview"></video>
+          <i class="fa fa-camera-retro" aria-hidden="true"></i>
+          <div class="col-md-4">
+            <div class="btn-group btn-group-toggle mb-3" data-toggle="buttons">
+              <label class="btn btn-primary active">
+                <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
+              </label>
+              <label class="btn btn-secondary">
+                <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
+              </label>
+            </div>  
+          </div>
+      </div>
       <div class="col-lg-6 col-xl-6">
         <form method="post" action="../assets/php/component.php">
       
@@ -421,7 +431,16 @@ else{
 ?>                  
                            
 <!-- scan scripts -->
-<script>
+<script type="text/javascript">
+      let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+      scanner.addListener('scan', function (content) {
+        // alert(content);
+      
+    
+        document.getElementById('qrvalue').value=content;
+        document.getElementById('qrvalue').innerHTML=content;
+      
+      });
       Instascan.Camera.getCameras().then(function (cameras){
         if(cameras.length>0){
             scanner.start(cameras[0]);
