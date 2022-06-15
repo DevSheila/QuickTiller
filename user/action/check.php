@@ -38,7 +38,7 @@ $cart_id=$date."-".$user_id;
             // echo $id,",$user_id;
             $que="INSERT INTO `cartitems`(`id`, `cart_id`, `product_id`, `user_id`, `shop_id`, `isbn`, `date`) VALUES ('','$cart_id','$id','$user_id','$shop_id','$isbn','$date')";
             $qur = mysqli_query($conn,$que) or die(mysqli_error($conn));
-            
+            header('location:../listproduct.php');
          }
     //    $que="INSERT INTO `cartitems`(`id`, `cart_id`, `product_id`, `user_id`, `shop_id`, `isbn`, `date`) VALUES ('','$cart_id','$id','$user_id','$shop_id','[value-6]','$date')";
     
