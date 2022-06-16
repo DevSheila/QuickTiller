@@ -3,10 +3,10 @@ session_start();
 include("../admin/action/config.php");
 include("../assets/cart/res.php");
  
-// if((isset($_SESSION["loggedin"])) && ($_SESSION["loggedin"] === true)){
-//  header("location: ./sign-in.php");
-//  exit;
-// }
+ if((isset($_SESSION["loggedin"])) && ($_SESSION["loggedin"] === true)){
+  header("location: ./sign-in.php");
+  exit;
+}
  $id=$_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
