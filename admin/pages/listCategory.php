@@ -472,6 +472,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 
                       <td class="align-middle text-center">
                       <?php
+                      
                           // Check connection
                           if (!$conn ||mysqli_connect_errno()) {
                             echo("Connection failed: " . mysqli_connect_error());
