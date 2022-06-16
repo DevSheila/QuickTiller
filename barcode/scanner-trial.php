@@ -1,17 +1,4 @@
-<?php
 
-require("../database/conn.php");
-session_start();
-
- $qr=$_SESSION['qr'];
-if($_GET['id']=='error'){
-  echo"<script> alert('please scan an item to add to cart')</script>";
-}elseif($_GET['id']==''){
-
-}
-echo $qr;
-
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -41,11 +28,14 @@ echo $qr;
 	<script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 </head>
 <body>
-  
+  <nav>
 
-<nav class="navbar sticky-top navbar-expand-lg bg-purple">
+    <header id='header'>
+    <nav class="navbar sticky-top navbar-expand-lg bg-purple">
     <div class="container">
-      <a class="navbar-brand" href="#"style="color:white;"><img src="../img/naivas-logo.png" alt="" class="rounded-circle " width="80"></a>
+    
+      <img src="../assets/img/stores/naivas-logo.png"  alt="" class="rounded-circle" width="50"> 
+    
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <i class="fas fa-bars"></i>
              </button>
@@ -55,82 +45,67 @@ echo $qr;
           <li class="nav-item active">
             <a class="nav-link" href="../user/user-dashboard.php"style="color:white;">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="scan-store.php?id=''"style="color:white;">Shop</a>
-            <li class="nav-item">
-            <a class="nav-link" href="../barcode/scan.php?id=''"style="color:white;">Continue shopping</a>
-            <li class="nav-item">
-            <a class="nav-link" href="../user/action/logout.php"style="color:white;">logout</a>
             <li class="nav-link">
             <a href="../user/cart.php" >
-               <h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
 
-                <?php
-                 $total=0;
-                 if (isset($_SESSION['cart'])) { 
-                 $count=count($_SESSION['cart']);?>
+<h5 class="px-5 cart"><i class="fas fa-shopping-cart"></i>Cart
 
-                  <span id="cart_count" class="text-warning bg-light round"><?php echo $count;
-                   ?></span>
-               <?php
-                   }else{
-                       echo'   <span id="cart_count" class="text-warning bg-light">0</span>';
-  
-                         }
-                     ?> 
+
+
+<span id="cart_count" class="text-warning bg-light">
+count
+</span>
+
 
 </h5>
 </a>
-            
+      
         </ul>
       </div>
     </div>
   </nav>
+    <div class="curve bg-purple"  ></div>
+</header>
+        
+        
+    </nav>
     
     <div class="container">
-    
-    <img src="../admin/uploads/shops/<?php echo $query;?>" alt=""class="rounded-circle" width="50">
-   
+      <h4 class="text-center text-dark">AQT</h4>
       <hr>
-      <div class="row">
-        <div class="col-md-6">
-          <video width="50%"  id="preview"></video>
-          <i class="fa fa-camera-retro" aria-hidden="true"></i>
-      </div>
-      <div class="col-md-6">
-      <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
-  <label class="btn btn-primary active">
-    <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
-  </label>
-  <label class="btn btn-secondary">
-    <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
-  </label>
-</div>
-      </div>
-     
-      
-
-      <div class="col-md-6">
-      <form action="../assets/php/component.php" method="post"> 
-          <label >Qr-Code Value</label>
-          <input type="text" value="" name="qrvalue" id="qrvalue" readonly="" class="form-control">
-        
-              <div id="qr"></div>
-          
-          <div class="pt-4"></div>
-          <div class="col-md-5">
-            <button  type="submit" name ="add" id='btn' class="btn bg-indigo ">ADD TO CART</button>
-          </div>
-        </form>
+        <div class="row">
+            <div class="col-md-6">
+                <video width="50%"  id="preview"></video>
+                <i class="fa fa-camera-retro" aria-hidden="true"></i>
+            </div>
+            <div class="col-md-6">
+                    <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+                        <label class="btn btn-primary active">
+                            <input type="radio" name="options" value="1" autocomplete="off" checked> Front Camera
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" value="2" autocomplete="off"> Back Camera
+                        </label>
+                    </div>
+            </div>
+            <div class="col-md-6">
+                    <form action="../assets/php/component.php" method="post"> 
+                        <label >Qr-Code Value</label>
+                        <input type="text" value="" name="qrvalue" id="qrvalue" readonly="" class="form-control">
+                        
+                            <div id="qr"></div>
+                        
+                        <div class="pt-4"></div>
+                        <div class="col-md-5">
+                            <button  type="submit" name ="add" class="btn bg-indigo ">ADD TO CART</button>
+                        </div>
+                    </form>
+            </div>
         </div>
-
-        
-  </div>
- 
-  </div>
+    </div>
    
-</div>
-<?php mysqli_close($conn); ?>
+
+
 <script type="text/javascript">
     var scanner = new Instascan.Scanner({ video: document.getElementById('preview'), scanPeriod: 5, mirror: false });
     scanner.addListener('scan',function(content){
@@ -165,8 +140,6 @@ echo $qr;
         console.error(e);
         alert(e);
     });
-
-
 </script>
 
    <!-- jQuery -->
@@ -204,17 +177,7 @@ echo $qr;
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="../assets/dist/js/pages/dashboard.js"></script>
 <script>
-// window.onload = function () {
-//   var span = document.createElement('span');
 
-//   span.className = 'fa';
-//   span.style.display = 'none';
-//   document.body.insertBefore(span, document.body.firstChild);
-  
-//   alert(window.getComputedStyle(span, null).getPropertyValue('font-family'));
-    
-//   document.body.removeChild(span);
-// };
 </script>
 
 

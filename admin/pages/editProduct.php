@@ -5,7 +5,8 @@ session_start();
 if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
  header("location: ./sign-in.php");
  exit;
-}
+}else{
+$shop_id =$_SESSION['admin_id'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -312,7 +313,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                 <form role="form text-left" enctype="multipart/form-data" method="POST" action="../action/products.php">
                 <div class="form-group">
                     <input type="hidden" name="product_id" value="<?php echo $_SESSION['product_id']?>" class="form-control" >
-                  </div>
+                </div>
 
                 <div class="mb-3">
                     <input type="text" class="form-control" placeholder="Product Name" value="<?php echo $_SESSION['product_name']?>" name="name" required>
@@ -325,18 +326,23 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                   <div class="mb-3">
                     <select class="form-control" id="category" name="category"  required>
                         <option value="" disabled selected>Product Category</option>
-                        <option value="Personal care">Personal Care</option>
-                        <option value="Fruits and vegetables">Fruits and vegetables</option>
-                        <option value="Baby care">Baby care</option>
-                        <option value="Beverages">Beverages</option>
-                        <option value="Snacks">Snacks</option>
-                        <option value="Dairy">Dairy</option>
-                        <option value="Cereals">Cereals</option>
-                        <option value="Grains,wheat and rice">Grains,wheat and rice</option>
-                        <option value="Hardware and tools">Hardware and tools</option>
-                        <option value="Clothes">Clothes</option>
-                        <option value="Beauty and cosmetics">Beauty and Cosmetics</option>
-                        <option value="Hair">Hair</option>
+                        <?php
+                            if (!$conn ||mysqli_connect_errno()) {
+                                echo("Connection failed: " . mysqli_connect_error());
+                            }else{
+                                $sql = "SELECT * FROM category WHERE shop_id =$shop_id";
+                                $result = mysqli_query($conn,$sql);
+                                $count = mysqli_num_rows($result);
+                                while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
+                                  $category_name=$row['category_name'];
+
+                                  ?>
+                            <option value="<?php echo $category_name?>"><?php echo $category_name?></option>
+
+                                  <?php
+                                }
+                            }
+                        ?>
                     </select>
                   </div>
 
@@ -420,3 +426,6 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 </body>
 
 </html>
+<?php
+  }
+?>

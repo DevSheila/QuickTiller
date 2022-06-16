@@ -1,3 +1,14 @@
+<?php
+include("./admin/action/config.php");
+
+session_start();
+if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
+ header("location: .admin/pages/sign-in.php");
+ exit;
+}else{
+
+  $shop_id =$_SESSION['admin_id'] ;
+  ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -96,7 +107,7 @@ body{
 </head>
 <body>
     
-<section class="heading">
+<!-- <section class="heading">
     <div class="title">QRcodes</div>
     <div class="sub-title">Generate QRCode for anything!</div>
 </section>
@@ -106,7 +117,16 @@ body{
     <button class="button" type="submit">Generate QR Code</button>
 </section>
 <div class="qr-code" style="display: none;">
+</div> -->
+
+<section class="user-input">
+    <label for="input_text">Type something...</label>
+    <input type="text" name="input_text" readonly="" value="<?php echo$shop_id; ?>"id="input_text" autocomplete="off">
+    <button class="button" type="submit">Generate QR Code</button>
+</section>
+<div class="qr-code" >
 </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <!-- <script src="./js/app.js"></script> -->
@@ -163,3 +183,5 @@ body{
 </script>
 </body>
 </html>
+
+<?php } ?>

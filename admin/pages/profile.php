@@ -5,7 +5,31 @@ session_start();
 if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
  header("location: ./sign-in.php");
  exit;
-}
+}else{
+
+  $shop_id =$_SESSION['admin_id'] ;
+  $shop_name='';
+  $shop_location='';
+  $shop_logo='';
+  $shop_qr=$_SESSION['admin_qr'];
+  $shop_status='';
+  $shop_email='';
+
+  $sql= "SELECT* FROM shop WHERE id ='$shop_id'";
+  $result = mysqli_query($conn,$sql);
+  $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
+  $count = mysqli_num_rows($result);
+  
+  
+
+  if($count == 1) {
+    $shop_name=$row['shop_name'];
+    $shop_location=$row['location'];
+    $shop_logo=$row['logo'];
+    $shop_qr=$row['qr_code'];
+    $shop_status=$row['status'];
+    $shop_email=$row['email'];
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -302,16 +326,18 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
           <div class="row gx-4">
             <div class="col-auto">
               <div class="avatar avatar-xl position-relative">
-                <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+                <img src="../uploads/shops/<?php echo $shop_logo;?>" alt="<?php echo $shop_logo;?>" class="w-100 border-radius-lg shadow-sm">
               </div>
             </div>
             <div class="col-auto my-auto">
               <div class="h-100">
                 <h5 class="mb-1">
-                  Alec Thompson
+          
+
+                 <?php echo $shop_name; ?>
                 </h5>
                 <p class="mb-0 font-weight-bold text-sm">
-                  CEO / Co-Founder
+                <?php echo $shop_email; ?>
                 </p>
               </div>
             </div>
@@ -386,41 +412,30 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   
             <div class="col-12 ">
               <div class="card h-100">
-                <div class="card-header pb-0 p-3">
-                  <div class="row">
-                    <div class="col-md-8 d-flex align-items-center">
-                      <h6 class="mb-0">Profile Information</h6>
-                    </div>
-                    <div class="col-md-4 text-end">
-                      <a href="javascript:;">
-                        <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip" data-bs-placement="top" title="Edit Profile"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+              
                 <div class="card-body p-3">
-                  <p class="text-sm">
-                    Hi, I’m Alec Thompson, Decisions: If you can’t decide, the answer is no. If two equally difficult paths, choose the one more painful in the short term (pain avoidance is creating an illusion of equality).
-                  </p>
+               
                   <hr class="horizontal gray-light my-4">
-                  <ul class="list-group">
-                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; Alec M. Thompson</li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Mobile:</strong> &nbsp; (44) 123 1234 123</li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp; alecthompson@mail.com</li>
-                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; USA</li>
-                    <li class="list-group-item border-0 ps-0 pb-0">
-                      <strong class="text-dark text-sm">Social:</strong> &nbsp;
-                      <a class="btn btn-facebook btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                        <i class="fab fa-facebook fa-lg"></i>
-                      </a>
-                      <a class="btn btn-twitter btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                        <i class="fab fa-twitter fa-lg"></i>
-                      </a>
-                      <a class="btn btn-instagram btn-simple mb-0 ps-1 pe-2 py-0" href="javascript:;">
-                        <i class="fab fa-instagram fa-lg"></i>
-                      </a>
-                    </li>
-                  </ul>
+                    <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-12">
+
+                      <ul class="list-group">
+                        <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Full Name:</strong> &nbsp; <?php echo $shop_name;?></li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Email:</strong> &nbsp;<?php echo $shop_email;?></li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Location:</strong> &nbsp; <?php echo $shop_location;?></li>
+                        <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Status:</strong> &nbsp; <?php echo $shop_status;?></li>
+                      </ul>
+
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-12 ">
+                      <section class="user-input">
+                          
+                          <input type="hidden" name="input_text" readonly="" value="<?php echo$shop_qr; ?>"id="input_text" autocomplete="off">
+                      </section>
+                      <div class="qr-code" style="display: none;">
+                      </div>
+                    </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -432,6 +447,62 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 
     </div>
   </main>
+
+  <script>
+
+
+    document.addEventListener("DOMContentLoaded", function(){
+      let user_input = document.querySelector("#input_text");
+        if(user_input.value != "") {
+            if(document.querySelector(".qr-code").childElementCount == 0){
+                generate(user_input);
+            } else{
+                document.querySelector(".qr-code").innerHTML = "";
+                generate(user_input);
+            }
+        } else {
+            document.querySelector(".qr-code").style = "display: none";
+            console.log("not valid input");
+        }
+    });
+
+    function generate(user_input){
+
+        document.querySelector(".qr-code").style = "";
+
+        var qrcode = new QRCode(document.querySelector(".qr-code"), {
+            text: `${user_input.value}`,
+            width: 180, //128
+            height: 180,
+            colorDark : "#000000",
+            colorLight : "#ffffff",
+            correctLevel : QRCode.CorrectLevel.H
+        });
+
+        console.log(qrcode);
+
+        let download = document.createElement("button");
+        document.querySelector(".qr-code").appendChild(download);
+        download.classList.add("btn","bg-gradient-primary","text-white","m-2");
+
+
+        let download_link = document.createElement("a");
+        download_link.setAttribute("download", "qr_code_linq.png");
+        download_link.innerText = "Download";
+
+        download.appendChild(download_link);
+
+        if(document.querySelector(".qr-code img").getAttribute("src") == null){
+            setTimeout(() => {
+                download_link.setAttribute("href", `${document.querySelector("canvas").toDataURL()}`);
+            }, 300);
+        } else {
+            setTimeout(() => {
+                download_link.setAttribute("href", `${document.querySelector(".qr-code img").getAttribute("src")}`);
+            }, 300);
+        }
+    }
+  </script>
 
   <!--   Core JS Files   -->
   <script src="../assets/js/core/popper.min.js"></script>
@@ -451,6 +522,12 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.5"></script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 </body>
 
 </html>
+
+<?php 
+}
+?>

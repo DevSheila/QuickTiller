@@ -206,7 +206,8 @@ if(isset($_GET['edit'])){
       
   
 
-//>>>>>>>>>>>>>>>  DELETE RECORD <<<<<<<<<<<
+
+      //>>>>>>>>>>>>>>>  DELETE RECORD <<<<<<<<<<<
 
 if(isset($_GET['delete'])){
   $id = $_GET['delete'];
@@ -236,16 +237,26 @@ if(isset($_GET['delete'])){
         $sql2 ="DELETE FROM product WHERE id= $id ";
 
         if ($conn->query($sql2) === TRUE) {
-    
-        echo "Record Successfully deleted";
-    
-        mysqli_query($conn,$sql2);
-    
-        header("Location: ../pages/listProduct.php");
+            mysqli_query($conn,$sql2);
+            $sql3 ="DELETE FROM isbn WHERE product_id= $id ";
+
+            if ($conn->query($sql3) === TRUE) {
+            echo "Record Successfully deleted";
+            mysqli_query($conn,$sql3);
+        
+            header("Location: ../pages/listProduct.php");
+            }else{
+                
+                echo "Error: " . $sql3 . "<br>" . $conn->error;
+            }
         }else{
             
             echo "Error: " . $sql2 . "<br>" . $conn->error;
         }
+
+
+
+
 
       }else {
 

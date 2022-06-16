@@ -8,6 +8,8 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
 }else{
 
   $shop_id =$_SESSION['admin_id'] ;
+  $quantity = 0;
+  $current_category=' ';
 
   ?>
 
@@ -403,8 +405,6 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                     <div class="col-6"> <h6>Categories List</h6></div>
                     <div class="col-6">
                         <a class="btn bg-gradient-primary  mb-0" href="./addCategory.php"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Category</a>
-                        
-
                     </div>
                 </div>
             </div>
@@ -452,6 +452,7 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                               while( $row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
                                 $category_id=$row['id'];
                                 $category_name=$row['category_name'];
+                                $current_category=$category_name;
                                 $serial ++;
                      ?>
                     <tr>
@@ -461,29 +462,64 @@ if(!(isset($_SESSION["loggedin"])) && !($_SESSION["loggedin"] === true)){
                       <td class="align-middle text-center">
                         <div class="d-flex px-2 py-1">
                           <div>
-                            <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                            <!-- <img src="../assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1"> -->
                           </div>
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm"><?php echo $category_name ?></h6>
                           </div>
                         </div>
                       </td>
+
                       <td class="align-middle text-center">
-                        <p class="text-xs font-weight-bold mb-0 ">Quantity</p>
-                      </td>
-                      <td class="align-middle text-center">
+                      <?php
                       
-              
-                        <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/categories.php?edit=<?php echo  $category_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
-                                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/categories.php?delete=<?php echo  $category_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>
-                        
+                          // Check connection
+                          if (!$conn ||mysqli_connect_errno()) {
+                            echo("Connection failed: " . mysqli_connect_error());
+                          }else{
+                              $sql_quantity = "SELECT * FROM product WHERE
+                              (shop_id =$shop_id)  
+                              AND 
+                              (category='$current_category')
+                              ";
+                              $result_quantity  = mysqli_query($conn,$sql_quantity );
+                              $count_quantity  = mysqli_num_rows($result_quantity );
+                              
+                              while( $row_quantity  = mysqli_fetch_array($result_quantity ,MYSQLI_ASSOC)){
+                                // $category_id=$row_quantity ['id'];
+                                // $category_name=$row['category_name'];
+                                $quantity ++;
+                              }
+
+
+                             
+                          }
+                        ?>
+                        <p class="text-xs font-weight-bold mb-0 ">
+                          <?php 
+                          echo $quantity;
+                          $quantity=0;
+                           ?>
+                          
+                        </p>
                       </td>
+
+                      <td class="align-middle text-center">
+                        <a class="btn btn-link text-success text-gradient px-3 mb-0" href="../action/categories.php?edit=<?php echo  $category_id;?>"><i class="fas fa-pencil-alt text-dark me-2" aria-hidden="true"></i>Edit</a>
+                                <a class="btn btn-link text-danger text-gradient px-3 mb-0" href="../action/categories.php?delete=<?php echo  $category_id;?>"><i class="far fa-trash-alt me-2"></i>Delete</a>                        
+                      </td>
+
                       <td class="align-middle text-center">
                         <a href="#" class=" text-xs font-weight-bold mb-0 "><i class="bi bi-pen"></i>>>></a>
                       </td>
+
                     </tr>
                  
                     <?php }}?>
+
+                    <h1>
+                   
+                    </h1>
 
                   </tbody>
                 </table>
