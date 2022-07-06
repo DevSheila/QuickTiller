@@ -11,7 +11,7 @@
 
 ## Project Description
 Quicktiller is a mobile self-checkout web app that enables brick-and-mortar store customers to use their mobile phones to scan the products they're interested in.The app also provides information about ongoing offers at various partnering outlets.When shoppers have completed their shopping, they can use the app to purchase their chosen items.After successful payment, customers leave the store and receive the digital invoice on the application.
----
+
 ## 👨🏼‍💻 Contributors
 It was really fun to work with these awesome geeks to get the job done:
 
