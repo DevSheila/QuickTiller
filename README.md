@@ -54,17 +54,21 @@ Create an empty mysql database in PhpMyAdmin under the name quicktiller.
 
 https://github.com/DevSheila/QuickTiller/blob/ft-development/quicktiller.sql
 
+
 ## Contributions Welcome
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](#)
 
 If you find any bug in the code or have any improvements in mind then feel free to generate a pull request.
 
 ## Issues
-[![GitHub Issues](https://img.shields.io/github/issues/DevSheila/QuickTiller.svg?style=flat&label=Issues&maxAge=2592000)](https://www.github.com/DevSheila/QuickTiller/issues)
+[![GitHub Issues](https://img.shields.io/github/issues/DevSheila/QuickTiller.svg?style=flat&label=Issues&maxAge=2592000)](https://www.github.com/DevSheila/QuickTiller)
 
 If you face any issue, you can create a new issue in the Issues Tab and we  will be glad to help you out.
 ## License
 [![MIT](https://img.shields.io/cocoapods/l/AFNetworking.svg?style=style&label=License&maxAge=2592000)](../master/LICENSE)
+
+
+
 
 
 
