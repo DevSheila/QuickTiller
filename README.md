@@ -22,6 +22,7 @@ It was really fun to work with these awesome geeks to get the job done:
 ## Demo
 
 Video demo of project:https://drive.google.com/file/d/1GSf8bq0SDHjirYf4ny0zY7-a5r5hUK80/view?usp=sharing
+Screenshots of project :https://docs.google.com/document/d/1Xu9qRhjn1TfFxvvV_0sJIkta2500XR_l/edit?usp=sharing&ouid=112461182033727655582&rtpof=true&sd=true
 
 ## FIGMA
 https://www.figma.com/file/cGk3fCtQ9WbYioTP5luNXx/Quicktiller?node-id=0%3A1
