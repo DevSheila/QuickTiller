@@ -21,6 +21,10 @@ It was really fun to work with these awesome geeks to get the job done:
 
 ## Demo
 
+Video demo of shoppers' side:
+
+Video demo of shop/supermarkets' side:
+
 ## FIGMA
 https://www.figma.com/file/cGk3fCtQ9WbYioTP5luNXx/Quicktiller?node-id=0%3A1
 
@@ -50,9 +54,9 @@ If you use one of the app above be aware to clone the repo under your htdocs fol
 
 Configure the [config.php](https://github.com/DevSheila/QuickTiller/blob/ft-development/admin/action/config.php) file with yours DB info.
 
-Create an empty mysql database in PhpMyAdmin under the name quicktiller.
+Create an empty mysql database in PhpMyAdmin under the name quicktiller.You can run the flie [quicktiller.sql](https://github.com/DevSheila/QuickTiller/blob/ft-development/quicktiller.sql) to get headstart on database data.
 
-https://github.com/DevSheila/QuickTiller/blob/ft-development/quicktiller.sql
+
 
 
 ## Contributions Welcome
