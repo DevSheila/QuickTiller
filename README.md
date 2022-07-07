@@ -21,9 +21,7 @@ It was really fun to work with these awesome geeks to get the job done:
 
 ## Demo
 
-Video demo of shoppers' side:
-
-Video demo of shop/supermarkets' side:
+Video demo of project:https://drive.google.com/file/d/1GSf8bq0SDHjirYf4ny0zY7-a5r5hUK80/view?usp=sharing
 
 ## FIGMA
 https://www.figma.com/file/cGk3fCtQ9WbYioTP5luNXx/Quicktiller?node-id=0%3A1
